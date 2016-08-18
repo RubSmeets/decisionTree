@@ -1,24 +1,6 @@
 ;(function($, window, document, undefined) {
     'use strict';
 
-    $(document).ready(function() {
-        $('#example').DataTable( {
-            stateSave: true,
-            "info": false,
-            "paging": false,
-            "ajax": "data/data.txt",
-            "columns": [
-                { "data": "name" },
-                { "data": "position" },
-                { "data": "office" },
-                { "data": "extn" },
-                { "data": "start_date" },
-                { "data": "salary" }
-            ]
-        });
-    });
-
-
   /************************************************************
     @description Filter
     todo: performance, caching
@@ -175,39 +157,8 @@
       } else {
         this.$reset.slideDown();
 
-        this.$framework.each(function() {
 
-          var
-          show = 0,
-          that = $(this);
 
-          $.each(wizard_values, function(key, value) {
-
-            var feature = that.find('.' + value);
-
-            if(feature.length) {
-              MFCC.count++;
-              show++;
-              feature.addClass('selected');
-            }
-
-          });
-
-          // ein und ausblenden der frameworks
-          if(show === wizard_values.length) {
-            that.slideDown();
-          } else {
-            that.slideUp();
-          }
-
-        });
-      }
-
-      // einzelnen Eintrag einblenden
-      // console.log(MFCC.count);
-      // if(this.count === 1) {
-      //   $('.framework:visible').find('.accordion-header').trigger('click');
-      // }
     },
     setupLegend: function () {
 
@@ -231,14 +182,11 @@
     }
   };
 
-  MFCC.init();
-*/
-
     var filterForm = {
         
         initVariables: function() {
             this.filterField = $("input#filter");
-            this.frameworks = $(".framework");
+            this.msg = $("#msg");
             console.log("variables initialized");
         },
 
@@ -250,7 +198,7 @@
 
         bindEvents: function() {
             this.filterField.on('input', function() {
-                filterForm.filterFrameworks($(this).val());
+                filterForm.filterFrameworksByName($(this).val());
             });
 
             this.filterField.on('focus', function() {
@@ -261,34 +209,100 @@
 
         },
 
-        filterFrameworks: function(filterText) {
-            this.frameworks.each( function() {
+        filterFrameworksByName: function(filterText) {
+            MFCT.frameworks.each( function() {
                 var framework = (($(this).find(".framework-title"))[0].innerHTML).toLowerCase();    // get text from div
                 var textCompare = framework.indexOf(filterText.toLowerCase());
                 
                 if( textCompare === -1 ) {
                     $(this).slideUp();
+                    $(this).addClass("hid");
                 } else {
                     $(this).slideDown();
+                    $(this).removeClass("hid");
                 }
             });
+
+            filterForm.nothingLeft();
         },
 
         clearFilterField: function() {
             this.filterField.val("");
         },
-
+        // Back to normal state
         resetFrameworks: function() {
-            this.frameworks.slideDown();
+            MFCT.frameworks.slideDown();
+            MFCT.frameworks.removeClass("hid");
+        },
+        // Check if there are frameworks left (if not show a message)
+        nothingLeft: function() {
+            if ($('.framework.hid').length === MFCT.frameworks.length) {
+                this.msg.show();
+            } else {
+                this.msg.hide();
+            }
         }
     }
 
     var MFCT = {
-        
+        initVariables: function() {
+            this.checkboxes = $('[type=checkbox]');
+            this.frameworks = $(".framework");
+            this.filterContainer = $('.filters');
+            console.log("initialise variables");
+        },
 
         init: function() {
+            this.initVariables();
+            this.bindEvents();
+
             filterForm.init();
-            console.log("test");
+        },
+
+        bindEvents: function() {
+            this.checkboxes.on('input change', function() {
+              console.log("CLICK");
+            });
+
+            this.filterContainer.on('input change', function() {
+                var filterTerms = MFCT.getCheckedFilterTerms();
+                MFCT.filterFrameworksByFeature(filterTerms);
+            });
+        },
+
+        getCheckedFilterTerms: function() {
+            var filterTerms = [];
+            this.checkboxes.each( function() {
+                if ( $(this).is(':checked') ) {
+                  filterTerms.push($(this).val());
+                }
+            });
+            return filterTerms;
+        },
+
+        filterFrameworksByFeature: function(filterTerms) {
+            var foundFeatures = 0;
+            var i = 0;
+
+            this.frameworks.each( function() {
+                foundFeatures = 0;
+
+                for(i=0; i<filterTerms.length; i++) {
+                    if ( ($(this).find('.' + filterTerms[i])).length === 1 ) {
+                      foundFeatures++;
+                    }
+                }
+
+                if (filterTerms.length === foundFeatures) {
+                    $(this).slideDown();
+                    $(this).removeClass("hid");
+                } else {
+                    $(this).slideUp();
+                    $(this).addClass("hid");
+                }
+            });
+
+            filterForm.nothingLeft();
         }
     }
 

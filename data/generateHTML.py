@@ -198,14 +198,19 @@ for i in range(0, numOfFilters):
     \t\t\t\t</div>
     \t\t\t</a>
     \t\t</h4>
-    \t\t<div id="collapse""" + str(i) + """\" class="panel-collapse collapse">
+    """)
+    if i == 0:
+        filterContent+= str("""\t\t<div id="collapse""" + str(i) + """\" class="panel-collapse collapse in">""")
+    else:
+        filterContent+= str("""\t\t<div id="collapse""" + str(i) + """\" class="panel-collapse collapse">""")
+    filterContent+= str("""
     \t\t\t<div class="panel-body">
     \t\t\t\t<fieldset class="fieldset accordion-content" role="tab-panel" style="display: block;" aria-hidden="false">
     \t\t\t\t\t<p>""" + filterDesc[i] + """</p>
     """)
     #Create filterboxes
     for item in filters[i]:
-        filterContent+= str("""\t\t\t\t\t<input type="checkbox" value=""/><label class="filterItem">""" + item + """</label>
+        filterContent+= str("""\t\t\t\t\t<label class="filterItem"><input type="checkbox" value=\"""" + item + """\"/>""" + str(formatKey.get(item)) + """</label>
         """)
     filterContent+= str("""\t\t\t\t</fieldset>
     \t\t\t</div>
@@ -244,7 +249,7 @@ for i in range(0, numOfElements):
     """)
     for key, value in frameworks[i].iteritems():
         if key in platforms and value and value != "none" and value != "false":
-            content+= """\t\t\t\t\t\t<span class="feature """ + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
+            content+= """\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
     #Fill in target
     content+= str("""\t\t\t\t\t</div>
     \t\t\t\t\t<div class="col-md-3">
@@ -252,7 +257,7 @@ for i in range(0, numOfElements):
     """)
     for key, value in frameworks[i].iteritems():
         if key in target and value and value != "none" and value != "false":
-            content+= """\t\t\t\t\t\t<span class="feature """ + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
+            content+= """\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
     #Fill in Development Language
     content+= str("""\t\t\t\t\t</div>
     \t\t\t\t\t<div class="col-md-3">
@@ -260,7 +265,7 @@ for i in range(0, numOfElements):
     """)
     for key, value in frameworks[i].iteritems():
         if key in developmentLanguage and value and value != "none" and value != "false":
-            content+= """\t\t\t\t\t\t<span class="feature """ + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
+            content+= """\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
     #Fill in Hardware features    
     content+= str("""\t\t\t\t\t</div>
     \t\t\t\t\t<div class="col-md-3">
@@ -268,7 +273,7 @@ for i in range(0, numOfElements):
     """)
     for key, value in frameworks[i].iteritems():
         if key in hardware and value and value != "none" and value != "false":
-            content+= """\t\t\t\t\t\t<span class="feature """ + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
+            content+= """\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
     #Start new row to wrap content and begin with User Interface
     content+= str("""\t\t\t\t\t</div>
     \t\t\t\t</div>
@@ -278,7 +283,7 @@ for i in range(0, numOfElements):
     """)
     for key, value in frameworks[i].iteritems():
         if key in userInterface and value and value != "none" and value != "false":
-            content+= """\t\t\t\t\t\t<span class="feature """ + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
+            content+= """\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
     #Fill in other features
     content+= str("""\t\t\t\t\t</div>
     \t\t\t\t\t<div class="col-md-3">
@@ -286,7 +291,7 @@ for i in range(0, numOfElements):
     """)
     for key, value in frameworks[i].iteritems():
         if key in other and value and value != "none" and value != "false":
-            content+= """\t\t\t\t\t\t<span class="feature """ + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
+            content+= """\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
     #Fill in Terms of license
     content+= str("""\t\t\t\t\t</div>
     \t\t\t\t\t<div class="col-md-3">
@@ -294,7 +299,7 @@ for i in range(0, numOfElements):
     """)
     for key, value in frameworks[i].iteritems():
         if key in license and value and value != "none" and value != "false":
-            content+= """\t\t\t\t\t\t<span class="feature """ + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
+            content+= """\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
     #Add footer of panel group
     content+= str("""\t\t\t\t\t</div>
     \t\t\t\t</div>
@@ -323,7 +328,7 @@ for i in range(0, numOfElements):
 
 print content
 
-placeholder1 = """<div class="col-md-3">"""
+placeholder1 = """<div class="col-md-3 filters">"""
 placeholder2 = """<div class="col-md-9">"""
 
 with open('indexCopy.html', 'r+') as orginal, open('index.html', 'w') as output:
