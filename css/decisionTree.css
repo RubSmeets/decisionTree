@@ -1,0 +1,40 @@
+label.filterItem {
+  padding-left: 20px; }
+
+.true {
+  background-color: steelblue; }
+
+.via {
+  background-color: plum; }
+
+.partially {
+  background-color: lightgreen; }
+
+.soon {
+  background-color: mediumpurple; }
+
+.feature {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: help;
+  display: block;
+  margin: 3px;
+  padding: 3px 40px 3px 10px;
+  font-size: 1em; }
+
+.featureTitle {
+  font-size: 1em;
+  font-weight: bold; }
+
+a[aria-expanded=true] .glyphicon-chevron-up {
+  display: none; }
+
+a[aria-expanded=false] .glyphicon-chevron-down {
+  display: none; }
+
+.dropIcon {
+  color: #337ab7; }
+
+/*# sourceMappingURL=decisionTree.css.map */
