@@ -40,7 +40,10 @@
         </div>
       </div>
       <div class="row">
-<div class="col-md-3 filters"><div class="panel-group filter-box">
+<div class="col-md-3 filters"><button type="button" class="btn btn-default btn-clear" disabled>
+    	Clear All<span class="glyphicon glyphicon-trash pull-right"/>
+  	</button>
+    <div class="panel-group filter-box">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
     			<a data-toggle="collapse" aria-expanded="false" href="#collapse0">
@@ -53,13 +56,20 @@
     			<div class="panel-body">
     				<fieldset class="fieldset accordion-content" role="tab-panel" style="display: block;" aria-hidden="false">
     					<p>Select which platforms must be supported by the framework</p>
-    					<label class="filterItem"><input type="checkbox" value="android"/>Android</label>
-        					<label class="filterItem"><input type="checkbox" value="ios"/>iOS</label>
-        					<label class="filterItem"><input type="checkbox" value="windowsphone"/>WindowsPhone</label>
-        					<label class="filterItem"><input type="checkbox" value="blackberry"/>Blackberry</label>
-        					<label class="filterItem"><input type="checkbox" value="tizen"/>Tizen</label>
-        					<label class="filterItem"><input type="checkbox" value="firefoxos"/>Firefox OS</label>
-        					<label class="filterItem"><input type="checkbox" value="watchos"/>Watch OS</label>
+    					<input id="android" type="checkbox" value="android" class="filter-checkbox"/>
+        					<label for="android" class="filter-label">Android</label>
+        					<input id="ios" type="checkbox" value="ios" class="filter-checkbox"/>
+        					<label for="ios" class="filter-label">iOS</label>
+        					<input id="windowsphone" type="checkbox" value="windowsphone" class="filter-checkbox"/>
+        					<label for="windowsphone" class="filter-label">WindowsPhone</label>
+        					<input id="blackberry" type="checkbox" value="blackberry" class="filter-checkbox"/>
+        					<label for="blackberry" class="filter-label">Blackberry</label>
+        					<input id="tizen" type="checkbox" value="tizen" class="filter-checkbox"/>
+        					<label for="tizen" class="filter-label">Tizen</label>
+        					<input id="firefoxos" type="checkbox" value="firefoxos" class="filter-checkbox"/>
+        					<label for="firefoxos" class="filter-label">Firefox OS</label>
+        					<input id="watchos" type="checkbox" value="watchos" class="filter-checkbox"/>
+        					<label for="watchos" class="filter-label">Watch OS</label>
         				</fieldset>
     			</div>
     		</div>
@@ -78,10 +88,14 @@
     			<div class="panel-body">
     				<fieldset class="fieldset accordion-content" role="tab-panel" style="display: block;" aria-hidden="false">
     					<p>What type of application should the framework output?</p>
-    					<label class="filterItem"><input type="checkbox" value="hybridapp"/>Hybrid App</label>
-        					<label class="filterItem"><input type="checkbox" value="nativeapp"/>Native App</label>
-        					<label class="filterItem"><input type="checkbox" value="mobilewebsite"/>Mobile website</label>
-        					<label class="filterItem"><input type="checkbox" value="webapp"/>Web App</label>
+    					<input id="hybridapp" type="checkbox" value="hybridapp" class="filter-checkbox"/>
+        					<label for="hybridapp" class="filter-label">Hybrid App</label>
+        					<input id="nativeapp" type="checkbox" value="nativeapp" class="filter-checkbox"/>
+        					<label for="nativeapp" class="filter-label">Native App</label>
+        					<input id="mobilewebsite" type="checkbox" value="mobilewebsite" class="filter-checkbox"/>
+        					<label for="mobilewebsite" class="filter-label">Mobile website</label>
+        					<input id="webapp" type="checkbox" value="webapp" class="filter-checkbox"/>
+        					<label for="webapp" class="filter-label">Web App</label>
         				</fieldset>
     			</div>
     		</div>
@@ -92,7 +106,7 @@
     		<h4 class="panel-title">
     			<a data-toggle="collapse" aria-expanded="false" href="#collapse2">
     				<div class="panel-heading">
-    					Development Language
+    					Hardware Features
     				</div>
     			</a>
     		</h4>
@@ -100,17 +114,40 @@
     			<div class="panel-body">
     				<fieldset class="fieldset accordion-content" role="tab-panel" style="display: block;" aria-hidden="false">
     					<p>What type of application should the framework output?</p>
-    					<label class="filterItem"><input type="checkbox" value="php"/>PHP</label>
-        					<label class="filterItem"><input type="checkbox" value="java"/>Java</label>
-        					<label class="filterItem"><input type="checkbox" value="ruby"/>Ruby</label>
-        					<label class="filterItem"><input type="checkbox" value="actionscript"/>ActionScript</label>
-        					<label class="filterItem"><input type="checkbox" value="csharp"/>C#</label>
-        					<label class="filterItem"><input type="checkbox" value="lua"/>LUA</label>
-        					<label class="filterItem"><input type="checkbox" value="html"/>HTML</label>
-        					<label class="filterItem"><input type="checkbox" value="css"/>CSS</label>
-        					<label class="filterItem"><input type="checkbox" value="js"/>JavaScript</label>
-        					<label class="filterItem"><input type="checkbox" value="cplusplus"/>C++</label>
-        					<label class="filterItem"><input type="checkbox" value="visualeditor"/>Visual Editor</label>
+    					<input id="accelerometer" type="checkbox" value="accelerometer" class="filter-checkbox"/>
+        					<label for="accelerometer" class="filter-label">Accelerometer</label>
+        					<input id="camera" type="checkbox" value="camera" class="filter-checkbox"/>
+        					<label for="camera" class="filter-label">Camera</label>
+        					<input id="capture" type="checkbox" value="capture" class="filter-checkbox"/>
+        					<label for="capture" class="filter-label">Capture</label>
+        					<input id="compass" type="checkbox" value="compass" class="filter-checkbox"/>
+        					<label for="compass" class="filter-label">Compass</label>
+        					<input id="connection" type="checkbox" value="connection" class="filter-checkbox"/>
+        					<label for="connection" class="filter-label">Connection</label>
+        					<input id="contacts" type="checkbox" value="contacts" class="filter-checkbox"/>
+        					<label for="contacts" class="filter-label">Contact</label>
+        					<input id="device" type="checkbox" value="device" class="filter-checkbox"/>
+        					<label for="device" class="filter-label">Device</label>
+        					<input id="nativeevents" type="checkbox" value="nativeevents" class="filter-checkbox"/>
+        					<label for="nativeevents" class="filter-label">Native Events</label>
+        					<input id="file" type="checkbox" value="file" class="filter-checkbox"/>
+        					<label for="file" class="filter-label">File</label>
+        					<input id="geolocation" type="checkbox" value="geolocation" class="filter-checkbox"/>
+        					<label for="geolocation" class="filter-label">Geolocation</label>
+        					<input id="notification" type="checkbox" value="notification" class="filter-checkbox"/>
+        					<label for="notification" class="filter-label">Notification</label>
+        					<input id="storage" type="checkbox" value="storage" class="filter-checkbox"/>
+        					<label for="storage" class="filter-label">Storage</label>
+        					<input id="gestures_multitouch" type="checkbox" value="gestures_multitouch" class="filter-checkbox"/>
+        					<label for="gestures_multitouch" class="filter-label">Gestures & Multitouch</label>
+        					<input id="messages_telephone" type="checkbox" value="messages_telephone" class="filter-checkbox"/>
+        					<label for="messages_telephone" class="filter-label">Messages & Telephone</label>
+        					<input id="bluetooth" type="checkbox" value="bluetooth" class="filter-checkbox"/>
+        					<label for="bluetooth" class="filter-label">Bluetooth</label>
+        					<input id="nfc" type="checkbox" value="nfc" class="filter-checkbox"/>
+        					<label for="nfc" class="filter-label">NFC</label>
+        					<input id="vibration" type="checkbox" value="vibration" class="filter-checkbox"/>
+        					<label for="vibration" class="filter-label">Vibration</label>
         				</fieldset>
     			</div>
     		</div>
@@ -121,7 +158,7 @@
     		<h4 class="panel-title">
     			<a data-toggle="collapse" aria-expanded="false" href="#collapse3">
     				<div class="panel-heading">
-    					User Interface
+    					Development Language
     				</div>
     			</a>
     		</h4>
@@ -129,9 +166,30 @@
     			<div class="panel-body">
     				<fieldset class="fieldset accordion-content" role="tab-panel" style="display: block;" aria-hidden="false">
     					<p>What type of application should the framework output?</p>
-    					<label class="filterItem"><input type="checkbox" value="cd"/>Corporate Design</label>
-        					<label class="filterItem"><input type="checkbox" value="widgets"/>Widgets</label>
-        					<label class="filterItem"><input type="checkbox" value="accessibility"/>Accessibility</label>
+    					<input id="php" type="checkbox" value="php" class="filter-checkbox"/>
+        					<label for="php" class="filter-label">PHP</label>
+        					<input id="java" type="checkbox" value="java" class="filter-checkbox"/>
+        					<label for="java" class="filter-label">Java</label>
+        					<input id="ruby" type="checkbox" value="ruby" class="filter-checkbox"/>
+        					<label for="ruby" class="filter-label">Ruby</label>
+        					<input id="actionscript" type="checkbox" value="actionscript" class="filter-checkbox"/>
+        					<label for="actionscript" class="filter-label">ActionScript</label>
+        					<input id="csharp" type="checkbox" value="csharp" class="filter-checkbox"/>
+        					<label for="csharp" class="filter-label">C#</label>
+        					<input id="lua" type="checkbox" value="lua" class="filter-checkbox"/>
+        					<label for="lua" class="filter-label">LUA</label>
+        					<input id="xml" type="checkbox" value="xml" class="filter-checkbox"/>
+        					<label for="xml" class="filter-label">XML</label>
+        					<input id="html" type="checkbox" value="html" class="filter-checkbox"/>
+        					<label for="html" class="filter-label">HTML</label>
+        					<input id="css" type="checkbox" value="css" class="filter-checkbox"/>
+        					<label for="css" class="filter-label">CSS</label>
+        					<input id="js" type="checkbox" value="js" class="filter-checkbox"/>
+        					<label for="js" class="filter-label">JavaScript</label>
+        					<input id="cplusplus" type="checkbox" value="cplusplus" class="filter-checkbox"/>
+        					<label for="cplusplus" class="filter-label">C++</label>
+        					<input id="visualeditor" type="checkbox" value="visualeditor" class="filter-checkbox"/>
+        					<label for="visualeditor" class="filter-label">Visual Editor</label>
         				</fieldset>
     			</div>
     		</div>
@@ -142,7 +200,7 @@
     		<h4 class="panel-title">
     			<a data-toggle="collapse" aria-expanded="false" href="#collapse4">
     				<div class="panel-heading">
-    					Other
+    					User Interface
     				</div>
     			</a>
     		</h4>
@@ -150,9 +208,12 @@
     			<div class="panel-body">
     				<fieldset class="fieldset accordion-content" role="tab-panel" style="display: block;" aria-hidden="false">
     					<p>What type of application should the framework output?</p>
-    					<label class="filterItem"><input type="checkbox" value="sdk"/>SDK</label>
-        					<label class="filterItem"><input type="checkbox" value="ads"/>Ads</label>
-        					<label class="filterItem"><input type="checkbox" value="encryption"/>Encryption</label>
+    					<input id="cd" type="checkbox" value="cd" class="filter-checkbox"/>
+        					<label for="cd" class="filter-label">Corporate Design</label>
+        					<input id="widgets" type="checkbox" value="widgets" class="filter-checkbox"/>
+        					<label for="widgets" class="filter-label">Widgets</label>
+        					<input id="accessibility" type="checkbox" value="accessibility" class="filter-checkbox"/>
+        					<label for="accessibility" class="filter-label">Accessibility</label>
         				</fieldset>
     			</div>
     		</div>
@@ -163,7 +224,7 @@
     		<h4 class="panel-title">
     			<a data-toggle="collapse" aria-expanded="false" href="#collapse5">
     				<div class="panel-heading">
-    					License
+    					Other
     				</div>
     			</a>
     		</h4>
@@ -171,8 +232,34 @@
     			<div class="panel-body">
     				<fieldset class="fieldset accordion-content" role="tab-panel" style="display: block;" aria-hidden="false">
     					<p>What type of application should the framework output?</p>
-    					<label class="filterItem"><input type="checkbox" value="free"/>Free</label>
-        					<label class="filterItem"><input type="checkbox" value="opensource"/>Open Source</label>
+    					<input id="sdk" type="checkbox" value="sdk" class="filter-checkbox"/>
+        					<label for="sdk" class="filter-label">SDK</label>
+        					<input id="ads" type="checkbox" value="ads" class="filter-checkbox"/>
+        					<label for="ads" class="filter-label">Ads</label>
+        					<input id="encryption" type="checkbox" value="encryption" class="filter-checkbox"/>
+        					<label for="encryption" class="filter-label">Encryption</label>
+        				</fieldset>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    <div class="panel-group filter-box">
+    	<div class="panel panel-default">
+    		<h4 class="panel-title">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse6">
+    				<div class="panel-heading">
+    					License
+    				</div>
+    			</a>
+    		</h4>
+    		<div id="collapse6" class="panel-collapse collapse">
+    			<div class="panel-body">
+    				<fieldset class="fieldset accordion-content" role="tab-panel" style="display: block;" aria-hidden="false">
+    					<p>What type of application should the framework output?</p>
+    					<input id="free" type="checkbox" value="free" class="filter-checkbox"/>
+        					<label for="free" class="filter-label">Free</label>
+        					<input id="opensource" type="checkbox" value="opensource" class="filter-checkbox"/>
+        					<label for="opensource" class="filter-label">Open Source</label>
         				</fieldset>
     			</div>
     		</div>
@@ -183,7 +270,7 @@
 <div class="col-md-9"><div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse6">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse7">
     				<div class="panel-heading">
     					<span class="framework-title">Smartface</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -191,7 +278,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse6" class="panel-collapse collapse">
+    		<div id="collapse7" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -243,7 +330,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse7">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse8">
     				<div class="panel-heading">
     					<span class="framework-title">AppConKit</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -251,7 +338,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse7" class="panel-collapse collapse">
+    		<div id="collapse8" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -329,7 +416,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse8">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse9">
     				<div class="panel-heading">
     					<span class="framework-title">Apache Flex</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -337,7 +424,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse8" class="panel-collapse collapse">
+    		<div id="collapse9" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -414,7 +501,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse9">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse10">
     				<div class="panel-heading">
     					<span class="framework-title">Agate</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -422,7 +509,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse9" class="panel-collapse collapse">
+    		<div id="collapse10" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -437,7 +524,8 @@
 					</div>
     					<div class="col-md-3">
     						<h4 class="featureTitle">Development Language</h4>
-    					</div>
+    						<span class="feature xml true">XML</span>
+					</div>
     					<div class="col-md-3">
     						<h4 class="featureTitle">Hardware</h4>
     						<span class="feature geolocation true">Geolocation</span>
@@ -493,7 +581,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse10">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse11">
     				<div class="panel-heading">
     					<span class="framework-title">Appcelerator Titanium Mobile</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -501,7 +589,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse10" class="panel-collapse collapse">
+    		<div id="collapse11" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -567,7 +655,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse11">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse12">
     				<div class="panel-heading">
     					<span class="framework-title">AppGyver Steroids</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -575,7 +663,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse11" class="panel-collapse collapse">
+    		<div id="collapse12" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -649,7 +737,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse12">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse13">
     				<div class="panel-heading">
     					<span class="framework-title">Application Craft</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -657,7 +745,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse12" class="panel-collapse collapse">
+    		<div id="collapse13" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -729,7 +817,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse13">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse14">
     				<div class="panel-heading">
     					<span class="framework-title">ChocolateChip-UI</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -737,7 +825,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse13" class="panel-collapse collapse">
+    		<div id="collapse14" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -793,7 +881,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse14">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse15">
     				<div class="panel-heading">
     					<span class="framework-title">CNET iPhone UI</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -801,7 +889,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse14" class="panel-collapse collapse">
+    		<div id="collapse15" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -857,7 +945,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse15">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse16">
     				<div class="panel-heading">
     					<span class="framework-title">Corona</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -865,7 +953,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse15" class="panel-collapse collapse">
+    		<div id="collapse16" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -942,7 +1030,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse16">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse17">
     				<div class="panel-heading">
     					<span class="framework-title">DHTMLX Touch</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -950,7 +1038,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse16" class="panel-collapse collapse">
+    		<div id="collapse17" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -1007,7 +1095,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse17">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse18">
     				<div class="panel-heading">
     					<span class="framework-title">Dojo Mobile</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -1015,7 +1103,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse17" class="panel-collapse collapse">
+    		<div id="collapse18" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -1087,7 +1175,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse18">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse19">
     				<div class="panel-heading">
     					<span class="framework-title">eMobc</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -1095,7 +1183,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse18" class="panel-collapse collapse">
+    		<div id="collapse19" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -1171,7 +1259,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse19">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse20">
     				<div class="panel-heading">
     					<span class="framework-title">Framework7</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -1179,7 +1267,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse19" class="panel-collapse collapse">
+    		<div id="collapse20" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -1249,80 +1337,6 @@
     					<div class="col-md-6">
     						<a itemprop="url" href="mit-license" target="_blank">License</a>
 					</div>
-    				</div>
-    			</div>
-    		</div>
-    	</div>
-    </div>
-    <div class="panel-group framework">
-    	<div class="panel panel-default">
-    		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse20">
-    				<div class="panel-heading">
-    					<span class="framework-title">Gideros</span>
-    					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
-						<span class="dropIcon pull-right glyphicon glyphicon-chevron-down"></span>
-    				</div>
-    			</a>
-    		</h4>
-    		<div id="collapse20" class="panel-collapse collapse">
-    			<div class="panel-body">
-    				<div class="row">
-    					<div class="col-md-3">
-    						<h4 class="featureTitle">Platform</h4>
-    						<span class="feature android true">Android</span>
-						<span class="feature ios true">iOS</span>
-					</div>
-    					<div class="col-md-3">
-    						<h4 class="featureTitle">Target</h4>
-    						<span class="feature nativeapp true">Native App</span>
-					</div>
-    					<div class="col-md-3">
-    						<h4 class="featureTitle">Development Language</h4>
-    						<span class="feature lua true">LUA</span>
-					</div>
-    					<div class="col-md-3">
-    						<h4 class="featureTitle">Hardware</h4>
-    						<span class="feature geolocation true">Geolocation</span>
-						<span class="feature gestures_multitouch true">Gestures & Multitouch</span>
-						<span class="feature file true">File</span>
-						<span class="feature capture true">Capture</span>
-						<span class="feature accelerometer true">Accelerometer</span>
-						<span class="feature vibration true">Vibration</span>
-						<span class="feature notification true">Notification</span>
-						<span class="feature storage true">Storage</span>
-						<span class="feature camera true">Camera</span>
-						<span class="feature nativeevents true">Native Events</span>
-						<span class="feature compass true">Compass</span>
-						<span class="feature device true">Device</span>
-						<span class="feature connection true">Connection</span>
-					</div>
-    				</div>
-    				<div class="row">
-    					<div class="col-md-3">
-    						<h4 class="featureTitle">User Interface</h4>
-    						<span class="feature cd true">Corporate Design</span>
-						<span class="feature widgets true">Widgets</span>
-					</div>
-    					<div class="col-md-3">
-    						<h4 class="featureTitle">Other</h4>
-    						<span class="feature ads true">Ads</span>
-						<span class="feature sdk true">SDK</span>
-						<span class="feature encryption true">Encryption</span>
-					</div>
-    					<div class="col-md-3">
-    						<h4 class="featureTitle">Terms of a License</h4>
-    						<span class="feature free partially">Free</span>
-					</div>
-    				</div>
-    			</div>
-    			<div class="panel-footer">
-    				<div class="row">
-    					<div class="col-md-6">
-    						<a itemprop="url" href="http://giderosmobile.com/" target="_blank">Official Website</a>
-					</div>
-    					<div class="col-md-6">
-    					</div>
     				</div>
     			</div>
     		</div>
@@ -1407,13 +1421,87 @@
     		<h4 class="panel-title">
     			<a data-toggle="collapse" aria-expanded="false" href="#collapse22">
     				<div class="panel-heading">
-    					<span class="framework-title">Handheld Designer</span>
+    					<span class="framework-title">Gideros</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
 						<span class="dropIcon pull-right glyphicon glyphicon-chevron-down"></span>
     				</div>
     			</a>
     		</h4>
     		<div id="collapse22" class="panel-collapse collapse">
+    			<div class="panel-body">
+    				<div class="row">
+    					<div class="col-md-3">
+    						<h4 class="featureTitle">Platform</h4>
+    						<span class="feature android true">Android</span>
+						<span class="feature ios true">iOS</span>
+					</div>
+    					<div class="col-md-3">
+    						<h4 class="featureTitle">Target</h4>
+    						<span class="feature nativeapp true">Native App</span>
+					</div>
+    					<div class="col-md-3">
+    						<h4 class="featureTitle">Development Language</h4>
+    						<span class="feature lua true">LUA</span>
+					</div>
+    					<div class="col-md-3">
+    						<h4 class="featureTitle">Hardware</h4>
+    						<span class="feature geolocation true">Geolocation</span>
+						<span class="feature gestures_multitouch true">Gestures & Multitouch</span>
+						<span class="feature file true">File</span>
+						<span class="feature capture true">Capture</span>
+						<span class="feature accelerometer true">Accelerometer</span>
+						<span class="feature vibration true">Vibration</span>
+						<span class="feature notification true">Notification</span>
+						<span class="feature storage true">Storage</span>
+						<span class="feature camera true">Camera</span>
+						<span class="feature nativeevents true">Native Events</span>
+						<span class="feature compass true">Compass</span>
+						<span class="feature device true">Device</span>
+						<span class="feature connection true">Connection</span>
+					</div>
+    				</div>
+    				<div class="row">
+    					<div class="col-md-3">
+    						<h4 class="featureTitle">User Interface</h4>
+    						<span class="feature cd true">Corporate Design</span>
+						<span class="feature widgets true">Widgets</span>
+					</div>
+    					<div class="col-md-3">
+    						<h4 class="featureTitle">Other</h4>
+    						<span class="feature ads true">Ads</span>
+						<span class="feature sdk true">SDK</span>
+						<span class="feature encryption true">Encryption</span>
+					</div>
+    					<div class="col-md-3">
+    						<h4 class="featureTitle">Terms of a License</h4>
+    						<span class="feature free partially">Free</span>
+					</div>
+    				</div>
+    			</div>
+    			<div class="panel-footer">
+    				<div class="row">
+    					<div class="col-md-6">
+    						<a itemprop="url" href="http://giderosmobile.com/" target="_blank">Official Website</a>
+					</div>
+    					<div class="col-md-6">
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    <div class="panel-group framework">
+    	<div class="panel panel-default">
+    		<h4 class="panel-title">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse23">
+    				<div class="panel-heading">
+    					<span class="framework-title">Handheld Designer</span>
+    					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
+						<span class="dropIcon pull-right glyphicon glyphicon-chevron-down"></span>
+    				</div>
+    			</a>
+    		</h4>
+    		<div id="collapse23" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -1469,7 +1557,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse23">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse24">
     				<div class="panel-heading">
     					<span class="framework-title">ionic</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -1477,7 +1565,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse23" class="panel-collapse collapse">
+    		<div id="collapse24" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -1547,7 +1635,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse24">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse25">
     				<div class="panel-heading">
     					<span class="framework-title">iUI</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -1555,7 +1643,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse24" class="panel-collapse collapse">
+    		<div id="collapse25" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -1611,7 +1699,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse25">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse26">
     				<div class="panel-heading">
     					<span class="framework-title">JQ Touch</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -1619,7 +1707,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse25" class="panel-collapse collapse">
+    		<div id="collapse26" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -1675,7 +1763,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse26">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse27">
     				<div class="panel-heading">
     					<span class="framework-title">jQuery Mobile</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -1683,7 +1771,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse26" class="panel-collapse collapse">
+    		<div id="collapse27" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -1741,7 +1829,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse27">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse28">
     				<div class="panel-heading">
     					<span class="framework-title">Kendo UI</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -1749,7 +1837,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse27" class="panel-collapse collapse">
+    		<div id="collapse28" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -1814,7 +1902,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse28">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse29">
     				<div class="panel-heading">
     					<span class="framework-title">Kivy</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -1822,7 +1910,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse28" class="panel-collapse collapse">
+    		<div id="collapse29" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -1897,7 +1985,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse29">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse30">
     				<div class="panel-heading">
     					<span class="framework-title">Marmalade</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -1905,7 +1993,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse29" class="panel-collapse collapse">
+    		<div id="collapse30" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -1979,7 +2067,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse30">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse31">
     				<div class="panel-heading">
     					<span class="framework-title">Moai</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -1987,7 +2075,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse30" class="panel-collapse collapse">
+    		<div id="collapse31" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -2051,7 +2139,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse31">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse32">
     				<div class="panel-heading">
     					<span class="framework-title">Mobify.js</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -2059,7 +2147,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse31" class="panel-collapse collapse">
+    		<div id="collapse32" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -2118,7 +2206,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse32">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse33">
     				<div class="panel-heading">
     					<span class="framework-title">Monocross</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -2126,7 +2214,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse32" class="panel-collapse collapse">
+    		<div id="collapse33" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -2200,7 +2288,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse33">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse34">
     				<div class="panel-heading">
     					<span class="framework-title">Mono for Android</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -2208,7 +2296,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse33" class="panel-collapse collapse">
+    		<div id="collapse34" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -2285,7 +2373,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse34">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse35">
     				<div class="panel-heading">
     					<span class="framework-title">MonoTouch</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -2293,7 +2381,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse34" class="panel-collapse collapse">
+    		<div id="collapse35" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -2369,7 +2457,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse35">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse36">
     				<div class="panel-heading">
     					<span class="framework-title">The-M-Project</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -2377,7 +2465,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse35" class="panel-collapse collapse">
+    		<div id="collapse36" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -2450,7 +2538,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse36">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse37">
     				<div class="panel-heading">
     					<span class="framework-title">NeoMAD</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -2458,7 +2546,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse36" class="panel-collapse collapse">
+    		<div id="collapse37" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -2528,7 +2616,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse37">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse38">
     				<div class="panel-heading">
     					<span class="framework-title">NimbleKit</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -2536,7 +2624,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse37" class="panel-collapse collapse">
+    		<div id="collapse38" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -2610,7 +2698,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse38">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse39">
     				<div class="panel-heading">
     					<span class="framework-title">NSB/AppStudio</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -2618,7 +2706,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse38" class="panel-collapse collapse">
+    		<div id="collapse39" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -2693,7 +2781,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse39">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse40">
     				<div class="panel-heading">
     					<span class="framework-title">Onsen UI</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -2701,7 +2789,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse39" class="panel-collapse collapse">
+    		<div id="collapse40" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -2775,7 +2863,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse40">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse41">
     				<div class="panel-heading">
     					<span class="framework-title">PhoneGap</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -2783,7 +2871,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse40" class="panel-collapse collapse">
+    		<div id="collapse41" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -2858,7 +2946,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse41">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse42">
     				<div class="panel-heading">
     					<span class="framework-title">qooxdoo</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -2866,7 +2954,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse41" class="panel-collapse collapse">
+    		<div id="collapse42" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -2927,7 +3015,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse42">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse43">
     				<div class="panel-heading">
     					<span class="framework-title">RareWire</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -2935,7 +3023,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse42" class="panel-collapse collapse">
+    		<div id="collapse43" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -3000,7 +3088,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse43">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse44">
     				<div class="panel-heading">
     					<span class="framework-title">Rhodes</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -3008,7 +3096,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse43" class="panel-collapse collapse">
+    		<div id="collapse44" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -3081,7 +3169,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse44">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse45">
     				<div class="panel-heading">
     					<span class="framework-title">Sencha Touch</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -3089,7 +3177,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse44" class="panel-collapse collapse">
+    		<div id="collapse45" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -3151,7 +3239,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse45">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse46">
     				<div class="panel-heading">
     					<span class="framework-title">ShiVa 3D</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -3159,7 +3247,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse45" class="panel-collapse collapse">
+    		<div id="collapse46" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -3231,7 +3319,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse46">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse47">
     				<div class="panel-heading">
     					<span class="framework-title">Trigger.io</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -3239,7 +3327,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse46" class="panel-collapse collapse">
+    		<div id="collapse47" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -3305,7 +3393,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse47">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse48">
     				<div class="panel-heading">
     					<span class="framework-title">ViziApps</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -3313,7 +3401,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse47" class="panel-collapse collapse">
+    		<div id="collapse48" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -3386,7 +3474,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse48">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse49">
     				<div class="panel-heading">
     					<span class="framework-title">V-Play</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -3394,7 +3482,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse48" class="panel-collapse collapse">
+    		<div id="collapse49" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -3454,7 +3542,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse49">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse50">
     				<div class="panel-heading">
     					<span class="framework-title">wink</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -3462,7 +3550,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse49" class="panel-collapse collapse">
+    		<div id="collapse50" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -3522,7 +3610,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse50">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse51">
     				<div class="panel-heading">
     					<span class="framework-title">Xamarin</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -3530,7 +3618,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse50" class="panel-collapse collapse">
+    		<div id="collapse51" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">
@@ -3596,7 +3684,7 @@
     <div class="panel-group framework">
     	<div class="panel panel-default">
     		<h4 class="panel-title">
-    			<a data-toggle="collapse" aria-expanded="false" href="#collapse51">
+    			<a data-toggle="collapse" aria-expanded="false" href="#collapse52">
     				<div class="panel-heading">
     					<span class="framework-title">Zepto.js</span>
     					<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
@@ -3604,7 +3692,7 @@
     				</div>
     			</a>
     		</h4>
-    		<div id="collapse51" class="panel-collapse collapse">
+    		<div id="collapse52" class="panel-collapse collapse">
     			<div class="panel-body">
     				<div class="row">
     					<div class="col-md-3">

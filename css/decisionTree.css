@@ -1,5 +1,43 @@
-label.filterItem {
-  padding-left: 20px; }
+.btn-clear {
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.1;
+  text-align: left;
+  padding: 10px 15px;
+  width: 100%; }
+
+label.filter-label {
+  display: block;
+  border-top: 1px solid #ddd;
+  cursor: pointer;
+  padding-left: 20px;
+  line-height: 20px; }
+
+input[type=checkbox] {
+  display: none; }
+
+/* Using 2 :pseudo classes from predefined bootstrap icons*/
+input[type='checkbox'].filter-checkbox + label:before {
+  position: relative;
+  top: 4px;
+  right: 10px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-size: 1.6em; }
+
+input[type='checkbox'].filter-checkbox + label:before {
+  /*unchecked icon*/
+  content: "\e157"; }
+
+input[type='checkbox'].filter-checkbox + label:hover:before {
+  /*icon checked on hover*/
+  content: "\e067"; }
+
+input[type='checkbox']:checked.filter-checkbox + label:before {
+  /*checked icon*/
+  content: "\e067"; }
 
 .true {
   background-color: steelblue; }
@@ -24,6 +62,19 @@ label.filterItem {
   padding: 3px 40px 3px 10px;
   font-size: 1em; }
 
+.selected {
+  border: 2px solid #dadada;
+  outline: none;
+  border-color: greenyellow;
+  box-shadow: 0 0 10px greenyellow; }
+
+/*.selected {
+    background-repeat: no-repeat;
+    background-image: url(../img/appproval.svg);
+    background-size: 10%;
+    background-position: 95% 50%;
+}
+*/
 .featureTitle {
   font-size: 1em;
   font-weight: bold; }

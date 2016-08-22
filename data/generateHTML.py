@@ -52,6 +52,7 @@ developmentLanguage = [
     "actionscript",
     "csharp",
     "lua",
+    "xml",
     "html",
     "css",
     "js",
@@ -81,6 +82,7 @@ license = [
 filters = [
     platforms,
     target,
+    hardware,
     developmentLanguage,
     userInterface,
     other,
@@ -90,6 +92,7 @@ filters = [
 filterNames = [
     "Platform",
     "Target",
+    "Hardware Features",
     "Development Language",
     "User Interface",
     "Other",
@@ -98,6 +101,7 @@ filterNames = [
 
 filterDesc = [
     "Select which platforms must be supported by the framework",
+    "What type of application should the framework output?",
     "What type of application should the framework output?",
     "What type of application should the framework output?",
     "What type of application should the framework output?",
@@ -142,6 +146,7 @@ formatKey = {
     "css":"CSS",
     "js":"JavaScript",
     "cplusplus":"C++",
+    "xml": "XML",
 
     "visualeditor":"Visual Editor",
     "accelerometer":"Accelerometer",
@@ -185,7 +190,10 @@ formatKey = {
 
 # Create the filter checkboxes from the above lists
 numOfFilters = len(filters)
-filterContent = ""
+filterContent = """<button type="button" class="btn btn-default btn-clear" disabled>
+    \tClear All<span class="glyphicon glyphicon-trash pull-right"/>
+  	</button>
+    """
 
 for i in range(0, numOfFilters):
     #Panel header
@@ -210,7 +218,8 @@ for i in range(0, numOfFilters):
     """)
     #Create filterboxes
     for item in filters[i]:
-        filterContent+= str("""\t\t\t\t\t<label class="filterItem"><input type="checkbox" value=\"""" + item + """\"/>""" + str(formatKey.get(item)) + """</label>
+        filterContent+= str("""\t\t\t\t\t<input id=\"""" + item + """\" type="checkbox" value=\"""" + item + """\" class="filter-checkbox"/>
+        \t\t\t\t\t<label for=\"""" + item +"""\" class="filter-label">""" + str(formatKey.get(item)) + """</label>
         """)
     filterContent+= str("""\t\t\t\t</fieldset>
     \t\t\t</div>

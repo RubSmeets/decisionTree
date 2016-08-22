@@ -1,26 +1,5 @@
-
-alert($("#filter2").val());
-
 ;(function($, window, document, undefined) {
     'use strict';
-
-    $(document).ready(function() {
-        $('#example').DataTable( {
-            stateSave: true,
-            "info": false,
-            "paging": false,
-            "ajax": "data/data.txt",
-            "columns": [
-                { "data": "name" },
-                { "data": "position" },
-                { "data": "office" },
-                { "data": "extn" },
-                { "data": "start_date" },
-                { "data": "salary" }
-            ]
-        });
-    });
-
 
   /************************************************************
     @description Filter
@@ -141,30 +120,6 @@ alert($("#filter2").val());
       });
     },
 
-    setWebsiteType: function() {
-
-      var viewport_width = this.$window.width();
-
-      if(viewport_width > 700) {
-        this.websiteType = 'large';
-      } else {
-        this.websiteType = 'small';
-      }
-    },
-    GetWizardValues: function() {
-
-      // Werte in Array speichern
-      var wizzard_values = [];
-
-      $(":checked").each(function(index){
-        wizzard_values.push($(this).attr("name"));
-      });
-
-      // inaktive Labels ausblenden
-      // $("input:not(:checked)").parent("label").addClass("unchecked");
-      return wizzard_values;
-
-    },
     validateFrameworks: function(wizard_values) {
 
       $('.selected').removeClass('selected');
@@ -178,39 +133,8 @@ alert($("#filter2").val());
       } else {
         this.$reset.slideDown();
 
-        this.$framework.each(function() {
 
-          var
-          show = 0,
-          that = $(this);
 
-          $.each(wizard_values, function(key, value) {
-
-            var feature = that.find('.' + value);
-
-            if(feature.length) {
-              MFCC.count++;
-              show++;
-              feature.addClass('selected');
-            }
-
-          });
-
-          // ein und ausblenden der frameworks
-          if(show === wizard_values.length) {
-            that.slideDown();
-          } else {
-            that.slideUp();
-          }
-
-        });
-      }
-
-      // einzelnen Eintrag einblenden
-      // console.log(MFCC.count);
-      // if(this.count === 1) {
-      //   $('.framework:visible').find('.accordion-header').trigger('click');
-      // }
     },
     setupLegend: function () {
 
@@ -233,44 +157,168 @@ alert($("#filter2").val());
       });
     }
   };
-
-  MFCC.init();
 */
-
     var filterForm = {
         
         initVariables: function() {
             this.filterField = $("input#filter");
+            this.msg = $("#msg");
             console.log("variables initialized");
         },
 
         init: function() {
             this.initVariables();
-            //this.bindEvents();
+            this.bindEvents();
             console.log("filter init complete");
         },
 
         bindEvents: function() {
-            this.filterField.on('input keyup', function() {
-                console.log("press");
+            this.filterField.on('input', function() {
+                filterForm.filterFrameworksByName($(this).val());
+            });
+
+            this.filterField.on('focus', function() {
+                $(this).select();
+                MFCT.clearCheckboxFilters();
+                //filterForm.clearFilterField();
+                //filterForm.resetFrameworks();
             })
+
+        },
+
+        filterFrameworksByName: function(filterText) {
+            MFCT.frameworks.each( function() {
+                var framework;
+                var textCompare;
+
+                if( $(this).is(':visible') ) { // Filter only in the visible list of frameworks
+                  framework = (($(this).find(".framework-title"))[0].innerHTML).toLowerCase();    // get text from div
+                  textCompare = framework.indexOf(filterText.toLowerCase());
+                  
+                  if( textCompare === -1 ) {
+                      $(this).slideUp();
+                      $(this).addClass("hid"); // Add classes for showing message when no frameworks are listed (hid)
+                  } else {
+                      $(this).slideDown();
+                      $(this).removeClass("hid");
+                  }
+                }
+            });
+
+            filterForm.nothingLeft();
+        },
+
+        clearFilterField: function() {
+            this.filterField.val("");
+        },
+        // Back to normal state
+        resetFrameworks: function() {
+            MFCT.frameworks.slideDown();
+            MFCT.frameworks.removeClass("hid");
+        },
+        // Check if there are frameworks left (if not show a message)
+        nothingLeft: function() {
+            if ($('.framework.hid').length === MFCT.frameworks.length) {
+                this.msg.show();
+            } else {
+                this.msg.hide();
+            }
         }
     }
 
     var MFCT = {
-        
+        initVariables: function() {
+            this.checkboxes = $('[type=checkbox]');
+            this.frameworks = $(".framework");
+            this.filterContainer = $('.filters');
+            this.clearButton = $('.btn-clear');
+            console.log("initialise variables");
+        },
 
         init: function() {
+            this.initVariables();
+            this.bindEvents();
+
             filterForm.init();
-            console.log("test");
+        },
+
+        bindEvents: function() {
+            this.checkboxes.on('input change', function() {
+                MFCT.toggleClearButton();
+            });
+
+            this.filterContainer.on('input change', function() {
+                var filterTerms = MFCT.getCheckedFilterTerms();
+                MFCT.filterFrameworksByFeature(filterTerms);
+            });
+
+            this.clearButton.on('click', function() {
+                MFCT.clearCheckboxFilters();
+            });
+        },
+
+        getCheckedFilterTerms: function() {
+            var filterTerms = [];
+            this.checkboxes.each( function() {
+                if ( $(this).is(':checked') ) {
+                  filterTerms.push($(this).val());
+                }
+            });
+            return filterTerms;
+        },
+
+        filterFrameworksByFeature: function(filterTerms) {
+            var foundFeatures = 0;
+            var i = 0;
+            var $feature;
+
+            // Clear selected class
+            $('.selected').removeClass('selected');
+
+            this.frameworks.each( function() {
+                foundFeatures = 0;
+
+                for(i=0; i<filterTerms.length; i++) {
+                    $feature = $(this).find('.' + filterTerms[i]);
+                    if ( $feature.length === 1 ) {
+                      foundFeatures++;
+                      $feature.addClass('selected');
+                    }
+                }
+
+                if (filterTerms.length === foundFeatures) {
+                    $(this).slideDown();
+                    $(this).removeClass("hid");
+                } else {
+                    $(this).slideUp();
+                    $(this).addClass("hid");
+                }
+            });
+
+            filterForm.nothingLeft();
+        },
+
+        toggleClearButton: function() {
+            if( this.checkboxes.is(":checked") ) {
+              this.clearButton.prop('disabled', false);
+            } else {
+              this.clearButton.prop('disabled', true);
+            }
+        },
+
+        clearCheckboxFilters: function() {
+          this.checkboxes.each( function() {
+            if( $(this).is(':checked') ) {
+                $(this).prop("checked", false).change();
+            }
+          });
         }
     }
 
-    MFCT.init();
-
     $( document ).ready(function() {
-    console.log( "ready!" );
-    keske();
+        console.log( "ready!" );
+        MFCT.init();
     });
+
 })(jQuery, window, document);
 
