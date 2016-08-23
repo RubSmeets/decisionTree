@@ -7,6 +7,12 @@
   padding: 10px 15px;
   width: 100%; }
 
+.tooltip.top .tooltip-inner {
+  background-color: red; }
+
+.tooltip.top .tooltip-arrow {
+  border-top-color: red; }
+
 label.filter-label {
   display: block;
   border-top: 1px solid #ddd;

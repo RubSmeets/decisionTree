@@ -9,6 +9,13 @@
     width: 100%;
 }
 
+.tooltip.top .tooltip-inner {
+    background-color:red;
+}
+.tooltip.top .tooltip-arrow {
+      border-top-color: red;
+}
+
 // Filter checkbox styling
 label.filter-label {
     display: block;
