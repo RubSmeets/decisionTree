@@ -1,12 +1,46 @@
 #!/usr/bin/python
 import json
+import os
+import time
 from pprint import pprint
 from string import Template
 from collections import OrderedDict
 
+# Global variables
+imgList = []
+
 print "Hello, Python!"
 
+#<!-- Place this tag where you want the button to render. -->
+#<iframe src="https://ghbtns.com/github-btn.html?user=NativeScript&repo=NativeScript&type=star&count=true&size=small" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
+
+# Format the name to lowercase and without special characters
+def formatString( str ):
+    output = str.replace('/','').replace(' ', '').replace('-','').replace('.','')
+    return output.lower()
+
+# Format the name to lowercase and without special characters
+def checkLogoAvailability( str ):
+    if str in imgList:
+        return str
+    else:
+        return "notfound"
+
 #Constants ----------------------
+#status keywords
+status = [
+    "active",
+    "dead"
+]
+#Technology keywords
+technology = [
+    "nativejavascript",
+    "webtonative",
+    "javascript",
+    "sourcecode",
+    "runtime",
+    "appfactory"
+]
 #Platform keywords
 platforms = [
     "android",
@@ -47,6 +81,7 @@ target = [
 #Development Language keywords
 developmentLanguage = [
     "php",
+    "basic",
     "java",
     "ruby",
     "actionscript",
@@ -80,33 +115,35 @@ license = [
 # Create the filter list from the existing keyword lists
 #------------------------------------------------------------
 filters = [
+    status,
+    technology,
     platforms,
     target,
     hardware,
     developmentLanguage,
-    userInterface,
-    other,
+    #userInterface,
+    #other,
     license
 ]
 
 filterNames = [
+    "Tool status",
+    "Technology",
     "Platform",
     "Target",
     "Hardware Features",
     "Development Language",
-    "User Interface",
-    "Other",
     "License"
 ]
 
 filterDesc = [
-    "Select which platforms must be supported by the framework",
+    "Is the tool still available?",
+    "What cross-platform technology must be used?",
+    "Which platforms must be supported by the framework?",
     "What type of application should the framework output?",
-    "What type of application should the framework output?",
-    "What type of application should the framework output?",
-    "What type of application should the framework output?",
-    "What type of application should the framework output?",
-    "What type of application should the framework output?"
+    "Which hardware features must be supported?",
+    "Which development language would you like to use?",
+    "What license is required?"
 ]
 #------------------------------------------------------------
 
@@ -123,6 +160,17 @@ footerRight = {
 }
 
 formatKey = {
+    "all": "All",
+    "active":"Active",
+    "dead":"Discontinued",
+
+    "nativejavascript": "Native JavaScript",
+    "webtonative": "Web-to-native wrapper",
+    "javascript": "JS framework/toolkit",
+    "sourcecode": "Source-code translator",
+    "runtime": "Runtime",
+    "appfactory": "App Factory",
+
     "hybridapp":"Hybrid App",
     "nativeapp":"Native App",
     "mobilewebsite":"Mobile website",
@@ -137,6 +185,7 @@ formatKey = {
     "blackberry": "Blackberry",
 
     "php":"PHP",
+    "basic": "Basic",
     "java":"Java",
     "ruby":"Ruby",
     "actionscript":"ActionScript",
@@ -190,6 +239,7 @@ formatKey = {
 
 # Create the filter checkboxes from the above lists
 numOfFilters = len(filters)
+print "Number of filters= " + str(numOfFilters)
 filterContent = """<button type="button" class="btn btn-default btn-clear" disabled>
     \tClear All<span class="glyphicon glyphicon-trash pull-right"/>
   	</button>
@@ -207,7 +257,7 @@ for i in range(0, numOfFilters):
     \t\t\t</a>
     \t\t</h4>
     """)
-    if i == 0:
+    if i < 3:
         filterContent+= str("""\t\t<div id="collapse""" + str(i) + """\" class="panel-collapse collapse in">""")
     else:
         filterContent+= str("""\t\t<div id="collapse""" + str(i) + """\" class="panel-collapse collapse">""")
@@ -228,6 +278,11 @@ for i in range(0, numOfFilters):
     </div>
     """)
 
+# Create list with imageNames from existing logos in folder "../img/logos/"
+for path, dirs, files in os.walk("../img/logos"):
+  for f in files:
+    imgList.append(f[:-4])  #strip ".png" from logo names
+
 # Read the contents of the json file
 with open('frameworks.json') as data_file:
     frameworks = json.load(data_file)
@@ -237,97 +292,77 @@ numOfElements = len(frameworks)
 content = ""
 for i in range(0, numOfElements):
     #Start panel group
-    content+= str("""<div class="panel-group framework">
-    \t<div class="panel panel-default">
-    \t\t<h4 class="panel-title">
-    \t\t\t<a data-toggle="collapse" aria-expanded="false" href="#collapse""" + str(i+numOfFilters) + """\">
-    \t\t\t\t<div class="panel-heading">
-    \t\t\t\t\t<span class="framework-title">""" + frameworks[i].get('framework') + """</span>
-    \t\t\t\t\t<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
-	\t\t\t\t\t<span class="dropIcon pull-right glyphicon glyphicon-chevron-down"></span>
-    \t\t\t\t</div>
-    \t\t\t</a>
-    \t\t</h4>
-    \t\t<div id="collapse""" + str(i+numOfFilters) + """\" class="panel-collapse collapse">
-    \t\t\t<div class="panel-body">
-    \t\t\t\t<div class="row">
+    content+= str("""<div class="col-md-4">
+    \t<div class="thumbnail framework">
+    \t\t<img src="img/logos/""" + checkLogoAvailability(formatString(frameworks[i].get('framework'))) + """.png" alt="">
+    \t\t<div class="caption">
+    \t\t\t<h4 class="thumb-caption">""" + frameworks[i].get('framework') + """</h4>
     """)
+    #Fill in technology
+    content+= str("""\t\t\t<span class="info-label """)
+    for key, value in frameworks[i].iteritems():
+        if key in technology and value and value != "none" and value != "false":
+            content+= str(key) + " "
+    content+= str("""\">""")
+    for key, value in frameworks[i].iteritems():
+        if key in technology and value and value != "none" and value != "false":
+            content+= str(formatKey.get(key)) + " + "
+    content = content[:-2]  #strip last "+ " from string
+    content+= """</span>\n"""
+	#Fill in CPT status
+    for key, value in frameworks[i].iteritems():
+        if (str(value) == "Active" or str(value) == "Discontinued") and value and value != "none" and value != "false":
+            content+= """\t\t\t<span class="info-label """ + str(key) + " " + str(value).lower() + """\">""" + str(value) + """</span>\n"""
+    content+= str("""\t\t\t<div>
+    \t\t\t\t<h4 class="panel-title">
+    \t\t\t\t\t<a data-toggle="collapse" aria-expanded="false" href="#collapse""" + str(i+numOfFilters) + """\">
+    \t\t\t\t\t\t<div class="panel-heading feature-panel">
+    \t\t\t\t\t\t\t<span class="dropIcon glyphicon glyphicon-chevron-up"></span>
+	\t\t\t\t\t\t\t<span class="dropIcon glyphicon glyphicon-chevron-down"></span>
+    \t\t\t\t\t\t</div>
+	\t\t\t\t\t</a>
+	\t\t\t\t</h4>
+    \t\t\t\t<div id="collapse""" + str(i+numOfFilters) + """\" class="panel-collapse collapse">
+    \t\t\t\t\t<div>
+	\t\t\t\t\t\t<div class="row">
+	""")
     #Fill in platform
-    content+= str("""\t\t\t\t\t<div class="col-md-3">
-    \t\t\t\t\t\t<h4 class="featureTitle">Platform</h4>
+    content+= str("""\t\t\t\t\t\t\t<div class="col-md-6">
+    \t\t\t\t\t\t\t\t<h4 class="featureTitle">Platform</h4>
     """)
     for key, value in frameworks[i].iteritems():
         if key in platforms and value and value != "none" and value != "false":
-            content+= """\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
+            content+= """\t\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
     #Fill in target
-    content+= str("""\t\t\t\t\t</div>
-    \t\t\t\t\t<div class="col-md-3">
-    \t\t\t\t\t\t<h4 class="featureTitle">Target</h4>
+    content+= str("""\t\t\t\t\t\t\t</div>
+    \t\t\t\t\t\t\t<div class="col-md-6">
+    \t\t\t\t\t\t\t\t<h4 class="featureTitle">Target</h4>
     """)
     for key, value in frameworks[i].iteritems():
         if key in target and value and value != "none" and value != "false":
-            content+= """\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
+            content+= """\t\t\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
     #Fill in Development Language
-    content+= str("""\t\t\t\t\t</div>
-    \t\t\t\t\t<div class="col-md-3">
-    \t\t\t\t\t\t<h4 class="featureTitle">Development Language</h4>
+    content+= str("""\t\t\t\t\t\t\t</div>
+    \t\t\t\t\t\t</div>
+    \t\t\t\t\t\t<div class="row">
+    \t\t\t\t\t\t\t<div class="col-md-6">
+    \t\t\t\t\t\t\t\t<h4 class="featureTitle">Development Language</h4>
     """)
     for key, value in frameworks[i].iteritems():
         if key in developmentLanguage and value and value != "none" and value != "false":
-            content+= """\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
-    #Fill in Hardware features    
-    content+= str("""\t\t\t\t\t</div>
-    \t\t\t\t\t<div class="col-md-3">
-    \t\t\t\t\t\t<h4 class="featureTitle">Hardware</h4>
-    """)
-    for key, value in frameworks[i].iteritems():
-        if key in hardware and value and value != "none" and value != "false":
-            content+= """\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
-    #Start new row to wrap content and begin with User Interface
-    content+= str("""\t\t\t\t\t</div>
-    \t\t\t\t</div>
-    \t\t\t\t<div class="row">
-    \t\t\t\t\t<div class="col-md-3">
-    \t\t\t\t\t\t<h4 class="featureTitle">User Interface</h4>
-    """)
-    for key, value in frameworks[i].iteritems():
-        if key in userInterface and value and value != "none" and value != "false":
-            content+= """\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
-    #Fill in other features
-    content+= str("""\t\t\t\t\t</div>
-    \t\t\t\t\t<div class="col-md-3">
-    \t\t\t\t\t\t<h4 class="featureTitle">Other</h4>
-    """)
-    for key, value in frameworks[i].iteritems():
-        if key in other and value and value != "none" and value != "false":
-            content+= """\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
+            content+= """\t\t\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
     #Fill in Terms of license
-    content+= str("""\t\t\t\t\t</div>
-    \t\t\t\t\t<div class="col-md-3">
-    \t\t\t\t\t\t<h4 class="featureTitle">Terms of a License</h4>
+    content+= str("""\t\t\t\t\t\t\t\t</div>
+    \t\t\t\t\t\t\t<div class="col-md-6">
+    \t\t\t\t\t\t\t\t<h4 class="featureTitle">Terms of a License</h4>
     """)
     for key, value in frameworks[i].iteritems():
         if key in license and value and value != "none" and value != "false":
-            content+= """\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
-    #Add footer of panel group
-    content+= str("""\t\t\t\t\t</div>
-    \t\t\t\t</div>
-    \t\t\t</div>
-    \t\t\t<div class="panel-footer">
-    \t\t\t\t<div class="row">
-    \t\t\t\t\t<div class="col-md-6">
-    """)
-    for key, value in frameworks[i].iteritems():
-        if key in footerLeft and value and value != "none" and value != "false":
-            content+= """\t\t\t\t\t\t<a itemprop="url" href=\"""" + str(value) + """\" target="_blank">""" + str(formatKey.get(key)) + """</a>\n"""
-    content+= str("""\t\t\t\t\t</div>
-    \t\t\t\t\t<div class="col-md-6">
-    """)
-    for key, value in frameworks[i].iteritems():
-        if key in footerRight and value and value != "none" and value != "false":
-            content+= """\t\t\t\t\t\t<a itemprop="url" href=\"""" + str(value) + """\" target="_blank">""" + str(formatKey.get(key)) + """</a>\n"""
-    #Add finish footer
-    content+= str("""\t\t\t\t\t</div>
+            content+= """\t\t\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
+    #Add finish
+    content+= str("""\t\t\t\t\t\t\t</div>
+    \t\t\t\t\t\t</div>
+    \t\t\t\t\t</div>
     \t\t\t\t</div>
     \t\t\t</div>
     \t\t</div>
@@ -350,5 +385,13 @@ with open('indexCopy.html', 'r+') as orginal, open('index.html', 'w') as output:
             output.write(content)
         else:
             output.write(line)
+
+#Move generated file and create backup of original
+if os.path.isfile("../index.html"):
+    print "file found " + "index.html"
+    os.rename("../index.html", ("../index_org" + time.strftime("-%d_%m_%y-%H_%M") + ".html"))
+    print "Create backup index.html"
+    os.rename("./index.html", "../index.html")
+    print "moved new file"
     
 print "END"

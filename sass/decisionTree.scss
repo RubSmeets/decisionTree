@@ -1,28 +1,24 @@
-// Clear all button styling
+// Clear all button styling --------------------------
 .btn-clear {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     font-size: 16px;
     font-weight: 500;
     line-height: 1.1;
     text-align: left;
-    padding: 10px 15px;
+    padding: 10px 15px; //padding top-bottom right-left
     width: 100%;
 }
 
-.tooltip.top .tooltip-inner {
-    background-color:red;
-}
-.tooltip.top .tooltip-arrow {
-      border-top-color: red;
-}
+// ---------------------------------------------------
 
-// Filter checkbox styling
+// Filter checkbox styling----------------------------
 label.filter-label {
     display: block;
     border-top: 1px solid #ddd;
     cursor: pointer;
     padding-left: 20px;
-    line-height: 20px;
+    line-height: 18px;
+    font-size: small;
 }
 
 input[type=checkbox] {
@@ -32,12 +28,12 @@ input[type=checkbox] {
 /* Using 2 :pseudo classes from predefined bootstrap icons*/
 input[type='checkbox'].filter-checkbox + label:before {
     position: relative;
-    top: 4px;
-    right: 10px;
+    top: 1px;
+    right: 5px;
     display: inline-block;
     font-family: 'Glyphicons Halflings';
     font-style: normal;
-    font-size: 1.6em;
+    font-size: 1em;
 }
 
 input[type='checkbox'].filter-checkbox + label:before {/*unchecked icon*/
@@ -48,6 +44,72 @@ input[type='checkbox'].filter-checkbox + label:hover:before {/*icon checked on h
 }
 input[type='checkbox']:checked.filter-checkbox + label:before {/*checked icon*/
     content: "\e067";
+}
+
+// filter-checkbox group panel styling
+.filter-box {
+    margin-bottom: 10px;
+}
+
+div.filter-box div.panel-body {
+    padding-top: 0px;
+}
+// ---------------------------------------------------
+
+// Styling of tiles ----------------------------------
+.thumb-caption{
+    font-size: 17px;
+}
+
+.feature-panel {
+    text-align: center;
+}
+
+.thumbnail {
+    position: relative;
+    padding: 0px;
+    margin-bottom: 20px;
+    //background-color: #eee;
+}
+
+.thumbnail img {
+    padding: 10px 10px 10px;
+    height: 100px;
+}
+
+.info-label {
+    display: block;
+    font-weight: 200;
+    color: #999;
+    border: 2px solid #dadada;
+    border-radius: 5px;
+    text-align: center;
+    font-size: small;
+    margin: 0px 10px 5px;
+}
+
+.info-label.active {
+    color: lightgreen;
+    border-color: lightgreen;
+}
+
+.feature-panel .dropIcon {
+    color: #337ab7;
+}
+
+a[aria-expanded=false] .glyphicon-chevron-up {
+   display: none;
+}
+a[aria-expanded=true] .glyphicon-chevron-down {
+   display: none;
+}
+// ---------------------------------------------------
+
+//Styling of the collapsed panel of each tile --------
+
+.featureTitle {
+    font-size: 1em;
+    font-weight: bold;
 }
 
 // Background color of features
@@ -72,17 +134,19 @@ input[type='checkbox']:checked.filter-checkbox + label:before {/*checked icon*/
     color: #fff;
     cursor: help;
     display: block;
-    margin: 3px;
-    padding: 3px 40px 3px 10px;
-    font-size: 1em;
+    margin: 3px 0px 3px 0px;
+    min-width: 67px;
+    padding: 3px 3px 3px 5px;
+    font-size: x-small;
 }
 
 .selected {
-    border: 2px solid #dadada;
-    outline: none;
-    border-color: greenyellow;
-    box-shadow: 0 0 10px greenyellow;
-}
+    border: 2px solid lightgreen;
+    box-shadow: 0 0 10px lightgreen;
+} 
+
+// ---------------------------------------------------
+
 
 /*.selected {
     background-repeat: no-repeat;
@@ -92,19 +156,4 @@ input[type='checkbox']:checked.filter-checkbox + label:before {/*checked icon*/
 }
 */
 
-//Styling of the collapse panels
-.featureTitle {
-    font-size: 1em;
-    font-weight: bold;
-}
 
-a[aria-expanded=true] .glyphicon-chevron-up {
-   display: none;
-}
-a[aria-expanded=false] .glyphicon-chevron-down {
-   display: none;
-}
-
-.dropIcon {
-    color: #337ab7;
-}

@@ -1,5 +1,7 @@
 [
     {
+        "status": "Active",
+        "nativejavascript": "true",
         "comparison_data_last_update" : "",
         "framework_current_version" : "",
         "framework": "Smartface",
@@ -27,7 +29,9 @@
         }
         ,
         {
+        "status": "Discontinued",
         "framework":"AppConKit",
+        "runtime": "true",
         "url":"http://www.weptun.com",
         "framework_current_version":"1.1",
         "comparison_data_last_update":"04.26.2012",
@@ -84,6 +88,8 @@
         "opensource":""
         },
         {
+            "status": "Active",
+            "sourcecode": "true",
         "framework":"Apache Flex",
 
         "url":"http://flex.apache.org/",
@@ -198,6 +204,8 @@
         }
         ,
         {
+            "status": "Active",
+            "sourcecode": "true",
         "framework":"Agate",
 
         "url":"http://applusform.com/en",
@@ -284,7 +292,9 @@
         }
         ,
         {
-        "framework":"Appcelerator Titanium Mobile",
+            "status": "Active",
+            "nativejavascript": "true",
+        "framework":"Appcelerator Titanium",
 
         "url":"http://www.appcelerator.com/",
 
@@ -396,6 +406,8 @@
         }
         ,
         {
+            "status": "Active",
+            "webtonative": "true",
         "framework":"AppGyver Steroids",
         "url":"http://www.appgyver.com/steroids",
         "framework_current_version":"3.5.x",
@@ -456,6 +468,8 @@
         "opensource":""
         },
         {
+            "status": "Active",
+            "javascript": "true",
         "framework":"Application Craft",
         "url":"http://www.applicationcraft.com",
         "framework_current_version":"1.25",
@@ -513,6 +527,8 @@
         "opensource":""
         },
         {
+            "status": "Active",
+            "javascript": "true",
         "framework":"ChocolateChip-UI",
         "url":"http://www.chocolatechip-ui.com",
         "framework_current_version":"3.0",
@@ -570,106 +586,8 @@
         "opensource":"true"
         },
         {
-        "framework":"CNET iPhone UI",
-
-        "url":"http://code.google.com/p/ciui-dev/",
-
-        "framework_current_version":"",
-
-        "comparison_data_last_update":"",
-
-        "ios":"true",
-
-        "android":"true",
-
-        
-
-
-
-        "blackberry":"true",
-
-
-
-
-
-
-
-
-
-
-
-        "mobilewebsite":"true",
-
-        "webapp":"true",
-
-
-
-
-
-        "free":"true",
-
-        "opensource":"true",
-
-
-
-
-
-
-
-
-
-
-
-
-
-        "html":"true",
-
-        "css":"true",
-
-        "js":"true",
-
-
-
-
-
-
-
-
-
-
-
-
-
-        "device":"via",
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        "cd":"true",
-
-        "widgets":"true",
-
-        "accessibility":"false"
-        }
-        ,
-        {
+            "status": "Active",
+            "runtime": "true",
         "framework":"Corona",
         "url":"http://www.coronalabs.com",
         "framework_current_version":"1",
@@ -727,6 +645,8 @@
         "opensource":"partially"
         },
         {
+            "status": "Active",
+            "javascript": "true",
         "framework":"DHTMLX Touch",
         "url":"http://www.dhtmlx.com/touch/",
         "framework_current_version":"1.0",
@@ -784,6 +704,8 @@
         "opensource":"true"
         },
         {
+            "status": "Active",
+            "javascript": "true",
         "framework":"Dojo Mobile",
         "url":"http://dojotoolkit.org/features/mobile",
         "framework_current_version":"1.8.0",
@@ -837,7 +759,9 @@
         }
         ,
         {
+            "status": "Discontinued",
         "framework":"eMobc",
+        "sourcecode": "true",
         "url":"http://www.eMobc.com",
         "framework_current_version":"0.1",
         "comparison_data_last_update":"09/11/2012",
@@ -894,6 +818,8 @@
         "opensource":"true"
         },
         {
+            "status": "Active",
+            "javascript": "true",
         "framework":"Framework7",
         "url":"http://idangero.us/framework7/",
         "framework_current_version":"1.0.0",
@@ -935,6 +861,8 @@
         "opensource":"true"
         },
         {
+            "status": "Active",
+            "runtime": "true",
         "framework":"Gideros",
         "url":"http://giderosmobile.com/",
         "framework_current_version":"2014.01",
@@ -992,63 +920,8 @@
         "opensource":"false"
         },
         {
-        "framework":"Gideros",
-        "url":"http://giderosmobile.com/",
-        "framework_current_version":"2014.01",
-        "comparison_data_last_update":"29.01.2014",
-        "ios":"true",
-        "android":"true",
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        "nativeapp":"true",
-        
-        
-        
-        
-        
-        
-        "lua":"true",
-        
-        
-        
-        
-        
-        "accelerometer":"true",
-        "camera":"true",
-        "capture":"true",
-        "compass":"true",
-        "connection":"true",
-        
-        "device":"true",
-        "nativeevents":"true",
-        "file":"true",
-        "geolocation":"true",
-        "notification":"true",
-        "storage":"true",
-        "gestures_multitouch":"true",
-        "messages_telephone":"",
-        "bluetooth":"",
-        "nfc":"",
-        "vibration":"true",
-        "cd":"true",
-        "widgets":"true",
-        
-        "sdk":"true",
-        "encryption":"true",
-        "ads":"true",
-        "free":"partially",
-        "opensource":"false"
-        },
-        {
+            "status": "Active",
+            "appfactory": "true",
         "framework":"Handheld Designer",
         "url":"http://handhelddesigner.com",
         "framework_current_version":"1.5.0",
@@ -1106,6 +979,8 @@
         "opensource":""
         },
         {
+            "status": "Active",
+            "javascript": "true",
         "comparison_data_last_update" : "",
         "framework_current_version" : "1.1.0",
         "framework": "ionic",
@@ -1149,7 +1024,9 @@
         }
         ,
         {
+            "status": "Discontinued",
         "framework":"iUI",
+        "javascript": "true",
         "url":"http://www.iui-js.org/documentation.html",
         "framework_current_version":"",
         "comparison_data_last_update":"",
@@ -1201,6 +1078,8 @@
         }
         ,
         {
+            "status": "Discontinued",
+            "javascript": "true",
         "framework":"JQ Touch",
 
         "url":"http://jqtouch.com/",
@@ -1269,6 +1148,8 @@
         }
         ,
         {
+            "status": "Active",
+            "javascript": "true",
         "framework":"jQuery Mobile",
         "url":"http://jquerymobile.com/",
         "framework_current_version":"",
@@ -1296,6 +1177,8 @@
         }
         ,
         {
+            "status": "Active",
+            "javascript": "true",
         "framework":"Kendo UI",
         "url":"http://www.kendoui.com",
         "framework_current_version":"",
@@ -1333,6 +1216,8 @@
         }
         ,
         {
+            "status": "Active",
+            "runtime": "true",
         "framework":"Kivy",
 
         "url":"http://kivy.org",
@@ -1453,6 +1338,8 @@
         }
         ,
         {
+            "status": "Active",
+            "sourcecode": "true",
         "framework":"Marmalade",
         "url":"http://www.madewithmarmalade.com",
         "framework_current_version":"6.1.1",
@@ -1510,6 +1397,8 @@
         "opensource":"partially"
         },
         {
+            "status": "Active",
+            "runtime": "true",
         "framework":"Moai",
         "url":"http://www.getmoai.com",
         "framework_current_version":"0.8",
@@ -1567,7 +1456,9 @@
         "opensource":"true"
         },
         {
-        "framework":"Mobify.js",
+            "status": "Discontinued",
+            "javascript": "true",
+        "framework":"MobifyJS",
         "url":"http://www.mobifyjs.com",
         "framework_current_version":"1.0",
         "comparison_data_last_update":"08272012",
@@ -1624,6 +1515,8 @@
         "opensource":"true"
         },
         {
+            "status": "Discontinued",
+            "runtime": "true",
         "comparison_data_last_update" : "",
         "framework_current_version" : "",
         "framework": "Monocross",
@@ -1671,6 +1564,8 @@
         }
         ,
         {
+            "status": "Discontinued",
+            "runtime": "true",
         "framework":"Mono for Android",
         "url":"http://xamarin.com/monoforandroid",
         "MonoforAndroid 4.2.4":"Stable",
@@ -1728,6 +1623,8 @@
         "opensource":"false"
         },
         {
+            "status": "Discontinued",
+            "runtime": "true",
         "framework":"MonoTouch",
         "url":"http://xamarin.com/monotouch/",
         "MonoTouch 5.2.13":"Stable",
@@ -1785,6 +1682,8 @@
         "opensource":"false"
         },
         {
+            "status": "Discontinued",
+            "javascript": "true",
         "framework":"The-M-Project",
         "url":"http://www.the-m-project.org",
         "framework_current_version":"1.0",
@@ -1842,6 +1741,8 @@
         "opensource":"true"
         },
         {
+            "status": "Active",
+            "sourcecode": "true",
         "framework": "NeoMAD",
         "url": "http://neomades.com",
         "framework_current_version" : "3.7.1",
@@ -1888,6 +1789,8 @@
         }
         ,
         {
+            "status": "Discontinued",
+            "runtime": "true",
         "framework":"NimbleKit",
         "url":"http://nimblekit.com/",
         "framework_current_version":"1.9.8",
@@ -1944,6 +1847,8 @@
         "opensource":"false"
         },
         {
+            "status": "Active",
+            "appfactory": "true",
         "framework":"NSB/AppStudio",
         "url":"http://www.nsbasic.com/app",
         "framework_current_version":"5.0.14.0",
@@ -1969,7 +1874,7 @@
         
         
         
-        
+        "basic": "true",
         "html":"true",
         "css":"true",
         "js":"true",
@@ -1998,6 +1903,8 @@
         "ads":"true"
         },
         {
+            "status": "Active",
+            "javascript": "true",
         "framework":"Onsen UI",
         "url":"http://www.onsen.io/",
         "framework_current_version":"1.3.13",
@@ -2044,6 +1951,8 @@
         }
         ,
         {
+            "status": "Active",
+            "webtonative": "true",
         "framework":"PhoneGap",
         "url":"http://www.phonegap.com/",
         "framework_current_version":"",
@@ -2091,6 +2000,8 @@
         }
         ,
         {
+            "status": "Discontinued",
+            "javascript": "true",
         "framework":"qooxdoo",
         "url":"http://qooxdoo.org",
         "framework_current_version":"2.0",
@@ -2145,6 +2056,8 @@
         "accessibility":"false"
         },
         {
+            "status": "Discontinued",
+            "appfactory": "true",
         "framework":"RareWire",
         "url":"http://www.rarewire.com",
         "framework_current_version":"1.4",
@@ -2202,6 +2115,8 @@
         "opensource":"none"
         },
         {
+            "status": "Active",
+            "runtime": "true",
         "framework":"Rhodes",
         "url":"http://www.rhomobile.com/",
         "framework_current_version":"",
@@ -2249,6 +2164,8 @@
         }
         ,
         {
+            "status": "Active",
+            "javascript": "true",
         "framework":"Sencha Touch",
         "url":"http://www.sencha.com/products/touch/",
         "framework_current_version":"",
@@ -2285,6 +2202,8 @@
         }
         ,
         {
+            "status": "Active",
+            "runtime": "true",
         "framework":"ShiVa 3D",
         "url":"http://www.shivaengine.com",
         "framework_current_version":"1.9",
@@ -2342,6 +2261,8 @@
         "opensource":"false"
         },
         {
+            "status": "Active",
+            "webtonative": "true",
         "framework":"Trigger.io",
         "url":"https://trigger.io/",
         "framework_current_version":"1.4",
@@ -2371,6 +2292,8 @@
         "free":"partially"
         },
         {
+            "status": "Active",
+            "appfactory": "true",
         "framework":"ViziApps",
         "url":"http://viziapps.com",
         "framework_current_version":"2.5.5",
@@ -2428,6 +2351,8 @@
         "opensource":"false"
         },
         {
+            "status": "Discontinued",
+            "runtime": "true",
         "framework":"V-Play",
         "url":"http://www.v-play.net",
         "framework_current_version":"1.2",
@@ -2485,6 +2410,8 @@
         "opensource":"partially"
         },
         {
+            "status": "Discontinued",
+            "javascript": "true",
         "framework":"wink",
         "url":"http://www.winktoolkit.org",
         "framework_current_version":"1.4.1",
@@ -2542,6 +2469,9 @@
         "opensource":"true"
         },
         {
+            "status": "Active",
+            "runtime": "true",
+            "sourcecode": "true",
         "comparison_data_last_update" : "",
         "framework_current_version" : "",
         "framework": "Xamarin",
@@ -2584,6 +2514,8 @@
         }
         ,
         {
+            "status": "Active",
+            "javascript": "true",
         "framework":"Zepto.js",
         "url":"http://zeptojs.com/",
         "framework_current_version":"",
