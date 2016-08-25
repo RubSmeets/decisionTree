@@ -34,7 +34,7 @@
             var textCompare;
             this.filterText = filterText;
 
-            frameworkName = (($(framework).find(".framework-title"))[0].innerHTML).toLowerCase();    // get text from div
+            frameworkName = (($(framework).find(".thumb-caption"))[0].innerHTML).toLowerCase();    // get text from div
             textCompare = frameworkName.indexOf(filterText.toLowerCase());
             
             if( textCompare === -1 ) {

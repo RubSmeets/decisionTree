@@ -30,7 +30,7 @@ def checkLogoAvailability( str ):
 #status keywords
 status = [
     "active",
-    "dead"
+    "discontinued"
 ]
 #Technology keywords
 technology = [
@@ -160,9 +160,9 @@ footerRight = {
 }
 
 formatKey = {
-    "all": "All",
+    "all": "Show All",
     "active":"Active",
-    "dead":"Discontinued",
+    "discontinued":"Discontinued",
 
     "nativejavascript": "Native JavaScript",
     "webtonative": "Web-to-native wrapper",
@@ -292,8 +292,8 @@ numOfElements = len(frameworks)
 content = ""
 for i in range(0, numOfElements):
     #Start panel group
-    content+= str("""<div class="col-md-4">
-    \t<div class="thumbnail framework">
+    content+= str("""<div class="col-md-4 framework">
+    \t<div class="thumbnail">
     \t\t<img src="img/logos/""" + checkLogoAvailability(formatString(frameworks[i].get('framework'))) + """.png" alt="">
     \t\t<div class="caption">
     \t\t\t<h4 class="thumb-caption">""" + frameworks[i].get('framework') + """</h4>
