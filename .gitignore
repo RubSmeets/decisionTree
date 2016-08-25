@@ -1,3 +1,9 @@
 # ignore sass compilation files
 .sass-cache/
 *.css.map
+
+# ignore normal logos
+logos_normalsize/
+
+# ignore backup html.index
+*_org*.html
