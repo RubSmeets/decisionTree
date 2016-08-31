@@ -36,7 +36,7 @@ status = [
 technology = [
     "nativejavascript",
     "webtonative",
-    "javascript",
+    "javascript_tool",
     "sourcecode",
     "runtime",
     "appfactory"
@@ -109,7 +109,9 @@ other = [
 #Other features keywords
 license = [
     "free",
-    "opensource"
+    "opensource",
+    "commercial",
+    "enterprise"
 ]
 
 # Create the filter list from the existing keyword lists
@@ -119,7 +121,7 @@ filters = [
     technology,
     platforms,
     target,
-    hardware,
+    #hardware,
     developmentLanguage,
     #userInterface,
     #other,
@@ -131,7 +133,7 @@ filterNames = [
     "Technology",
     "Platform",
     "Target",
-    "Hardware Features",
+    #"Hardware Features",
     "Development Language",
     "License"
 ]
@@ -141,7 +143,7 @@ filterDesc = [
     "What cross-platform technology must be used?",
     "Which platforms must be supported by the framework?",
     "What type of application should the framework output?",
-    "Which hardware features must be supported?",
+    #"Which hardware features must be supported?",
     "Which development language would you like to use?",
     "What license is required?"
 ]
@@ -166,7 +168,7 @@ formatKey = {
 
     "nativejavascript": "Native JavaScript",
     "webtonative": "Web-to-native wrapper",
-    "javascript": "JS framework/toolkit",
+    "javascript_tool": "JS framework/toolkit",
     "sourcecode": "Source-code translator",
     "runtime": "Runtime",
     "appfactory": "App Factory",
@@ -178,11 +180,19 @@ formatKey = {
 
     "ios":"iOS",
     "android":"Android",
+    "wup":"Windows10",
     "windowsphone":"WindowsPhone",
     "watchos": "Watch OS",
     "tizen": "Tizen",
     "firefoxos": "Firefox OS",
     "blackberry": "Blackberry",
+    "appletv": "Apple TV",
+    "androidtv": "Android TV",
+    "bada":"Bada",
+    "osx":"OSX",
+    "windows":"Windows",
+    "symbian":"Symbian",
+    "webos":"WebOS",
 
     "php":"PHP",
     "basic": "Basic",
@@ -196,8 +206,8 @@ formatKey = {
     "js":"JavaScript",
     "cplusplus":"C++",
     "xml": "XML",
-
     "visualeditor":"Visual Editor",
+
     "accelerometer":"Accelerometer",
     "camera":"Camera",
     "capture":"Capture",
@@ -226,6 +236,8 @@ formatKey = {
 
     "free":"Free",
     "opensource":"Open Source",
+    "commercial":"Commercial lic.",
+    "enterprise":"Enterprise Lic.",
 
     "url": "Official Website",
     "documentation_url": "Official Docs",
@@ -301,17 +313,17 @@ for i in range(0, numOfElements):
     #Fill in technology
     content+= str("""\t\t\t<span class="info-label """)
     for key, value in frameworks[i].iteritems():
-        if key in technology and value and value != "none" and value != "false":
+        if key in technology and value and value != "none" and value != "false" and value != "UNDEF" and value != "EMPTY":
             content+= str(key) + " "
     content+= str("""\">""")
     for key, value in frameworks[i].iteritems():
-        if key in technology and value and value != "none" and value != "false":
+        if key in technology and value and value != "none" and value != "false" and value != "UNDEF" and value != "EMPTY":
             content+= str(formatKey.get(key)) + " + "
     content = content[:-2]  #strip last "+ " from string
     content+= """</span>\n"""
 	#Fill in CPT status
     for key, value in frameworks[i].iteritems():
-        if (str(value) == "Active" or str(value) == "Discontinued") and value and value != "none" and value != "false":
+        if (str(value) == "Active" or str(value) == "Discontinued") and value and value != "none" and value != "false" and value != "UNDEF" and value != "EMPTY":
             content+= """\t\t\t<span class="info-label """ + str(key) + " " + str(value).lower() + """\">""" + str(value) + """</span>\n"""
     content+= str("""\t\t\t<div>
     \t\t\t\t<h4 class="panel-title">
@@ -331,7 +343,7 @@ for i in range(0, numOfElements):
     \t\t\t\t\t\t\t\t<h4 class="featureTitle">Platform</h4>
     """)
     for key, value in frameworks[i].iteritems():
-        if key in platforms and value and value != "none" and value != "false":
+        if key in platforms and value and value != "none" and value != "false" and value != "UNDEF" and value != "EMPTY":
             content+= """\t\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
     #Fill in target
     content+= str("""\t\t\t\t\t\t\t</div>
@@ -339,7 +351,7 @@ for i in range(0, numOfElements):
     \t\t\t\t\t\t\t\t<h4 class="featureTitle">Target</h4>
     """)
     for key, value in frameworks[i].iteritems():
-        if key in target and value and value != "none" and value != "false":
+        if key in target and value and value != "none" and value != "false" and value != "UNDEF" and value != "EMPTY":
             content+= """\t\t\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
     #Fill in Development Language
     content+= str("""\t\t\t\t\t\t\t</div>
@@ -349,7 +361,7 @@ for i in range(0, numOfElements):
     \t\t\t\t\t\t\t\t<h4 class="featureTitle">Development Language</h4>
     """)
     for key, value in frameworks[i].iteritems():
-        if key in developmentLanguage and value and value != "none" and value != "false":
+        if key in developmentLanguage and value and value != "none" and value != "false" and value != "UNDEF" and value != "EMPTY":
             content+= """\t\t\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
     #Fill in Terms of license
     content+= str("""\t\t\t\t\t\t\t\t</div>
@@ -357,8 +369,13 @@ for i in range(0, numOfElements):
     \t\t\t\t\t\t\t\t<h4 class="featureTitle">Terms of a License</h4>
     """)
     for key, value in frameworks[i].iteritems():
-        if key in license and value and value != "none" and value != "false":
+        if key in license and value and value != "none" and value != "false" and value != "UNDEF" and value != "EMPTY":
             content+= """\t\t\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
+        elif key == "license":
+            if "commercial" in value:
+                content+= """\t\t\t\t\t\t\t\t<span class="feature commercial true"\">""" + str(formatKey.get("commercial")) + """</span>\n"""
+            if "enterprise" in value:
+                content+= """\t\t\t\t\t\t\t\t<span class="feature enterprise true"\">""" + str(formatKey.get("enterprise")) + """</span>\n"""
     #Add finish
     content+= str("""\t\t\t\t\t\t\t</div>
     \t\t\t\t\t\t</div>
@@ -375,7 +392,7 @@ print content
 placeholder1 = """<div class="col-md-3 filters">"""
 placeholder2 = """<div class="col-md-9">"""
 
-with open('indexCopy.html', 'r+') as orginal, open('index.html', 'w') as output:
+with open('index_template.html', 'r+') as orginal, open('index.html', 'w') as output:
     for line in orginal:
         if 'col-md-3 placeholder' in line:
             output.write(placeholder1)
