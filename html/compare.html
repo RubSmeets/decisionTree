@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Compare Frameworks Page</title>
+		<meta charset="utf-8"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- Style Sheets -->
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+		<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+		<link rel="stylesheet" href="../css/compareFramework.css" type="text/css"/>
+
+		<!-- Remote scripts -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+
+		<!-- Local scripts -->
+		<script src="../js/compareFramework.js"></script>
+
+	</head>
+	<body>
+		<!-- Modal overlay to search frameworks (BEST DEFINED AT TOP)-->
+		<div class="modal fade" id="addFrameworkModal" tabindex="-1" role="dialog" aria-labelledby="addFrameworkModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<table id="addFrameworksTable"></table>
+				</div>
+			</div>
+		</div>
+
+		<!-- HEADER -->
+		<div class="jumbotron">
+			<div class="container">
+				<h1>Mobile Framework Comparison Tool</h1>
+				<p>Compare your favorite mobile development tool with other existing tools out there. Determine which tool is best suited for your needs by filtering the list of tracked tools with your search criteria.</p>
+				<p>
+					<a class="btn btn-primary btn-lg" href="../index.html" role="button">Home &raquo;</a>
+				</p>
+			</div>
+		</div>
+		<!--------------------------------------------------------->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 centered">
+					<!-- Button trigger modal -->
+					<button type="button" class="btn btn-success add-framework" data-toggle="modal" data-target="#addFrameworkModal">
+						<span class="glyphicon glyphicon-plus add-framework-icon"></span>
+						<span>Add framework</span>
+					</button>
+				</div>
+				<div class="col-md-8">
+					<div class="col-md-4">
+						<div class="my_planHeader my_plan2">
+							<div class="my_planTitle">Plan 2</div>
+							<div class="my_planPrice">2€</div>
+							<div class="my_planDuration">per month</div>
+							<a type="button" class="btn btn-default">Sign Up</a>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="my_planHeader my_plan3">
+							<div class="my_planTitle">Plan 3</div>
+							<div class="my_planPrice">3.75€</div>
+							<div class="my_planDuration">per month</div>
+							<a type="button" class="btn btn-default">Sign Up</a>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="my_planHeader my_plan3">
+							<div class="my_planTitle">Plan 3</div>
+							<div class="my_planPrice">3.75€</div>
+							<div class="my_planDuration">per month</div>
+							<a type="button" class="btn btn-default">Sign Up</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

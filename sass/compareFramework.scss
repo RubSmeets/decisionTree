@@ -1,0 +1,127 @@
+.centered {
+    text-align: center;
+}
+
+/* Modal table styling */
+#addFrameworksTable_filter label {
+    display: block;
+    margin: 0px;
+}
+
+.dataTables_wrapper table thead {
+    display:none;
+}
+.dataTables_wrapper .dataTables_paginate {
+    display:none;
+}
+.dataTables_wrapper table {
+    width: 100%;
+}
+
+.dataTables_wrapper {
+    border-radius: 6px;
+}
+
+table.dataTable.no-footer {
+    border: none;
+}
+
+#addFrameworksTable_wrapper tr {
+    cursor: pointer;
+}
+
+#addFrameworksTable_wrapper .dataTables_empty {
+    background-color: #555;
+    color: #fff;
+    cursor: not-allowed;
+    height: 30px;
+    font-size: 16px;
+    line-height: 30px;
+}
+
+input.modal-search {
+    display: block;
+    width: 100%;
+    height: 50px;
+    padding: 6px 12px;
+    font-size: 22px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15;
+}
+
+.modal-search-feedback {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    display: block;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    pointer-events: none;
+}
+/* -----------------------------------*/
+
+/* Add framework to compare button */
+button.add-framework {
+    height: 150px;
+    width: 150px;
+}
+
+.add-framework .add-framework-icon {
+    display: block;
+    font-size: 70px;
+    margin: 10px;
+    padding-left: 10px;
+}
+/* -----------------------------------*/
+
+/* Modal list item styling */
+#addFrameworkModal .results .thumb-framework {
+    height: 40px;
+    width: 40px;
+    background: white;
+    border: 1px solid #e6e6e6;
+    border-radius: 2px;
+    display: block;
+    padding: 2px;
+    margin-right: 10px;
+    float: left;
+}
+
+/*#addFrameworkModal .results .thumb-framework img {
+    height: 34px;
+    width: 34px;
+}*/
+
+img {
+    height: 34px;
+    max-width: 50px;
+}
+
+#addFrameworkModal .results .thumb-title {
+    display: block;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+#addFrameworkModal .results .thumb-status.active {
+    color: #9BB831;
+}
+
+#addFrameworkModal .results .thumb-add {
+    top: 14px;
+    color: #337ab7;
+}
+/* -----------------------------------*/
