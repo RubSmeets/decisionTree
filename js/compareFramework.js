@@ -1,30 +1,13 @@
 ;(function($, window, document, undefined) {
     'use strict';
 
-    /* Add framework to comparison searchbox */
-    var SearchModal = {
-
-        initVariables: function() {
-            this.$modalContainer = $("#addFrameworkModal");
-        },
-
-        init: function() {
-            this.initVariables();
-            this.bindEvents();
-            console.log( "init and Bindings searchModal complete!" );
-        },
-
-        bindEvents: function() {
-            
-        },
-
-
-
-    }
-
     /* Datatable functionality */
     var DataTable = {
         initVariables: function() {
+            this.frameworkTable = null;
+        },
+
+        cacheElements: function() {
             this.$modalContainer = $("#addFrameworkModal");
             this.$frameworkTable = $("#addFrameworksTable");
             this.$filterFieldContainer = $('#addFrameworksTable_filter');
@@ -32,37 +15,38 @@
         },
 
         init: function($frameworkTable) {
-            this.initTable($frameworkTable);
             this.initVariables();
+            this.initTable($frameworkTable);
+            this.cacheElements();
             this.cleanMarkup();
             this.bindEvents();
         },
 
         initTable: function($frameworkTable) {
-            $frameworkTable.DataTable({
+            this.frameworkTable = $frameworkTable.DataTable({
                 ajax: {
                     url: '../php/testThumbFrameworks.php',
                     dataSrc: "frameworks"
                 },
+                "columnDefs": [
+                    { "visible": false, "targets": 1 }  // hide second column
+                ],
                 columns: [
-                    {data: 'thumb_img',
+                    {
+                        data: 'framework',
+                        "type": "html",
                         render: function (data, type, row) {
                             if (type ==='display') {
                                 var thumbs = "";
-                                thumbs = '<img src="'+data+'" class="compareThumb"/>';
+                                thumbs = '<span class="thumb-framework"><img src="' + row.thumb_img + '" alt=""/></span> \
+							              <span class="glyphicon glyphicon-plus pull-right thumb-add"></span> \
+							              <span class="thumb-title">' + data + '</span> \
+							              <span class="thumb-status ' + row.status.toLowerCase() + '">' + row.status + '</span>';
                                 return thumbs;
                             } else return '';
                         }
                     },
-                    {data: 'framework',
-                        render: function (data, type, row) {
-                            if (type ==='display') {
-                                var title = "";
-                                title = '<img src="'+data+'" class="compareThumb"/>';
-                                return title;
-                            } else return '';
-                        }
-                    }
+                    {data:'framework'}  //Must provide second column in order for search to work...
                 ],
                 language: {
                     search: "<i class='glyphicon glyphicon-search modal-search-feedback'></i>",
@@ -90,6 +74,11 @@
                 // On modal overlay shown focus the search field
                 that.$filterField.focus();
             });
+
+            this.$frameworkTable.find('tbody').on('click', 'tr', function () {
+                var data = that.frameworkTable.row( this ).data();
+                
+            } );
         }
 
 
@@ -99,15 +88,19 @@
     var CF = {
         
         initVariables: function() {
+            
+        },
+
+        cacheElements: function() {
             this.$frameworkTable = $('#addFrameworksTable');
         },
 
         init: function() {
             this.initVariables();
+            this.cacheElements();
             this.bindEvents();
 
             DataTable.init(this.$frameworkTable);
-            SearchModal.init();
 
             console.log( "all init and Bindings complete!" );
         },

@@ -17,19 +17,15 @@
 .dataTables_wrapper table {
     width: 100%;
 }
-
 .dataTables_wrapper {
     border-radius: 6px;
 }
-
 table.dataTable.no-footer {
     border: none;
 }
-
 #addFrameworksTable_wrapper tr {
     cursor: pointer;
 }
-
 #addFrameworksTable_wrapper .dataTables_empty {
     background-color: #555;
     color: #fff;
@@ -38,7 +34,6 @@ table.dataTable.no-footer {
     font-size: 16px;
     line-height: 30px;
 }
-
 input.modal-search {
     display: block;
     width: 100%;
@@ -58,7 +53,6 @@ input.modal-search {
     -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15;
 }
-
 .modal-search-feedback {
     position: absolute;
     top: 0;
@@ -70,6 +64,41 @@ input.modal-search {
     line-height: 50px;
     text-align: center;
     pointer-events: none;
+}
+/* -----------------------------------*/
+
+/* Style of addFramework Item */
+#addFrameworksTable .thumb-framework {
+    height: 40px;
+    width: 40px;
+    background: white;
+    border: 1px solid #e6e6e6;
+    border-radius: 2px;
+    display: block;
+    padding: 2px;
+    margin-right: 10px;
+    float: left;
+}
+
+#addFrameworksTable .thumb-framework img {
+    height: 34px;
+    max-width: 34px;
+}
+
+#addFrameworksTable .thumb-title {
+    display: block;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+#addFrameworksTable .thumb-status.active {
+    color: #9BB831;
+}
+
+#addFrameworksTable .thumb-add {
+    top: 14px;
+    right: 8px;
+    color: #337ab7;
 }
 /* -----------------------------------*/
 
@@ -87,41 +116,3 @@ button.add-framework {
 }
 /* -----------------------------------*/
 
-/* Modal list item styling */
-#addFrameworkModal .results .thumb-framework {
-    height: 40px;
-    width: 40px;
-    background: white;
-    border: 1px solid #e6e6e6;
-    border-radius: 2px;
-    display: block;
-    padding: 2px;
-    margin-right: 10px;
-    float: left;
-}
-
-/*#addFrameworkModal .results .thumb-framework img {
-    height: 34px;
-    width: 34px;
-}*/
-
-img {
-    height: 34px;
-    max-width: 50px;
-}
-
-#addFrameworkModal .results .thumb-title {
-    display: block;
-    font-size: 16px;
-    font-weight: 800;
-}
-
-#addFrameworkModal .results .thumb-status.active {
-    color: #9BB831;
-}
-
-#addFrameworkModal .results .thumb-add {
-    top: 14px;
-    color: #337ab7;
-}
-/* -----------------------------------*/

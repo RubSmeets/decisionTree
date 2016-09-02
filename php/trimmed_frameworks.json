@@ -2,11 +2,7 @@
   {
     "status": "Active", 
     "framework": "Smartface", 
-    "thumb_img": {
-      "test":"../img/logos/smartface.png",
-      "data":"Whatt???",
-      "dataMore": "Wajafzf??"
-    }
+    "thumb_img": "../img/logos/smartface.png"
   }, 
   {
     "status": "Discontinued", 

@@ -39,7 +39,7 @@ for i in range(0, numOfElements):
             del frameworksCopy[i][key]
         found = 0
 
-frameworksFinalCopy = copy.deepcopy(frameworksCopy)
+frameworksCopyStage2 = copy.deepcopy(frameworksCopy)
 
 # Create list with imageNames from existing logos in folder "../img/logos/"
 imgList = []
@@ -57,13 +57,39 @@ for i in range(0, numOfElements):
                 foundImg = img
                 found = 1
     if(found == 1):
-        frameworksFinalCopy[i]["thumb_img"] = foundImg
+        frameworksCopyStage2[i]["thumb_img"] = foundImg
         found = 0
     else:
-        frameworksFinalCopy[i]["thumb_img"] = "../img/logos/notfound.png"
+        frameworksCopyStage2[i]["thumb_img"] = "../img/logos/notfound.png"
 
+# !IMPORTANT change "frameworksCopyStage2" to "frameworksFinal"
+# in output write --> to wrap the final json in a data object
+# e.g.:
+# {
+#   "data": {
+#       ... 
+#   }   
+# }
+# Insert new element "data"
+frameworksFinal = []
+for i in range(0, numOfElements):
+    frameworksFinal.append({"data":{}});
+# format existing key,value to fit into new data object
+for i in range(0, numOfElements):
+    for key, value in frameworksCopyStage2[i].iteritems():
+        frameworksFinal[i]["data"][key] = value
+
+# write output to file
 with open('trimmed_frameworks.json', 'w') as data_file:
     print "Write to file trimmed_frameworks.json"
-    data_file.write(json.dumps(frameworksFinalCopy, indent=2))
+    data_file.write(json.dumps(frameworksCopyStage2, indent=2))
+
+#Move generated file and create backup of original
+if os.path.isfile("../../../php/trimmed_frameworks.json"):
+    print "file found " + "trimmed_frameworks.json"
+    os.rename("../../../php/trimmed_frameworks.json", ("../../../php/trimmed_frameworks_org" + time.strftime("-%d_%m_%y-%H_%M") + ".json"))
+    print "Create backup trimmed_frameworks.json"
+    os.rename("./trimmed_frameworks.json", "../../../php/trimmed_frameworks.json")
+    print "moved new file to php folder"
 
 print "-- FINISHED thumb data generation --"
