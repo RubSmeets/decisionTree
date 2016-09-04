@@ -280,8 +280,8 @@ for i in range(0, numOfFilters):
     """)
     #Create filterboxes
     for item in filters[i]:
-        filterContent+= str("""\t\t\t\t\t<input id=\"""" + item + """\" type="checkbox" value=\"""" + item + """\" class="filter-checkbox"/>
-        \t\t\t\t\t<label for=\"""" + item +"""\" class="filter-label">""" + str(formatKey.get(item)) + """</label>
+        filterContent+= str("""\t\t\t\t\t<input id=\"""" + item + """\" type="checkbox" value=\"""" + item + """\" class="custom-checkbox"/>
+        \t\t\t\t\t<label for=\"""" + item +"""\" class="checkbox-label">""" + str(formatKey.get(item)) + """</label>
         """)
     filterContent+= str("""\t\t\t\t</fieldset>
     \t\t\t</div>
@@ -325,6 +325,11 @@ for i in range(0, numOfElements):
     for key, value in frameworks[i].iteritems():
         if (str(value) == "Active" or str(value) == "Discontinued") and value and value != "none" and value != "false" and value != "UNDEF" and value != "EMPTY":
             content+= """\t\t\t<span class="info-label """ + str(key) + " " + str(value).lower() + """\">""" + str(value) + """</span>\n"""
+    #Add compare button and link
+    content+= str("""\t\t\t<input id="compare-""" + str(formatString(frameworks[i].get('framework'))) + """\" type="checkbox" value="compare" class="custom-checkbox compare-checkbox"/>
+    \t\t\t<label for="compare-""" + str(formatString(frameworks[i].get('framework'))) + """\" class="checkbox-label compare-label">Compare</label>
+	\t\t\t<a class="btn btn-danger btn-xs btn-block compare-link hidden" href="html/compare.html" role="button">Go to compare</a>
+    """)
     content+= str("""\t\t\t<div>
     \t\t\t\t<h4 class="panel-title">
     \t\t\t\t\t<a data-toggle="collapse" aria-expanded="false" href="#collapse""" + str(i+numOfFilters) + """\">

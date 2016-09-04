@@ -52,11 +52,13 @@
     var MFCT = {
         initVariables: function() {
             this.filterTerms = [];
+            this.comparedItems = [];
             this.checkboxes = $('[type=checkbox]');
             this.frameworks = $(".framework");
             this.filterContainer = $('.filters');
             this.msg = $("#msg");
             this.clearButton = $('.btn-clear');
+            this.$compareCheckboxes = $('[type=checkbox].compare-checkbox');
             console.log("variables initialized");
         },
 
@@ -74,8 +76,15 @@
         },
 
         bindEvents: function() {
+            var that = this;
             this.checkboxes.on('input change', function() {
                 MFCT.toggleClearButton();
+                console.log("fired input change global");
+            });
+
+            this.$compareCheckboxes.on('input change', function() {
+                that.updateCompareUrl(this);
+                that.determineCompareVisibility();
             });
 
             this.filterContainer.on('input change', function() {
@@ -140,6 +149,48 @@
 
             this.nothingLeft();
         },
+
+        // update compare url
+        updateCompareUrl: function(compareCheckbox) {
+            var frameworkLabel = $(compareCheckbox).siblings('.thumb-caption');
+            var frameworkName = $(frameworkLabel[0]).text();
+            var compareButtons = $('.compare-link');
+            var href = "html/compare.html?frameworks=";
+            var compareIndex = 0;
+            var i = 0;
+
+            if($(compareCheckbox).is(':checked')) {
+                this.comparedItems.push(frameworkName);
+            } else {
+                //remove element
+                compareIndex = this.comparedItems.indexOf(frameworkName);
+                this.comparedItems.splice(compareIndex, 1);
+            }
+
+            // Update href value of link button
+            for(i=0; i<this.comparedItems.length; i++) {
+                href += this.comparedItems[i] + ";"
+            }
+            // remove last ';' from href
+            href = href.slice(0, -1);
+            $(compareButtons).prop('href', href);
+        },
+        
+        determineCompareVisibility: function() {
+            var compareButtons = $('.compare-link');
+            var compareCheckbox = null;
+            if(this.comparedItems.length > 1) {
+                compareButtons.each(function () {
+                    compareCheckbox = $(this).siblings(':input');
+                    if($(compareCheckbox).is(":checked")) {
+                        $(this).removeClass("hidden");
+                    }
+                });
+            } else {
+                compareButtons.addClass("hidden");
+            }
+        },
+
         // Enable and disable button
         toggleClearButton: function() {
             if( this.checkboxes.is(":checked") ) {

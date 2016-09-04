@@ -12,7 +12,7 @@
 // ---------------------------------------------------
 
 // Filter checkbox styling----------------------------
-label.filter-label {
+label.checkbox-label {
     display: block;
     border-top: 1px solid #ddd;
     cursor: pointer;
@@ -26,7 +26,7 @@ input[type=checkbox] {
 }
 
 /* Using 2 :pseudo classes from predefined bootstrap icons*/
-input[type='checkbox'].filter-checkbox + label:before {
+input[type='checkbox'].custom-checkbox + label:before {
     position: relative;
     top: 1px;
     right: 5px;
@@ -36,13 +36,13 @@ input[type='checkbox'].filter-checkbox + label:before {
     font-size: 1em;
 }
 
-input[type='checkbox'].filter-checkbox + label:before {/*unchecked icon*/
+input[type='checkbox'].custom-checkbox + label:before {/*unchecked icon*/
     content: "\e157";
 }
-input[type='checkbox'].filter-checkbox + label:hover:before {/*icon checked on hover*/
+input[type='checkbox'].custom-checkbox + label:hover:before {/*icon checked on hover*/
     content: "\e067";
 }
-input[type='checkbox']:checked.filter-checkbox + label:before {/*checked icon*/
+input[type='checkbox']:checked.custom-checkbox + label:before {/*checked icon*/
     content: "\e067";
 }
 
@@ -91,6 +91,12 @@ div.filter-box div.panel-body {
 .info-label.active {
     color: lightgreen;
     border-color: lightgreen;
+}
+
+label.compare-label {
+    display: inline-block;
+    border: none;
+    color: #337ab7;
 }
 
 .feature-panel .dropIcon {
