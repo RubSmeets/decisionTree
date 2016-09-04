@@ -116,3 +116,43 @@ button.add-framework {
 }
 /* -----------------------------------*/
 
+/* Styling of comparison header */
+.header-container {
+    min-height: 150px;
+}
+.header-container.head1 {
+    background: rgb(105, 153, 193);
+    border-bottom: thick solid rgb(72, 109, 139);
+}
+.framework-header img {
+    max-width: 150px;
+    height: 80px;
+}
+.framework-header .caption {
+    width: 100%;
+    table-layout: fixed;
+}
+.framework-header .caption span {
+    margin-right: 4px;
+    top: 4px;
+    color: white;
+    font-size: 20px;
+}
+.framework-header .caption span:hover {
+    color: red;
+    cursor: pointer;
+}
+.framework-header .caption h4 {
+    display: inline-block;
+    color: white;
+}
+
+.framework-header {
+    text-align: center;
+    min-width: 180px;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%); /* IE 9 */
+}

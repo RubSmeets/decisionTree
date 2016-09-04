@@ -16,7 +16,7 @@ def formatString( str ):
     output = str.replace('/','').replace(' ', '').replace('-','').replace('.','')
     return output.lower()
 
-print "-- START thumb data generation --"
+print "-- START modal thumb data generation --"
 
 # Read the contents of the existing json file
 print "Read frameworks json..."
@@ -92,4 +92,4 @@ if os.path.isfile("../../../php/trimmed_frameworks.json"):
     os.rename("./trimmed_frameworks.json", "../../../php/trimmed_frameworks.json")
     print "moved new file to php folder"
 
-print "-- FINISHED thumb data generation --"
+print "-- FINISHED modal thumb data generation --"

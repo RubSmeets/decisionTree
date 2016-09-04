@@ -77,8 +77,13 @@
 
             this.$frameworkTable.find('tbody').on('click', 'tr', function () {
                 var data = that.frameworkTable.row( this ).data();
-                
-            } );
+                CF.sendRequest(data);
+                that.$modalContainer.modal('hide');
+            });
+
+            this.$filterField.on('focus', function() {
+                $(this).select();
+            });
         }
 
 
@@ -88,11 +93,14 @@
     var CF = {
         
         initVariables: function() {
-            
+            this.currentlyCompared = 0;
+            var v1 = this.getUrlParams();
+            console.log(v1[0]);
         },
 
         cacheElements: function() {
             this.$frameworkTable = $('#addFrameworksTable');
+            this.$frameworkHeaderContainer = $('#frameworkheader-container');
         },
 
         init: function() {
@@ -108,6 +116,52 @@
         bindEvents: function() {
             
         },
+
+        sendRequest: function(data) {
+            $.ajax({
+                method: "GET",
+                url: "../php/searchFramework.php?keyword=" + data.framework,
+                dataType: "html",
+                
+                error: this.errorCallback,
+                success: this.succesCallback
+            });
+        },
+
+        errorCallback: function(jqXHR, status, errorThrown) {
+            console.log("Something went wrong with request");
+        },
+
+        succesCallback: function(data, status, jqXHR) {
+            console.log("Successful request");
+            var contents = '<div class="col-md-4 header-container head1">' + data +	'</div>';
+            CF.$frameworkHeaderContainer.append(contents);
+            CF.bindEventNewItem();
+        },
+
+        bindEventNewItem: function() {
+            var that = this;
+            // First remove all click handlers and then re-attach to include new ones
+            $('.glyphicon-remove-circle').off('click')
+            $('.glyphicon-remove-circle').on('click', function() {
+                var parentContainer = $(this).parents('.col-md-4')
+                $(parentContainer).remove();
+            });
+        },
+
+        getUrlParams: function () {
+            var i = 0
+            var vars = [], hash = [];
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for(i = 0; i < hashes.length; i++) {
+                hash = hashes[i].split('=');
+                if(hash[0] === "frameworks") {
+                    vars = hash[1].split(';');
+                }
+            }
+            return vars;
+        }
+
     }
 
 
