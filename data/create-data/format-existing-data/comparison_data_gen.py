@@ -49,6 +49,8 @@ for i in range(0, numOfElements):
                         foundImg = img
                 if foundImg != "":
                     contents += """<img src=\"""" + str(foundImg) + """\" alt="">"""
+                else:
+                    contents += """<img src="../img/logos/notfound.png" alt="">"""
                 contents += """<table class="caption"><tr><td style="width:40px"><span class="glyphicon glyphicon-remove-circle"></span></td><td align="left"><h4 class="thumb-caption">""" + str(value) + """</h4></td></tr></table></div>"""
                 jsonData[i]["header"] = contents
                 jsonData[i]["framework"] = value

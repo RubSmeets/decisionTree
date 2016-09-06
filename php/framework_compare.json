@@ -4,7 +4,7 @@
     "framework": "Smartface"
   }, 
   {
-    "header": "<div class=\"framework-header\"><table class=\"caption\"><tr><td style=\"width:40px\"><span class=\"glyphicon glyphicon-remove-circle\"></span></td><td align=\"left\"><h4 class=\"thumb-caption\">AppConKit</h4></td></tr></table></div>", 
+    "header": "<div class=\"framework-header\"><img src=\"../img/logos/notfound.png\" alt=\"\"><table class=\"caption\"><tr><td style=\"width:40px\"><span class=\"glyphicon glyphicon-remove-circle\"></span></td><td align=\"left\"><h4 class=\"thumb-caption\">AppConKit</h4></td></tr></table></div>", 
     "framework": "AppConKit"
   }, 
   {
@@ -100,7 +100,7 @@
     "framework": "Monocross"
   }, 
   {
-    "header": "<div class=\"framework-header\"><table class=\"caption\"><tr><td style=\"width:40px\"><span class=\"glyphicon glyphicon-remove-circle\"></span></td><td align=\"left\"><h4 class=\"thumb-caption\">Mono for Android</h4></td></tr></table></div>", 
+    "header": "<div class=\"framework-header\"><img src=\"../img/logos/notfound.png\" alt=\"\"><table class=\"caption\"><tr><td style=\"width:40px\"><span class=\"glyphicon glyphicon-remove-circle\"></span></td><td align=\"left\"><h4 class=\"thumb-caption\">Mono for Android</h4></td></tr></table></div>", 
     "framework": "Mono for Android"
   }, 
   {

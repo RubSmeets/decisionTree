@@ -1,6 +1,10 @@
 ;(function($, window, document, undefined) {
     'use strict';
 
+    var CONST = {
+        maxNumbComparisons: 5
+    }
+
     /* Datatable functionality */
     var DataTable = {
         initVariables: function() {
@@ -20,6 +24,7 @@
             this.cacheElements();
             this.cleanMarkup();
             this.bindEvents();
+            this.hideCurrentFrameworks(CF.currentFrameworks);
         },
 
         initTable: function($frameworkTable) {
@@ -77,36 +82,54 @@
 
             this.$frameworkTable.find('tbody').on('click', 'tr', function () {
                 var data = that.frameworkTable.row( this ).data();
-                CF.sendRequest(data);
+                CF.addRemoveShownFrameworks(data.framework, 0);
+                CF.sendRequest(data.framework);
                 that.$modalContainer.modal('hide');
             });
 
             this.$filterField.on('focus', function() {
                 $(this).select();
             });
+        },
+
+        hideCurrentFrameworks: function(currentFrameworks) {
+            var i=0;
+            var regexNames = "";
+            if(currentFrameworks.length !== 0) {
+                for(i=0; i<currentFrameworks.length; i++) {
+                    regexNames += currentFrameworks[i] + "|";
+                }
+                regexNames = regexNames.slice(0, -1);    //remove last "|"
+
+                this.frameworkTable
+                    .columns(1) //The index of column to search
+                    .search('^(?:(?!(' + regexNames + ')).)*$\r?\n?', true, false) //The RegExp search all string that not cointains values
+                    .draw();
+            }
         }
-
-
     }
 
     /* Compare framework page functions */
     var CF = {
         
         initVariables: function() {
-            this.currentlyCompared = 0;
-            var v1 = this.getUrlParams();
-            console.log(v1[0]);
+            this.columnTransform = [4,4,4,3,15,2]; // first 3 are 3 column layout and then 4,5,6 column
+            this.currentFrameworks = this.getUrlParams();
+            this.frameworkOrder = this.currentFrameworks.concat("","","","","","");
         },
 
         cacheElements: function() {
             this.$frameworkTable = $('#addFrameworksTable');
             this.$frameworkHeaderContainer = $('#frameworkheader-container');
+            this.$addFrameworkButton = $('.add-framework');
         },
 
         init: function() {
             this.initVariables();
             this.cacheElements();
             this.bindEvents();
+
+            this.loadComparisonData();
 
             DataTable.init(this.$frameworkTable);
 
@@ -117,11 +140,41 @@
             
         },
 
+        loadComparisonData: function() {
+            var i = 0;
+            for(i=0; i<this.currentFrameworks.length; i++) {
+                this.sendRequest(this.currentFrameworks[i]);
+            }
+        },
+        /*
+         * 0 for add and 1 for removal
+         * !NOTE: frameworkOrder is needed to ensure that the background
+         * color is always unique. We store the position of the framework
+         * in the comparison table. 
+         */
+        addRemoveShownFrameworks: function(frameworkName, addRemove) {
+            var compareIndex = 0;
+            if(addRemove) {
+                //remove element from stored frameworks and free spot
+                compareIndex = this.currentFrameworks.indexOf(frameworkName);
+                this.currentFrameworks.splice(compareIndex, 1);
+                compareIndex = this.frameworkOrder.indexOf(frameworkName);
+                this.frameworkOrder[compareIndex] = "";
+            } else {
+                //add element to stored frameworks and find/fill free spot
+                this.currentFrameworks.push(frameworkName);
+                compareIndex = this.frameworkOrder.indexOf("");
+                this.frameworkOrder[compareIndex] = frameworkName
+            }
+            this.figOutAddButton();
+            DataTable.hideCurrentFrameworks(this.currentFrameworks);
+        },
+
         sendRequest: function(data) {
             $.ajax({
                 method: "GET",
-                url: "../php/searchFramework.php?keyword=" + data.framework,
-                dataType: "html",
+                url: "../php/searchFramework.php?keyword=" + data,
+                dataType: "json",
                 
                 error: this.errorCallback,
                 success: this.succesCallback
@@ -134,9 +187,36 @@
 
         succesCallback: function(data, status, jqXHR) {
             console.log("Successful request");
-            var contents = '<div class="col-md-4 header-container head1">' + data +	'</div>';
-            CF.$frameworkHeaderContainer.append(contents);
+            CF.addMarkupToPage(data);
             CF.bindEventNewItem();
+        },
+
+        recalculateColumns: function() {
+            var $columns = $('.col-md-9 > div');
+            var columnWidth = columnWidth = 'col-md-' + this.columnTransform[this.currentFrameworks.length-1];
+            $columns.each(function(index) {
+                $(this).alterClass('col-md-*', columnWidth);
+            });
+            return columnWidth;
+        },
+
+        figOutAddButton: function() {
+            if(this.currentFrameworks.length > (CONST.maxNumbComparisons-1)) {
+                this.$addFrameworkButton.addClass('disabled');
+                this.$addFrameworkButton.prop('disabled', true);
+            } else {
+                this.$addFrameworkButton.removeClass('disabled');
+                this.$addFrameworkButton.removeProp('disabled');
+            }
+        },
+
+        addMarkupToPage: function(data) {
+            var frameworkPos = this.frameworkOrder.indexOf(data.framework);
+            var columnWidth = this.recalculateColumns();
+
+            var contents = '<div class="' + columnWidth + ' header-container head' + (frameworkPos+1) + '">' + data.header +	'</div>';
+            this.$frameworkHeaderContainer.append(contents);
+            // Append closing </div> tag
         },
 
         bindEventNewItem: function() {
@@ -144,8 +224,11 @@
             // First remove all click handlers and then re-attach to include new ones
             $('.glyphicon-remove-circle').off('click')
             $('.glyphicon-remove-circle').on('click', function() {
-                var parentContainer = $(this).parents('.col-md-4')
+                var parentContainer = $(this).parents('.header-container');
+                var frameworkName = $(parentContainer).find('h4').text();
+                that.addRemoveShownFrameworks(frameworkName, 1);
                 $(parentContainer).remove();
+                that.recalculateColumns();
             });
         },
 
@@ -159,6 +242,10 @@
                     vars = hash[1].split(';');
                 }
             }
+            //replace %20 with " "
+            for(i=0; i < vars.length; i++) {
+                vars[i] = vars[i].replace(/%20/g, " ");
+            }
             return vars;
         }
 
@@ -169,6 +256,35 @@
         console.log( "Document ready!" );
         CF.init();
     });
+
+    /* 
+     * HELPER Function for wildcard class removal with jQuery 
+     *
+     * https://gist.github.com/peteboere/1517285
+     * LICENSE: MIT-license 
+     */
+    $.fn.alterClass = function ( removals, additions ) {  
+        var self = this;
+        if ( removals.indexOf( '*' ) === -1 ) {
+            // Use native jQuery methods if there is no wildcard matching
+            self.removeClass( removals );
+            return !additions ? self : self.addClass( additions );
+        }
+        var patt = new RegExp( '\\s' + 
+                removals.
+                    replace( /\*/g, '[A-Za-z0-9-_]+' ).
+                    split( ' ' ).
+                    join( '\\s|\\s' ) + 
+                '\\s', 'g' );
+        self.each( function ( i, it ) {
+            var cn = ' ' + it.className + ' ';
+            while ( patt.test( cn ) ) {
+                cn = cn.replace( patt, ' ' );
+            }
+            it.className = $.trim( cn );
+        });
+        return !additions ? self : self.addClass( additions );
+    };
 
 })(jQuery, window, document);
 

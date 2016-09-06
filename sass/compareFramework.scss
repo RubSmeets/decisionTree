@@ -1,6 +1,21 @@
+/* Bootstrap column customizations */
 .centered {
     text-align: center;
 }
+
+.col-md-15 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+@media (min-width: 992px) {
+    .col-md-15 {
+        width: 20%;
+        float: left;
+    }
+}
+/* -----------------------------------*/
 
 /* Modal table styling */
 #addFrameworksTable_filter label {
@@ -116,13 +131,32 @@ button.add-framework {
 }
 /* -----------------------------------*/
 
-/* Styling of comparison header */
+/* Styling of framework comparison header */
+.compare-header {
+    margin-bottom: 30px;
+}
 .header-container {
     min-height: 150px;
 }
 .header-container.head1 {
     background: rgb(105, 153, 193);
     border-bottom: thick solid rgb(72, 109, 139);
+}
+.header-container.head2 {
+    background: rgb(134, 162, 77);
+    border-bottom: thick solid rgb(108, 131, 62);
+}
+.header-container.head3 {
+    background: rgb(253, 161, 49);
+    border-bottom: thick solid rgb(199, 127, 40);
+}
+.header-container.head4 {
+    background: #555497;
+    border-bottom: thick solid #36347A;
+}
+.header-container.head5 {
+    background: #D7BC68;
+    border-bottom: thick solid #856A16;
 }
 .framework-header img {
     max-width: 150px;
@@ -134,6 +168,7 @@ button.add-framework {
 }
 .framework-header .caption span {
     margin-right: 4px;
+    padding-left: 10px;
     top: 4px;
     color: white;
     font-size: 20px;
@@ -146,7 +181,6 @@ button.add-framework {
     display: inline-block;
     color: white;
 }
-
 .framework-header {
     text-align: center;
     min-width: 180px;
@@ -156,3 +190,8 @@ button.add-framework {
     -webkit-transform: translate(-50%,-50%);
     -ms-transform: translate(-50%,-50%); /* IE 9 */
 }
+/* -----------------------------------*/
+
+/* Styling of feature header column */
+
+/* -----------------------------------*/

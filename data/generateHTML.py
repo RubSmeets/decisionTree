@@ -169,7 +169,7 @@ formatKey = {
     "nativejavascript": "Native JavaScript",
     "webtonative": "Web-to-native wrapper",
     "javascript_tool": "JS framework/toolkit",
-    "sourcecode": "Source-code translator",
+    "sourcecode": "Code translator",
     "runtime": "Runtime",
     "appfactory": "App Factory",
 
