@@ -140,6 +140,7 @@
             this.bindEvents();
 
             this.loadComparisonData();
+            this.figOutAddButton();
 
             DataTable.init(this.$frameworkTable);
 
