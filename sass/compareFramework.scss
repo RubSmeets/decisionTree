@@ -193,9 +193,6 @@ button.add-framework {
 /* -----------------------------------*/
 
 /* Styling of feature header column */
-
-/* -----------------------------------*/
-
 a[aria-expanded=false] .glyphicon-chevron-up {
    display: none;
 }
@@ -224,6 +221,9 @@ a[aria-expanded=true] .glyphicon-chevron-down {
     //margin-bottom: -1px;
     border-top: 1px solid #ddd;
 }
+/* -----------------------------------*/
+
+/* Styling of feature items and item-column */
 .feature-item {
     position: relative;
     display: block;
@@ -237,7 +237,6 @@ i.check {
 i.uncheck {
     color: red;
 }
-
 .body1 {
     background: rgb(224,234,242);
 }
@@ -253,7 +252,17 @@ i.uncheck {
 .body5 {
     background: #F7E7A8;
 }
-
 .panel-footer span {
     padding-left: 10px;
 }
+/* -----------------------------------*/
+
+/* Styling of collapse all panels button */
+#btnCollapseAll {
+    margin-bottom: 10px;
+}
+#btnCollapseAll span {
+    padding-right: 10px;
+    top: 2px; 
+}
+/* -----------------------------------*/

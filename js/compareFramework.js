@@ -130,6 +130,7 @@
             this.$frameworkHardwareFeatContainer = $('#framework-hardware-feature-container');
             this.$frameworkSupportFeatContainer = $('#framework-support-feature-container');
             this.$addFrameworkButton = $('.add-framework');
+            this.$collapseButton = $('#btnCollapseAll');
         },
 
         init: function() {
@@ -145,7 +146,15 @@
         },
 
         bindEvents: function() {
-            
+            this.$collapseButton.on('click', function() {
+                var panels = $(this).siblings('.panel-group');
+                $(panels).each(function() {
+                    $(this).find('.collapse').collapse("toggle");
+                });
+                $(this).children('.btn-label').text(function(i, text){
+                    return text === "Collapse All" ? "Open All" : "Collapse All";
+                });
+            });
         },
 
         loadComparisonData: function() {
