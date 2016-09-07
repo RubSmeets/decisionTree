@@ -121,6 +121,8 @@ input.modal-search {
 button.add-framework {
     height: 150px;
     width: 150px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .add-framework .add-framework-icon {
@@ -136,7 +138,7 @@ button.add-framework {
     margin-bottom: 30px;
 }
 .header-container {
-    min-height: 150px;
+    min-height: 190px;
 }
 .header-container.head1 {
     background: rgb(105, 153, 193);
@@ -189,6 +191,10 @@ button.add-framework {
     transform: translate(-50%,-50%);
     -webkit-transform: translate(-50%,-50%);
     -ms-transform: translate(-50%,-50%); /* IE 9 */
+}
+.data-status {
+    color: lightgray;
+    font-size: small;
 }
 /* -----------------------------------*/
 

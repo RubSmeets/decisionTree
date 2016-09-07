@@ -151,7 +151,7 @@ formatKey = {
 
     "trial": "Trial version",
 
-    "nativejavascript": "Native JavaScript",
+    "nativejavascript": "Native JS",
     "webtonative": "Web-to-native wrapper",
     "javascript_tool": "JS framework/toolkit",
     "sourcecode": "Code translator",
@@ -259,9 +259,9 @@ def createToolSpecification():
                 for nestedItem in item:
                     for key, value in frameworks[i].iteritems():
                         if (nestedItem == key):
-                            #technology
                             if value != "none" and value != "UNDEF" and value != "EMPTY" and value != "false":
-                                contentsToolSpecification += str("""<span>""" + str(formatKey.get(key)) + """</span>""") 
+                                contentsToolSpecification += str("""<span>""" + str(formatKey.get(key)) + """</span>, """) 
+                contentsToolSpecification = contentsToolSpecification[:-2]  #remove last ", " from string
                 contentsToolSpecification += str("""</div>""")
         jsonData[i]["tool_specification"] = contentsToolSpecification
 
@@ -335,6 +335,7 @@ for i in range(0, numOfElements):
     foundImg = ""
     contentsHeader = ""
     urls = ["#"]
+    lastUpdate = frameworks[i].get("comparison_data_last_update")
     for idx, item in enumerate(frameworkHeaderCallOrder):
         for key, value in frameworks[i].iteritems():
             #Create the header markup
@@ -347,17 +348,18 @@ for i in range(0, numOfElements):
                     else:
                         urls[0] = value
                 else:
-                    contentsHeader = """<div class="framework-header">"""
+                    contentsHeader = """<div class="framework-header"><table class="caption"><colgroup><col style="width:40px" /><col style="width:140px" /></colgroup>"""
                     for img in imgList:
                         if(formatString(value) in img):
                             foundImg = img
                     if foundImg != "" and urls[0] != "#":
-                        contentsHeader += """<a href=\"""" + str(urls[0]) + """\" target="_blank"><img src=\"""" + str(foundImg) + """\" alt=""></a>"""
+                        contentsHeader += """<tr><td colspan="2"><a href=\"""" + str(urls[0]) + """\" target="_blank"><img src=\"""" + str(foundImg) + """\" alt=""></a></td></tr>"""
                     elif urls[0] != "#":
-                        contentsHeader += """<a href=\"""" + str(urls[0]) + """\" target="_blank"><img src="../img/logos/notfound.png" alt=""></a>"""
+                        contentsHeader += """<tr><td colspan="2"><a href=\"""" + str(urls[0]) + """\" target="_blank"><img src="../img/logos/notfound.png" alt=""></a></td></tr>"""
                     else:
-                        contentsHeader += """<img src="../img/logos/notfound.png" alt="">"""
-                    contentsHeader += """<table class="caption"><tr><td style="width:40px"><span class="glyphicon glyphicon-remove-circle"></span></td><td align="left"><h4 class="thumb-caption">""" + str(value) + """</h4></td></tr></table></div>"""
+                        contentsHeader += """<tr><td colspan="2"><img src="../img/logos/notfound.png" alt=""></td></tr>"""
+                    contentsHeader += """<tr><td width="40"><span class="glyphicon glyphicon-remove-circle"></span></td><td align="left" height="58"><h4 class="thumb-caption">""" + str(value) + """</h4></td></tr>"""
+                    contentsHeader += """<tr><td colspan="2" class="data-status">Last updated: """ + lastUpdate + """</td></tr></table></div>"""
                     jsonData[i]["header"] = contentsHeader
                     jsonData[i]["framework"] = value
 
