@@ -129,6 +129,7 @@
             this.$frameworkDevSpecContainer = $('#framework-dev-spec-container');
             this.$frameworkHardwareFeatContainer = $('#framework-hardware-feature-container');
             this.$frameworkSupportFeatContainer = $('#framework-support-feature-container');
+            this.$frameworkResourcesContainer = $('#framework-resources-container');
             this.$addFrameworkButton = $('.add-framework');
             this.$collapseButton = $('#btnCollapseAll');
         },
@@ -148,11 +149,17 @@
         bindEvents: function() {
             this.$collapseButton.on('click', function() {
                 var panels = $(this).siblings('.panel-group');
+                var btnLabel = $(this).children('.btn-label');
+                var option = ""
+                if($(btnLabel).text() === "Collapse All") {
+                    $(btnLabel).text("Open All");
+                    option = "hide";
+                } else {
+                    $(btnLabel).text("Collapse All");
+                    option = "show";
+                }
                 $(panels).each(function() {
-                    $(this).find('.collapse').collapse("toggle");
-                });
-                $(this).children('.btn-label').text(function(i, text){
-                    return text === "Collapse All" ? "Open All" : "Collapse All";
+                    $(this).find('.collapse').collapse(option);
                 });
             });
         },
@@ -263,6 +270,8 @@
             this.$frameworkHardwareFeatContainer.append(contents);
             contents = '<div class="' + columnWidth + ' no-padding centered body' + (frameworkPos+1) + ' ' + frameworkClass + '">' + data.support_features + '</div>';
             this.$frameworkSupportFeatContainer.append(contents);
+            contents = '<div class="' + columnWidth + ' no-padding centered body' + (frameworkPos+1) + ' ' + frameworkClass + '">' + data.resources + '</div>';
+            this.$frameworkResourcesContainer.append(contents);
         },
 
         bindEventNewItem: function() {

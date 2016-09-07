@@ -73,6 +73,7 @@ cost = [
 
 frameworkHeaderCallOrder = [
     # framework props
+    "url",
     "framework"
 ]
 
@@ -122,6 +123,17 @@ supportFeaturesCallOrder = [
     "phone_supp",
     "time_delayed_supp",
     "community_supp"  
+]
+
+resourcesCallOrder = [
+    "url",
+    "documentation_url",
+    "tutorial_url",
+    "video_url",
+    "book",
+    "appshowcase",
+    "market",
+    "repo"
 ]
 
 formatKey = {
@@ -194,12 +206,14 @@ formatKey = {
     "commercial":"Commercial lic.",
     "enterprise":"Enterprise Lic.",
 
-    "url": "Official Website",
+    "url": "Homepage",
     "documentation_url": "Official Docs",
     "tutorial_url": "Tutorial",
-
     "video_url": "Video Introduction",
     "book": "Recommended Book",
+    "appshowcase": "App Gallery",
+    "market": "Market",
+    "repo": "Repository",
     "license": "License"
 }
 
@@ -258,7 +272,10 @@ def createDevelopmentSpecification():
         for idx, item in enumerate(developmentSpecificationCallOrder):
             for key, value in frameworks[i].iteritems():
                 if(key == item) and value:
-                    contentsDevSpec += str("""<div class="feature-item"><span>""" + str(formatKey.get(value)) + """</span></div>""")
+                    if value == "via":
+                        contentsDevSpec += str("""<div class="feature-item"><span><i class="fa fa-users"></i></span></div>""")
+                    else:
+                        contentsDevSpec += str("""<div class="feature-item"><span>""" + str(formatKey.get(value)) + """</span></div>""")
         jsonData[i]["dev_specification"] = contentsDevSpec
 
 def createHardwareFeatures():
@@ -281,27 +298,68 @@ def createSupportFeatures():
                     contentsSupportFeat += str("""<div class="feature-item"><span>""" + str(formatKey.get(value)) + """</span></div>""")
         jsonData[i]["support_features"] = contentsSupportFeat
 
+def createResources():
+    contentsResources = ""
+    for i in range(0, numOfElements):
+        contentsResources = ""
+        for idx, item in enumerate(resourcesCallOrder):
+            for key, value in frameworks[i].iteritems():
+                if(key == item):
+                    if value == "UNDEF" or value == "EMPTY" or value == "none":
+                        contentsResources += str("""<div class="feature-item"><span>""" + str(formatKey.get(value)) + """</span></div>""")
+                    elif value == "false":
+                        contentsResources += str("""<div class="feature-item"><span>""" + str(formatKey.get("EMPTY")) + """</span></div>""")
+                    else:
+                        if key == "book":
+                            if "http" not in value:
+                                contentsResources += str("""<div class="feature-item"><span>""" + str(value) + """</span></div>""")
+                            else:
+                                contentsResources += str("""<div class="feature-item"><a href=\"""" + value + """\" target="_blank">""" + str(formatKey.get(key)) + """</a></div>""")
+                        elif "|" in value:
+                            contentsResources += str("""<div class="feature-item">""")
+                            nestedValues = value.split("|")
+                            contentsResources += str("""<a href=\"""" + nestedValues[0] + """\" target="_blank">""" + str(formatKey.get(key)) + """(1)</a>, """)
+                            for idx2, nestedItem in enumerate(nestedValues):
+                                if idx2 != 0:
+                                    contentsResources += str("""<a href=\"""" + nestedItem + """\" target="_blank">(""" + str(idx2+1) + """)</a>, """)
+                            contentsResources = contentsResources[:-2]  #remove last ", " from string
+                            contentsResources += str("""</div>""")
+                        else:
+                            contentsResources += str("""<div class="feature-item"><a href=\"""" + value + """\" target="_blank">""" + str(formatKey.get(key)) + """</a></div>""")
+        jsonData[i]["resources"] = contentsResources
+
 
 contentsHeader = ""
 foundImg = ""
 for i in range(0, numOfElements):
     foundImg = ""
     contentsHeader = ""
-    for key, value in frameworks[i].iteritems():
-        #Create the header markup
-        for idx, item in enumerate(frameworkHeaderCallOrder):
+    urls = ["#"]
+    for idx, item in enumerate(frameworkHeaderCallOrder):
+        for key, value in frameworks[i].iteritems():
+            #Create the header markup
             if item == key:
-                contentsHeader = """<div class="framework-header">"""
-                for img in imgList:
-                    if(formatString(value) in img):
-                        foundImg = img
-                if foundImg != "":
-                    contentsHeader += """<img src=\"""" + str(foundImg) + """\" alt="">"""
+                if key == "url":
+                    if "|" in value:
+                        urls = value.split("|")
+                    elif value == "UNDEF" or value == "EMPTY" or value == "none" or value == "false":
+                        urls[0] = "#"
+                    else:
+                        urls[0] = value
                 else:
-                    contentsHeader += """<img src="../img/logos/notfound.png" alt="">"""
-                contentsHeader += """<table class="caption"><tr><td style="width:40px"><span class="glyphicon glyphicon-remove-circle"></span></td><td align="left"><h4 class="thumb-caption">""" + str(value) + """</h4></td></tr></table></div>"""
-                jsonData[i]["header"] = contentsHeader
-                jsonData[i]["framework"] = value
+                    contentsHeader = """<div class="framework-header">"""
+                    for img in imgList:
+                        if(formatString(value) in img):
+                            foundImg = img
+                    if foundImg != "" and urls[0] != "#":
+                        contentsHeader += """<a href=\"""" + str(urls[0]) + """\" target="_blank"><img src=\"""" + str(foundImg) + """\" alt=""></a>"""
+                    elif urls[0] != "#":
+                        contentsHeader += """<a href=\"""" + str(urls[0]) + """\" target="_blank"><img src="../img/logos/notfound.png" alt=""></a>"""
+                    else:
+                        contentsHeader += """<img src="../img/logos/notfound.png" alt="">"""
+                    contentsHeader += """<table class="caption"><tr><td style="width:40px"><span class="glyphicon glyphicon-remove-circle"></span></td><td align="left"><h4 class="thumb-caption">""" + str(value) + """</h4></td></tr></table></div>"""
+                    jsonData[i]["header"] = contentsHeader
+                    jsonData[i]["framework"] = value
 
 #Create the tool specifications markup
 createToolSpecification() 
@@ -315,9 +373,19 @@ createHardwareFeatures()
 #Create the support features markup
 createSupportFeatures()
 
-# write output to file
+#Create the resources markup
+createResources()
+
 with open('framework_compare.json', 'w') as data_file:
     print "Write to file framework_compare.json"
     data_file.write(json.dumps(jsonData, indent=2))
+
+#Move generated file and create backup of original
+if os.path.isfile("../../../php/framework_compare.json"):
+    print "file found " + "framework_compare.json"
+    os.rename("../../../php/framework_compare.json", ("../../../php/framework_compare_org" + time.strftime("-%d_%m_%y-%H_%M") + ".json"))
+    print "Create backup framework_compare.json"
+    os.rename("./framework_compare.json", "../../../php/framework_compare.json")
+    print "moved new file"
 
 print "-- FINISHED comparison data generation --"

@@ -3565,7 +3565,7 @@
     "announced": "2009", 
     "appfactory": "false", 
     "appletv": "false", 
-    "appshowcase": "UNDEF", 
+    "appshowcase": "http://phonegap.com/app/", 
     "bada": "false", 
     "basic": "false", 
     "blackberry": "true", 
