@@ -4,7 +4,6 @@
     var CONST = {
         maxNumbComparisons: 5
     }
-
     /* Datatable functionality */
     var DataTable = {
         initVariables: function() {
@@ -105,6 +104,11 @@
                     .columns(1) //The index of column to search
                     .search('^(?:(?!(' + regexNames + ')).)*$\r?\n?', true, false) //The RegExp search all string that not cointains values
                     .draw();
+            } else {
+                this.frameworkTable
+                    .search( '' )   // Clear all searches
+                    .columns().search( '' )
+                    .draw();
             }
         }
     }
@@ -121,6 +125,10 @@
         cacheElements: function() {
             this.$frameworkTable = $('#addFrameworksTable');
             this.$frameworkHeaderContainer = $('#frameworkheader-container');
+            this.$frameworkToolSpecContainer = $('#framework-tool-spec-container');
+            this.$frameworkDevSpecContainer = $('#framework-dev-spec-container');
+            this.$frameworkHardwareFeatContainer = $('#framework-hardware-feature-container');
+            this.$frameworkSupportFeatContainer = $('#framework-support-feature-container');
             this.$addFrameworkButton = $('.add-framework');
         },
 
@@ -168,6 +176,7 @@
             }
             this.figOutAddButton();
             DataTable.hideCurrentFrameworks(this.currentFrameworks);
+            this.updateUrlParams();
         },
 
         sendRequest: function(data) {
@@ -210,13 +219,41 @@
             }
         },
 
+        updateUrlParams: function() {
+            // get current url
+            var i = 0;
+            var newUrl = window.location.href;
+            if(newUrl.indexOf('?') === -1) {
+                newUrl += '?frameworks='
+            } else {
+                newUrl = newUrl.substring(0, (newUrl.indexOf('=') + 1));
+            }
+            // add currentFrameworks to url
+            for(i=0; i<this.currentFrameworks.length; i++) {
+                newUrl += this.currentFrameworks[i] + ";"
+            }
+            // remove last ';' from newUrl
+            newUrl = newUrl.slice(0, -1);
+            if (history.pushState) {
+                window.history.pushState({path:newUrl},'',newUrl);
+            }
+        },
+
         addMarkupToPage: function(data) {
             var frameworkPos = this.frameworkOrder.indexOf(data.framework);
             var columnWidth = this.recalculateColumns();
+            var frameworkClass = data.framework.replace(/[^a-zA-Z0-9]/g, "")
 
             var contents = '<div class="' + columnWidth + ' header-container head' + (frameworkPos+1) + '">' + data.header +	'</div>';
             this.$frameworkHeaderContainer.append(contents);
-            // Append closing </div> tag
+            contents = '<div class="' + columnWidth + ' no-padding centered body' + (frameworkPos+1) + ' ' + frameworkClass + '">' + data.tool_specification + '</div>';
+            this.$frameworkToolSpecContainer.append(contents);
+            contents = '<div class="' + columnWidth + ' no-padding centered body' + (frameworkPos+1) + ' ' + frameworkClass + '">' + data.dev_specification + '</div>';
+            this.$frameworkDevSpecContainer.append(contents);
+            contents = '<div class="' + columnWidth + ' no-padding centered body' + (frameworkPos+1) + ' ' + frameworkClass + '">' + data.hardware_features + '</div>';
+            this.$frameworkHardwareFeatContainer.append(contents);
+            contents = '<div class="' + columnWidth + ' no-padding centered body' + (frameworkPos+1) + ' ' + frameworkClass + '">' + data.support_features + '</div>';
+            this.$frameworkSupportFeatContainer.append(contents);
         },
 
         bindEventNewItem: function() {
@@ -224,10 +261,15 @@
             // First remove all click handlers and then re-attach to include new ones
             $('.glyphicon-remove-circle').off('click')
             $('.glyphicon-remove-circle').on('click', function() {
-                var parentContainer = $(this).parents('.header-container');
-                var frameworkName = $(parentContainer).find('h4').text();
+                var parentHeaderContainer = $(this).parents('.header-container');
+                var frameworkName = $(parentHeaderContainer).find('h4').text();
+                var frameworkClass = frameworkName.replace(/[^a-zA-Z0-9]/g, "")
+                var $parentBodyContainers = $('.' + frameworkClass);
                 that.addRemoveShownFrameworks(frameworkName, 1);
-                $(parentContainer).remove();
+                
+                $(parentHeaderContainer).remove();
+                $parentBodyContainers.remove();
+
                 that.recalculateColumns();
             });
         },
@@ -255,6 +297,10 @@
     $( document ).ready(function() {
         console.log( "Document ready!" );
         CF.init();
+    });
+
+    window.addEventListener("popstate", function(e) {
+        window.location.reload();
     });
 
     /* 

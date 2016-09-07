@@ -8,6 +8,7 @@
 		<!-- Style Sheets -->
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
 		<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+		<link rel="stylesheet" href="../fonts/font-awesome/css/font-awesome.min.css" type="text/css"/>
 		<link rel="stylesheet" href="../css/compareFramework.css" type="text/css"/>
 
 		<!-- Remote scripts -->
@@ -49,37 +50,221 @@
 						<span>Add framework</span>
 					</button>
 				</div>
-				<div id="frameworkheader-container" class="col-md-9">
+				<div id="frameworkheader-container" class="col-md-9 no-left-padding">
 
 				</div>
 			</div>
 			<div class="row">
-				<div>
-    				<h4 class="panel-title">
-    					<a data-toggle="collapse" aria-expanded="false" href="#collapse1">
-    						<div class="panel-heading">
-    							Test panel
-    						</div>
-						</a>
-					</h4>
-    				<div id="collapse1" class="panel-collapse collapse">
-    					<div>
-							<div class="col-md-3">
-								<span>Test 1 heading</span>
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h4>Tool Specifications</h4>
+					</div>
+					<div class="panel-body no-side-padding">
+						<div class="col-md-3 no-right-padding">
+							<span class="feature-heading">Technology</span>
+							<span class="feature-heading">Announced</span>
+							<span class="feature-heading">Version</span>
+							<span class="feature-heading">Supported Platforms</span>
+							<span class="feature-heading">Programming Languages</span>
+							<span class="feature-heading">Output Product</span>
+							<span class="feature-heading">License</span>
+							<span class="feature-heading">Open-source</span>
+							<span class="feature-heading">Cost</span>
+						</div>
+						<div id="framework-tool-spec-container" class="col-md-9 no-left-padding">
+							
+						</div>
+					</div>
+					<div class="panel-footer">
+						<div class="row">
+							<div class="col-md-3"><i class="glyphicon glyphicon-ok check"></i><span>Supported</span></div>
+							<div class="col-md-3"><i class="glyphicon glyphicon-remove uncheck"></i><span>Not supported</span></div>
+							<div class="col-md-3"><i class="glyphicon glyphicon-minus"></i><span>Not specified</span></div>
+							<div class="col-md-3"><i class="fa fa-plug"></i><span>Supported through plugin</span></div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-group">
+					<div class="panel panel-default">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" aria-expanded="true" href="#collapse1">
+								<div class="panel-heading">
+									<span>Resources</span>
+									<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
+									<span class="dropIcon pull-right glyphicon glyphicon-chevron-down"></span>
+								</div>
+							</a>
+						</h4>
+						<div id="collapse1" class="panel-collapse collapse in">
+							<div class="panel-body no-side-padding">
+								<div class="col-md-3 no-right-padding">
+									<span class="feature-heading">Website</span>
+									<span class="feature-heading">Documentation</span>
+									<span class="feature-heading">Tutorial</span>
+									<span class="feature-heading">Video(s)</span>
+									<span class="feature-heading">Book(s)</span>
+									<span class="feature-heading">App Showcases</span>
+									<span class="feature-heading">Market Place</span>
+									<span class="feature-heading">Repository</span>
+								</div>
+								<div class="col-md-9 no-left-padding">
+									<div class="col-md-4 no-padding centered body1">
+										<div class="feature-item">
+											<i class="glyphicon glyphicon-ok check"></i>
+										</div>
+										<div class="feature-item">
+											<i class="glyphicon glyphicon-ok check"></i>
+										</div>
+										<div class="feature-item">
+											<i class="glyphicon glyphicon-ok check"></i>
+										</div>
+										<div class="feature-item">
+											<i class="glyphicon glyphicon-ok check"></i>
+										</div>
+										<div class="feature-item">
+											<i class="glyphicon glyphicon-ok check"></i>
+										</div>
+									</div>
+									<div class="col-md-4 no-padding centered body2">
+										<div class="feature-item">
+											<i class="glyphicon glyphicon-ok check"></i>
+										</div>
+									</div>
+									<div class="col-md-4 no-padding centered body3">
+										<div class="feature-item">
+											<i class="glyphicon glyphicon-ok check"></i>
+										</div>
+									</div>
+								</div>	
 							</div>
-							<div class="col-md-9">
-								<div class="col-md-4">
-									<span>Test 1 feature 1</span>
+							<div class="panel-footer">
+								<div class="row">
+									<div class="col-md-3"><i class="glyphicon glyphicon-ok check"></i><span>Supported</span></div>
+									<div class="col-md-3"><i class="glyphicon glyphicon-remove uncheck"></i><span>Not supported</span></div>
+									<div class="col-md-3"><i class="glyphicon glyphicon-minus"></i><span>Not specified</span></div>
+									<div class="col-md-3"><i class="fa fa-plug"></i><span>Supported through plugin</span></div>
 								</div>
-								<div class="col-md-4">
-									<span>Test 1 feature 2</span>
+							</div>
+						</div>
+					</div>
+    			</div>
+				<div class="panel-group">
+					<div class="panel panel-default">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" aria-expanded="true" href="#collapse2">
+								<div class="panel-heading">
+									<span>Development Specifications</span>
+									<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
+									<span class="dropIcon pull-right glyphicon glyphicon-chevron-down"></span>
 								</div>
-								<div class="col-md-4">
-									<span>Test 1 feature 3</span>
+							</a>
+						</h4>
+						<div id="collapse2" class="panel-collapse collapse in">
+							<div class="panel-body no-side-padding">
+								<div class="col-md-3 no-right-padding">
+									<span class="feature-heading">Suited for Game development</span>
+									<span class="feature-heading">Cloud Development</span>
+									<span class="feature-heading">Allows Prototyping</span>
+									<span class="feature-heading">Multi-screen support</span>
+									<span class="feature-heading">Livesync</span>
+									<span class="feature-heading">Publication Assist</span>
 								</div>
-							</div>	
-    					</div>
-    				</div>
+								<div id="framework-dev-spec-container" class="col-md-9 no-left-padding">
+									
+								</div>	
+							</div>
+							<div class="panel-footer">
+								<div class="row">
+									<div class="col-md-3"><i class="glyphicon glyphicon-ok check"></i><span>Supported</span></div>
+									<div class="col-md-3"><i class="glyphicon glyphicon-remove uncheck"></i><span>Not supported</span></div>
+									<div class="col-md-3"><i class="glyphicon glyphicon-minus"></i><span>Not specified</span></div>
+									<div class="col-md-3"><i class="fa fa-plug"></i><span>Supported through plugin</span></div>
+								</div>
+							</div>
+						</div>
+					</div>
+    			</div>
+				<div class="panel-group">
+					<div class="panel panel-default">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" aria-expanded="true" href="#collapse3">
+								<div class="panel-heading">
+									<span>Supported Hardware Features</span>
+									<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
+									<span class="dropIcon pull-right glyphicon glyphicon-chevron-down"></span>
+								</div>
+							</a>
+						</h4>
+						<div id="collapse3" class="panel-collapse collapse in">
+							<div class="panel-body no-side-padding">
+								<div class="col-md-3 no-right-padding">
+									<span class="feature-heading">Accelerometer</span>
+									<span class="feature-heading">Device</span>
+									<span class="feature-heading">File</span>
+									<span class="feature-heading">Bluetooth</span>
+									<span class="feature-heading">Camera</span>
+									<span class="feature-heading">Capture</span>
+									<span class="feature-heading">Compass</span>
+									<span class="feature-heading">Connection</span>
+									<span class="feature-heading">Contacts</span>
+									<span class="feature-heading">Geolocation</span>
+									<span class="feature-heading">Multi-touch Gestures</span>
+									<span class="feature-heading">Native Events</span>
+									<span class="feature-heading">NFC</span>
+									<span class="feature-heading">Storage</span>
+									<span class="feature-heading">Telephone Messages</span>
+									<span class="feature-heading">Vibration</span>
+								</div>
+								<div id="framework-hardware-feature-container" class="col-md-9 no-left-padding">
+									
+								</div>	
+							</div>
+							<div class="panel-footer">
+								<div class="row">
+									<div class="col-md-3"><i class="glyphicon glyphicon-ok check"></i><span>Supported</span></div>
+									<div class="col-md-3"><i class="glyphicon glyphicon-remove uncheck"></i><span>Not supported</span></div>
+									<div class="col-md-3"><i class="glyphicon glyphicon-minus"></i><span>Not specified</span></div>
+									<div class="col-md-3"><i class="fa fa-plug"></i><span>Supported through plugin</span></div>
+								</div>
+							</div>
+						</div>
+					</div>
+    			</div>
+				
+				<div class="panel-group">
+					<div class="panel panel-default">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" aria-expanded="true" href="#collapse4">
+								<div class="panel-heading">
+									<span>Support</span>
+									<span class="dropIcon pull-right glyphicon glyphicon-chevron-up"></span>
+									<span class="dropIcon pull-right glyphicon glyphicon-chevron-down"></span>
+								</div>
+							</a>
+						</h4>
+						<div id="collapse4" class="panel-collapse collapse in">
+							<div class="panel-body no-side-padding">
+								<div class="col-md-3 no-right-padding">
+									<span class="feature-heading">On-site support</span>
+									<span class="feature-heading">Hired help</span>
+									<span class="feature-heading">Phone support</span>
+									<span class="feature-heading">Time-delayed support</span>
+									<span class="feature-heading">Community support</span>
+								</div>
+								<div id="framework-support-feature-container" class="col-md-9 no-left-padding">
+									
+								</div>	
+							</div>
+							<div class="panel-footer">
+								<div class="row">
+									<div class="col-md-3"><i class="glyphicon glyphicon-ok check"></i><span>Supported</span></div>
+									<div class="col-md-3"><i class="glyphicon glyphicon-remove uncheck"></i><span>Not supported</span></div>
+									<div class="col-md-3"><i class="glyphicon glyphicon-minus"></i><span>Not specified</span></div>
+									<div class="col-md-3"><i class="fa fa-plug"></i><span>Supported through plugin</span></div>
+								</div>
+							</div>
+						</div>
+					</div>
     			</div>
 			</div>
 		</div>

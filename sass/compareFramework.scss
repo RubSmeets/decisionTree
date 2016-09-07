@@ -195,3 +195,65 @@ button.add-framework {
 /* Styling of feature header column */
 
 /* -----------------------------------*/
+
+a[aria-expanded=false] .glyphicon-chevron-up {
+   display: none;
+}
+a[aria-expanded=true] .glyphicon-chevron-down {
+   display: none;
+}
+.dropIcon {
+    color: #337ab7;
+}
+.no-padding {
+   padding: 0 !important;
+}
+.no-left-padding {
+    padding-left: 0px !important;
+}
+.no-right-padding {
+    padding-right: 0px !important;
+}
+.no-side-padding {
+    padding: 15px 0 0 !important;
+}
+.feature-heading {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    //margin-bottom: -1px;
+    border-top: 1px solid #ddd;
+}
+.feature-item {
+    position: relative;
+    display: block;
+    padding: 10px 0px;
+    //margin-bottom: -1px;
+    border-top: 1px solid #ddd;
+}
+i.check {
+    color: green;
+}
+i.uncheck {
+    color: red;
+}
+
+.body1 {
+    background: rgb(224,234,242);
+}
+.body2 {
+    background: rgb(230,235,218);
+}
+.body3 {
+    background: rgb(254,235,212);
+}
+.body4 {
+    background: #AEADD1;
+}
+.body5 {
+    background: #F7E7A8;
+}
+
+.panel-footer span {
+    padding-left: 10px;
+}
