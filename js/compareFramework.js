@@ -131,6 +131,7 @@
             this.$frameworkSupportFeatContainer = $('#framework-support-feature-container');
             this.$frameworkResourcesContainer = $('#framework-resources-container');
             this.$addFrameworkButton = $('.add-framework');
+            this.$msg = $('#msg');
             this.$collapseButton = $('#btnCollapseAll');
         },
 
@@ -140,6 +141,7 @@
             this.bindEvents();
 
             this.loadComparisonData();
+            this.nothingLeft();
             this.figOutAddButton();
 
             DataTable.init(this.$frameworkTable);
@@ -192,6 +194,7 @@
                 this.frameworkOrder[compareIndex] = frameworkName
             }
             this.figOutAddButton();
+            this.nothingLeft();
             DataTable.hideCurrentFrameworks(this.currentFrameworks);
             this.updateUrlParams();
         },
@@ -308,6 +311,24 @@
                 vars[i] = vars[i].replace(/%20/g, " ");
             }
             return vars;
+        },
+
+        hidePanels: function() {
+            $('.compare-body').hide();
+        },
+
+        showPanels: function() {
+            $('.compare-body').show();
+        },
+        // Check if there are frameworks being compared (if not show a message)
+        nothingLeft: function() {
+            if (this.currentFrameworks.length === 0) {
+                this.hidePanels();
+                this.$msg.show();
+            } else {
+                this.showPanels();
+                this.$msg.hide();
+            }
         }
 
     }
