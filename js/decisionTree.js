@@ -98,6 +98,7 @@
                       $(this).prop("checked", false).change();
                   }
                 });
+                MFCT.collapseAll();
             });
         },
 
@@ -207,7 +208,13 @@
                 this.msg.hide();
             }
         },
-        
+        // collapse all detail panels
+        collapseAll: function() {
+            var panels = $('.caption');
+            $(panels).each(function() {
+                $(this).find('.collapse').collapse("hide");
+            });
+        },
         // Back to normal state
         resetFrameworks: function() {
             this.frameworks.slideDown();
