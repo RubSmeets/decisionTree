@@ -302,12 +302,26 @@ with open('frameworks.json') as data_file:
 # Construct the dynamic content string from the json input file
 numOfElements = len(frameworks)
 content = ""
+urls = ["#"]
+url = ""
 for i in range(0, numOfElements):
+    urls = ["#"]
+    url = frameworks[i].get('url')
+    if "|" in url:
+        urls = url.split("|")
+    elif url == "false" or url == "none" or url == "EMPTY" or url == "UNDEF":
+        urls[0] = "#"
+    else:
+        urls[0] = url
     #Start panel group
     content+= str("""<div class="col-md-4 framework">
     \t<div class="thumbnail">
-    \t\t<img src="img/logos/""" + checkLogoAvailability(formatString(frameworks[i].get('framework'))) + """.png" alt="">
-    \t\t<div class="caption">
+    """)
+    if urls[0] == "#":
+        content+= str("""\t\t<img src="img/logos/""" + checkLogoAvailability(formatString(frameworks[i].get('framework'))) + """.png" alt="">""")
+    else:
+        content+= str("""\t\t<a href=\"""" + str(urls[0]) + """\" target="_blank"><img src="img/logos/""" + checkLogoAvailability(formatString(frameworks[i].get('framework'))) + """.png" alt=""></a>""")
+    content+= str("""\t\t<div class="caption">
     \t\t\t<h4 class="thumb-caption">""" + frameworks[i].get('framework') + """</h4>
     """)
     #Fill in technology
