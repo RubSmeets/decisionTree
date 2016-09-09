@@ -125,11 +125,21 @@
         cacheElements: function() {
             this.$frameworkTable = $('#addFrameworksTable');
             this.$frameworkHeaderContainer = $('#frameworkheader-container');
-            this.$frameworkToolSpecContainer = $('#framework-tool-spec-container');
             this.$frameworkDevSpecContainer = $('#framework-dev-spec-container');
             this.$frameworkHardwareFeatContainer = $('#framework-hardware-feature-container');
             this.$frameworkSupportFeatContainer = $('#framework-support-feature-container');
             this.$frameworkResourcesContainer = $('#framework-resources-container');
+            //Sub containers from tool specification
+            this.$toolTecCon = $('#toolTecCon');
+            this.$toolAnnCon = $('#toolAnnCon');
+            this.$toolVerCon = $('#toolVerCon');
+            this.$toolPlaCon = $('#toolPlaCon');
+            this.$toolLanCon = $('#toolLanCon');
+            this.$toolProCon = $('#toolProCon');
+            this.$toolLicCon = $('#toolLicCon');
+            this.$toolSrcCon = $('#toolSrcCon');
+            this.$toolCostCon = $('#toolCostCon');
+
             this.$addFrameworkButton = $('.add-framework');
             this.$msg = $('#msg');
             this.$collapseButton = $('#btnCollapseAll');
@@ -266,8 +276,26 @@
 
             var contents = '<div class="' + columnWidth + ' header-container head' + (frameworkPos+1) + '">' + data.header +	'</div>';
             this.$frameworkHeaderContainer.append(contents);
-            contents = '<div class="' + columnWidth + ' no-padding centered body' + (frameworkPos+1) + ' ' + frameworkClass + '">' + data.tool_specification + '</div>';
-            this.$frameworkToolSpecContainer.append(contents);
+            // Add tool specification markup
+            contents = '<div class="' + columnWidth + ' no-padding centered body' + (frameworkPos+1) + ' ' + frameworkClass + ' flex-item">' + data.toolTecCon + '</div>';
+            this.$toolTecCon.append(contents);
+            contents = '<div class="' + columnWidth + ' no-padding centered body' + (frameworkPos+1) + ' ' + frameworkClass + ' flex-item">' + data.toolAnnCon + '</div>';
+            this.$toolAnnCon.append(contents);
+            contents = '<div class="' + columnWidth + ' no-padding centered body' + (frameworkPos+1) + ' ' + frameworkClass + ' flex-item">' + data.toolVerCon + '</div>';
+            this.$toolVerCon.append(contents);
+            contents = '<div class="' + columnWidth + ' no-padding centered body' + (frameworkPos+1) + ' ' + frameworkClass + ' flex-item">' + data.toolPlaCon + '</div>';
+            this.$toolPlaCon.append(contents);
+            contents = '<div class="' + columnWidth + ' no-padding centered body' + (frameworkPos+1) + ' ' + frameworkClass + ' flex-item">' + data.toolLanCon + '</div>';
+            this.$toolLanCon.append(contents);
+            contents = '<div class="' + columnWidth + ' no-padding centered body' + (frameworkPos+1) + ' ' + frameworkClass + ' flex-item">' + data.toolProCon + '</div>';
+            this.$toolProCon.append(contents);
+            contents = '<div class="' + columnWidth + ' no-padding centered body' + (frameworkPos+1) + ' ' + frameworkClass + ' flex-item">' + data.toolLicCon + '</div>';
+            this.$toolLicCon.append(contents);
+            contents = '<div class="' + columnWidth + ' no-padding centered body' + (frameworkPos+1) + ' ' + frameworkClass + ' flex-item">' + data.toolSrcCon + '</div>';
+            this.$toolSrcCon.append(contents);
+            contents = '<div class="' + columnWidth + ' no-padding centered body' + (frameworkPos+1) + ' ' + frameworkClass + ' flex-item">' + data.toolCostCon + '</div>';
+            this.$toolCostCon.append(contents);
+            // -----------------------------
             contents = '<div class="' + columnWidth + ' no-padding centered body' + (frameworkPos+1) + ' ' + frameworkClass + '">' + data.dev_specification + '</div>';
             this.$frameworkDevSpecContainer.append(contents);
             contents = '<div class="' + columnWidth + ' no-padding centered body' + (frameworkPos+1) + ' ' + frameworkClass + '">' + data.hardware_features + '</div>';

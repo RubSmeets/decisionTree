@@ -89,6 +89,18 @@ toolSpecificationCallOrder = [
     cost
 ]
 
+toolSpecificationHeaderCallOrder = [
+    "toolTecCon",
+    "toolAnnCon",
+    "toolVerCon",
+    "toolPlaCon",
+    "toolLanCon",
+    "toolProCon",
+    "toolLicCon",
+    "toolSrcCon",
+    "toolCostCon",
+]
+
 developmentSpecificationCallOrder = [
     "games",
     "clouddev",
@@ -149,6 +161,9 @@ formatKey = {
     "active":"Active",
     "discontinued":"Discontinued",
 
+    "freel": "Proprietary free license",
+    "comml": "Proprietary commercial license",
+    "enterprisel": "Proprietary enterprise license",
     "trial": "Trial version",
 
     "nativejavascript": "Native JS",
@@ -244,26 +259,64 @@ for i in range(0, numOfElements):
 
 def createToolSpecification():
     contentsToolSpecification = ""
+    licenseName = ""
     for i in range(0, numOfElements):
-        contentsToolSpecification = ""
         for idx, item in enumerate(toolSpecificationCallOrder):
+            contentsToolSpecification = ""
             if(isinstance(item, basestring)):
                 for key, value in frameworks[i].iteritems():
-                    if(key == item) and item == "opensource" and value and value != "none" and value != "UNDEF" and value != "EMPTY":
+                    if (key == item) and key == "license" and value and value != "none" and value != "UNDEF" and value != "EMPTY":
+                        if "|" in value:
+                            contentsToolSpecification += str("""<ul class="feature-item">""")
+                            licenses = value.split("|")
+                            for license in licenses:
+                                if "free" in license:
+                                    licenseName = formatKey.get("freel");
+                                elif "commercial" in license:
+                                    licenseName = formatKey.get("comml");
+                                elif "enterprise" in license:
+                                    licenseName = formatKey.get("enterprisel");
+                                else:
+                                    licenseName = license
+                                contentsToolSpecification += str("""<li>""" + str(licenseName) + """</li>""")
+                            contentsToolSpecification += str("""</ul>""")
+                        else:
+                            if "free" in value:
+                                licenseName = formatKey.get("freel");
+                            elif "commercial" in value:
+                                licenseName = formatKey.get("comml");
+                            elif "enterprise" in value:
+                                licenseName = formatKey.get("enterprisel");
+                            else:
+                                licenseName = value
+                            contentsToolSpecification += str("""<div class="feature-item"><span>""" + str(licenseName) + """</span></div>""")
+                    elif(key == item) and item == "opensource" and value and value != "none" and value != "UNDEF" and value != "EMPTY":
                         contentsToolSpecification += str("""<div class="feature-item"><span>""" + str(formatKey.get(value)) + """</span></div>""")
                     elif(key == item) and value and value != "none" and value != "UNDEF" and value != "EMPTY":
                         contentsToolSpecification += str("""<div class="feature-item"><span>""" + str(value) + """</span></div>""")
+                    elif(key == item) and value:
+                        contentsToolSpecification += str("""<div class="feature-item"><span>""" + str(formatKey.get(value)) + """</span></div>""")
+                jsonData[i][toolSpecificationHeaderCallOrder[idx]] = contentsToolSpecification
             else:
                 #we have a list
-                contentsToolSpecification += str("""<div class="feature-item">""")
-                for nestedItem in item:
-                    for key, value in frameworks[i].iteritems():
-                        if (nestedItem == key):
-                            if value != "none" and value != "UNDEF" and value != "EMPTY" and value != "false":
-                                contentsToolSpecification += str("""<span>""" + str(formatKey.get(key)) + """</span>, """) 
-                contentsToolSpecification = contentsToolSpecification[:-2]  #remove last ", " from string
-                contentsToolSpecification += str("""</div>""")
-        jsonData[i]["tool_specification"] = contentsToolSpecification
+                if idx == 5: #for output Type
+                    contentsToolSpecification += str("""<ul class="feature-item">""")
+                    for nestedItem in item:
+                        for key, value in frameworks[i].iteritems():
+                            if (nestedItem == key):
+                                if value != "none" and value != "UNDEF" and value != "EMPTY" and value != "false":
+                                    contentsToolSpecification += str("""<li>""" + str(formatKey.get(key)) + """</li>""")
+                    contentsToolSpecification += str("""</ul>""")
+                else:
+                    contentsToolSpecification += str("""<div class="feature-item">""")
+                    for nestedItem in item:
+                        for key, value in frameworks[i].iteritems():
+                            if (nestedItem == key):
+                                if value != "none" and value != "UNDEF" and value != "EMPTY" and value != "false":
+                                    contentsToolSpecification += str("""<span>""" + str(formatKey.get(key)) + """</span>, """) 
+                    contentsToolSpecification = contentsToolSpecification[:-2]  #remove last ", " from string
+                    contentsToolSpecification += str("""</div>""")
+                jsonData[i][toolSpecificationHeaderCallOrder[idx]] = contentsToolSpecification
 
 def createDevelopmentSpecification():
     contentsDevSpec = ""
