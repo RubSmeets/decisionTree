@@ -25,7 +25,7 @@
         <p>Compare your favorite mobile development tool with other existing tools out there. Determine which tool is best suited for your needs by filtering the list of tracked tools with your search criteria.</p>
         <p>
           <a class="btn btn-primary btn-lg" href="html/about.html" role="button">Learn more &raquo;</a>
-          <a class="btn btn-primary btn-lg" href="html/compare.html" role="button">Compare &raquo;</a>  
+          <a id="goToCompareBtn" class="btn btn-primary btn-lg" href="html/compare.html" role="button">Compare &raquo;</a>  
         </p>
       </div>
     </div>
@@ -42,7 +42,15 @@
         </div>
       </div>
       <div class="row">
-<div class="col-md-3 filters"><button type="button" class="btn btn-default btn-clear" disabled>
+<div class="col-md-3 filters"><div class="track-tool">
+    	<h4>Number of tracked tools</h4>
+    	<div class="track-tool-nr">
+			<span class="label label-default nr">0</span>
+			<span class="label label-default nr">0</span>
+			<span class="label label-default nr">5</span>
+			<span class="label label-default nr">5</span>
+		</div>
+	</div><button type="button" class="btn btn-default btn-clear" disabled>
     	Clear All<span class="glyphicon glyphicon-trash pull-right"/>
   	</button>
     <div class="panel-group filter-box">
@@ -227,7 +235,11 @@
     </div>
               
         </div>
-<div class="col-md-9"><div class="col-md-4 framework">
+<div class="col-md-9">
+<div id="msgInfoCompare" class="alert alert-warning fade in" hidden>
+    <a href="#" class="close" data-hide="alert" aria-label="close">&times;</a>
+    <strong>Info!</strong> You can only select up to 5 frameworks for comparison.
+</div><div class="col-md-4 framework">
     	<div class="thumbnail">
     		<a href="https://www.smartface.io/" target="_blank"><img src="img/logos/smartface.png" alt=""></a>		<div class="caption">
     			<h4 class="thumb-caption">Smartface</h4>
@@ -3163,7 +3175,9 @@
     	</div>
     </div>
               
-          <h2 id="msg" hidden>No framework fits the search criteria. Please refine your search input.</h2>
+          <div id="msg" class="alert alert-info" hidden>
+            <strong>Info!</strong>No framework fits the search criteria. Please refine your search input.
+          </div>
         </div>
       </div>
     </div>

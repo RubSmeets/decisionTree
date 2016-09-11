@@ -248,11 +248,27 @@ formatKey = {
     "license": "License"
 }
 
+# Read the contents of the json file
+with open('frameworks.json') as data_file:
+    frameworks = json.load(data_file)
+numOfElements = len(frameworks)
+
+# Format number of frameworks to "0000"
+formattedNum = str(numOfElements).zfill(4)
+print "Formatted number of frameworks= " + str(formattedNum)
 
 # Create the filter checkboxes from the above lists
 numOfFilters = len(filters)
 print "Number of filters= " + str(numOfFilters)
-filterContent = """<button type="button" class="btn btn-default btn-clear" disabled>
+filterContent = """<div class="track-tool">
+    \t<h4>Number of tracked tools</h4>
+    \t<div class="track-tool-nr">
+	\t\t<span class="label label-default nr">""" + formattedNum[:1] + """</span>
+	\t\t<span class="label label-default nr">""" + formattedNum[1:2] + """</span>
+	\t\t<span class="label label-default nr">""" + formattedNum[2:3] + """</span>
+	\t\t<span class="label label-default nr">""" + formattedNum[-1:] + """</span>
+	\t</div>
+	</div><button type="button" class="btn btn-default btn-clear" disabled>
     \tClear All<span class="glyphicon glyphicon-trash pull-right"/>
   	</button>
     """
@@ -295,12 +311,7 @@ for path, dirs, files in os.walk("../img/logos"):
   for f in files:
     imgList.append(f[:-4])  #strip ".png" from logo names
 
-# Read the contents of the json file
-with open('frameworks.json') as data_file:
-    frameworks = json.load(data_file)
-
 # Construct the dynamic content string from the json input file
-numOfElements = len(frameworks)
 content = ""
 urls = ["#"]
 url = ""
@@ -406,10 +417,14 @@ for i in range(0, numOfElements):
     </div>
     """)
 
-print content
+#print content
 
 placeholder1 = """<div class="col-md-3 filters">"""
-placeholder2 = """<div class="col-md-9">"""
+placeholder2 = """<div class="col-md-9">
+<div id="msgInfoCompare" class="alert alert-warning fade in" hidden>
+    <a href="#" class="close" data-hide="alert" aria-label="close">&times;</a>
+    <strong>Info!</strong> You can only select up to 5 frameworks for comparison.
+</div>"""
 
 with open('index_template.html', 'r+') as orginal, open('index.html', 'w') as output:
     for line in orginal:

@@ -1,6 +1,11 @@
 ;(function($, window, document, undefined) {
     'use strict';
 
+    var CONST = {
+        maxCompared: 5,
+        minCompared: 2
+    }
+
     /* Filter-textbox element functions */
     var filterForm = {
         
@@ -57,6 +62,7 @@
             this.frameworks = $(".framework");
             this.filterContainer = $('.filters');
             this.msg = $("#msg");
+            this.msgInfoCompare = $("#msgInfoCompare");
             this.clearButton = $('.btn-clear');
             this.$compareCheckboxes = $('[type=checkbox].compare-checkbox');
             console.log("variables initialized");
@@ -68,6 +74,7 @@
 
             filterForm.init();
             this.initTooltip();
+            this.resetPage();
             console.log("init framework comparison complete");
         },
         // Mandatory Javascript init of bootstrap tooltip component
@@ -99,6 +106,10 @@
                   }
                 });
                 MFCT.collapseAll();
+            });
+
+            $("[data-hide]").on("click", function(){
+                $(this).closest("." + $(this).attr("data-hide")).hide();
             });
         },
 
@@ -156,11 +167,17 @@
             var frameworkLabel = $(compareCheckbox).siblings('.thumb-caption');
             var frameworkName = $(frameworkLabel[0]).text();
             var compareButtons = $('.compare-link');
+            var $mainCompareBtn = $('#goToCompareBtn');
             var href = "html/compare.html?frameworks=";
             var compareIndex = 0;
             var i = 0;
 
             if($(compareCheckbox).is(':checked')) {
+                if(this.comparedItems.length === (CONST.maxCompared)) {
+                    this.msgInfoCompare.show();
+                    $(compareCheckbox).prop('checked', false);  // clear checkboxe
+                    return; // do not update url or push framework
+                }
                 this.comparedItems.push(frameworkName);
             } else {
                 //remove element
@@ -175,21 +192,28 @@
             // remove last ';' from href
             href = href.slice(0, -1);
             $(compareButtons).prop('href', href);
+            $mainCompareBtn.prop('href', href);
         },
         
         determineCompareVisibility: function() {
             var compareButtons = $('.compare-link');
             var compareCheckbox = null;
-            if(this.comparedItems.length > 1) {
+
+            if(this.comparedItems.length > (CONST.maxCompared)) return; // do nothing
+
+            if(this.comparedItems.length > (CONST.minCompared-1)) {
                 compareButtons.each(function () {
                     compareCheckbox = $(this).siblings(':input');
                     if($(compareCheckbox).is(":checked")) {
                         $(this).removeClass("hidden");
+                    } else {
+                        $(this).addClass("hidden");
                     }
                 });
-            } else {
-                compareButtons.addClass("hidden");
+                return; // go Back
             }
+            // every other situation hide button
+            compareButtons.addClass("hidden");
         },
 
         // Enable and disable button
@@ -219,6 +243,10 @@
         resetFrameworks: function() {
             this.frameworks.slideDown();
             this.frameworks.removeClass("hid");
+        },
+        // Reset markup of page
+        resetPage: function() {
+            this.checkboxes.prop("checked", false);
         }
     }
 

@@ -412,7 +412,7 @@ for i in range(0, numOfElements):
                     else:
                         contentsHeader += """<tr><td colspan="2"><img src="../img/logos/notfound.png" alt=""></td></tr>"""
                     contentsHeader += """<tr><td width="40"><span class="glyphicon glyphicon-remove-circle"></span></td><td align="left" height="58"><h4 class="thumb-caption">""" + str(value) + """</h4></td></tr>"""
-                    contentsHeader += """<tr><td colspan="2" class="data-status">Last updated: """ + lastUpdate + """</td></tr></table></div>"""
+                    contentsHeader += """<tr><td colspan="2" class="data-status">Info updated: """ + lastUpdate + """</td></tr></table></div>"""
                     jsonData[i]["header"] = contentsHeader
                     jsonData[i]["framework"] = value
 

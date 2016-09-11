@@ -25,7 +25,7 @@
         <p>Compare your favorite mobile development tool with other existing tools out there. Determine which tool is best suited for your needs by filtering the list of tracked tools with your search criteria.</p>
         <p>
           <a class="btn btn-primary btn-lg" href="html/about.html" role="button">Learn more &raquo;</a>
-          <a class="btn btn-primary btn-lg" href="html/compare.html" role="button">Compare &raquo;</a>  
+          <a id="goToCompareBtn" class="btn btn-primary btn-lg" href="html/compare.html" role="button">Compare &raquo;</a>  
         </p>
       </div>
     </div>
@@ -47,7 +47,9 @@
         </div>
         <div class="col-md-9 placeholder">
           
-          <h2 id="msg" hidden>No framework fits the search criteria. Please refine your search input.</h2>
+          <div id="msg" class="alert alert-info" hidden>
+            <strong>Info!</strong>No framework fits the search criteria. Please refine your search input.
+          </div>
         </div>
       </div>
     </div>

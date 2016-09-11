@@ -199,6 +199,13 @@ button.add-framework {
 /* -----------------------------------*/
 
 /* Styling of feature header column */
+.flex-col {
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;
+}
 a[aria-expanded=false] .glyphicon-chevron-up {
    display: none;
 }
@@ -230,6 +237,12 @@ a[aria-expanded=true] .glyphicon-chevron-down {
 /* -----------------------------------*/
 
 /* Styling of feature items and item-column */
+.flex-item {
+    align-items: stretch;
+}
+.panel-primary ul {
+    list-style-type: none;
+}
 .feature-item {
     position: relative;
     display: block;
@@ -272,19 +285,3 @@ i.uncheck {
     top: 2px; 
 }
 /* -----------------------------------*/
-
-.flex-item {
-    align-items: stretch;
-}
-
-.flex-col {
-    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-    display: -ms-flexbox;      /* TWEENER - IE 10 */
-    display: -webkit-flex;     /* NEW - Chrome */
-    display: flex;
-}
-
-ul {
-    list-style-type: none;
-}
