@@ -1,4 +1,9 @@
-;(function($, window, document, undefined) {
+/*
+ * Resources:
+ * - http://www.sitecrafting.com/blog/jquery-caching-convention/ (best practice jquery naming convention)
+ * - 
+ */
+(function($, window, document, undefined) {
     'use strict';
 
     var CONST = {
@@ -12,25 +17,28 @@
         
         initVariables: function() {
             this.filterText = "";
-            this.filterField = $("input#filter");
+            this.domCache = {};
+        },
+
+        cacheElements: function() {
+            this.domCache.filterField = $("input#filter");
         },
 
         init: function() {
             this.initVariables();
+            this.cacheElements();
             this.bindEvents();
         },
 
         bindEvents: function() {
             var that = this;
-            this.filterField.on('input', function() {
+            this.domCache.filterField.on('input', function() {
                 that.filterText = $(this).val();
-                MFCT.filterFrameworks();
+                main.filterFrameworks();
             });
 
-            this.filterField.on('focus', function() {
+            this.domCache.filterField.on('focus', function() {
                 $(this).select();
-                //filterForm.clearFilterField();
-                //MFCT.resetFrameworks();
             });
 
         },
@@ -43,40 +51,40 @@
             frameworkName = (($(framework).find(".thumb-caption"))[0].innerHTML).toLowerCase();    // get text from div
             textCompare = frameworkName.indexOf(filterText.toLowerCase());
             
-            if( textCompare === -1 ) {
-                return false;
-            } else {
-                return true;
-            }
+            if( textCompare === -1 ) return false;
+            else return true;
         },
-
+        // Not used (maybe in future)
         clearFilterField: function() {
-            this.filterField.val("");
+            this.domCache.filterField.val("");
         }
     }
     /* Mobile framework comparison tool functionality */
-    var MFCT = {
+    var main = {
         initVariables: function() {
             this.filterTerms = [];
             this.comparedItems = [];
-            this.checkboxes = $('[type=checkbox]');
-            this.frameworks = $(".framework");
-            this.filterContainer = $('.filters');
-            this.msg = $("#msg");
-            this.msgInfoCompare = $("#msgInfoCompare");
-            this.clearButton = $('.btn-clear');
-            this.$compareCheckboxes = $('[type=checkbox].compare-checkbox');
-            console.log("variables initialized");
+            this.domCache = {};
+        },
+
+        cacheElements: function() {
+            this.domCache.checkboxes = $('[type=checkbox]');
+            this.domCache.frameworks = $(".framework");
+            this.domCache.filterContainer = $('.filters');
+            this.domCache.msg = $("#msg");
+            this.domCache.msgInfoCompare = $("#msgInfoCompare");
+            this.domCache.clearButton = $('.btn-clear');
+            this.domCache.compareCheckboxes = $('[type=checkbox].compare-checkbox');
         },
 
         init: function() {
             this.initVariables();
+            this.cacheElements();
             this.bindEvents();
 
             filterForm.init();
             this.initTooltip();
             this.resetPage();
-            console.log("init framework comparison complete");
         },
         // Mandatory Javascript init of bootstrap tooltip component
         initTooltip: function() {
@@ -85,30 +93,29 @@
 
         bindEvents: function() {
             var that = this;
-            this.checkboxes.on('input change', function() {
-                MFCT.toggleClearButton();
-                console.log("fired input change global");
+            this.domCache.checkboxes.on('input change', function() {
+                that.toggleClearButton();
             });
 
-            this.$compareCheckboxes.on('input change', function() {
+            this.domCache.compareCheckboxes.on('input change', function() {
                 that.updateCompareUrl(this);
                 that.determineCompareVisibility();
             });
 
-            this.filterContainer.on('input change', function() {
-                MFCT.getCheckedFilterTerms();
-                MFCT.filterFrameworks();
+            this.domCache.filterContainer.on('input change', function() {
+                that.getCheckedFilterTerms();
+                that.filterFrameworks();
             });
 
-            this.clearButton.on('click', function() {
-                MFCT.checkboxes.each( function() {
+            this.domCache.clearButton.on('click', function() {
+                that.domCache.checkboxes.each( function() {
                   if( $(this).is(':checked') ) {
-                      $(this).prop("checked", false).change();
+                      $(this).prop("checked", false).change();  // Force change event
                   }
                 });
-                MFCT.collapseAll();
+                that.collapseAll();
             });
-
+            // hide bootstrap Alert
             $("[data-hide]").on("click", function(){
                 $(this).closest("." + $(this).attr("data-hide")).hide();
             });
@@ -118,7 +125,7 @@
             this.filterTerms = [];
             var that = this;
 
-            this.checkboxes.each( function() {
+            this.domCache.checkboxes.each( function() {
                 if ( $(this).is(':checked') ) {
                   that.filterTerms.push($(this).val());
                 }
@@ -138,20 +145,17 @@
                 }
             }
 
-            if (filterTerms.length === foundFeatures) {
-                return true;
-            } else {
-                return false;
-            }
+            if (filterTerms.length === foundFeatures) return true;
+            else return false;
         },
-        // Do a combined filter of checkboxes and form
+        // Do a combined filter of checkboxes and form search
         filterFrameworks: function() {
             var that = this;
             // Clear selected class
             $('.selected').removeClass('selected');
 
-            this.frameworks.each( function() {
-                if( MFCT.CheckFrameworkFeature(that.filterTerms, this) && filterForm.CheckFrameworkName(filterForm.filterText, this) ) {
+            this.domCache.frameworks.each( function() {
+                if( that.CheckFrameworkFeature(that.filterTerms, this) && filterForm.CheckFrameworkName(filterForm.filterText, this) ) {
                     $(this).slideDown();
                     $(this).removeClass("hid");
                 } else {
@@ -162,12 +166,11 @@
 
             this.nothingLeft();
         },
-
         // update compare url
         updateCompareUrl: function(compareCheckbox) {
-            var frameworkLabel = $(compareCheckbox).siblings('.thumb-caption');
-            var frameworkName = $(frameworkLabel[0]).text();
-            var compareButtons = $('.compare-link');
+            var $frameworkLabel = $(compareCheckbox).siblings('.thumb-caption');
+            var frameworkName = $($frameworkLabel[0]).text();
+            var $compareButtons = $('.compare-link');
             var $mainCompareBtn = $('#goToCompareBtn');
             var href = "html/compare.html?frameworks=";
             var compareIndex = 0;
@@ -175,7 +178,7 @@
 
             if($(compareCheckbox).is(':checked')) {
                 if(this.comparedItems.length === (CONST.maxCompared)) {
-                    this.msgInfoCompare.show();
+                    this.domCache.msgInfoCompare.show();
                     $(compareCheckbox).prop('checked', false);  // clear checkboxe
                     return; // do not update url or push framework
                 }
@@ -192,74 +195,73 @@
             }
             // remove last ';' from href
             href = href.slice(0, -1);
-            $(compareButtons).prop('href', href);
+            $compareButtons.prop('href', href);
             $mainCompareBtn.prop('href', href);
         },
         
         determineCompareVisibility: function() {
-            var compareButtons = $('.compare-link');
-            var checkboxCompareLabels = $(".compare-label");
-            var compareCheckbox = null;
-            var checkboxLabel = null;
+            var $compareButtons = $('.compare-link');
+            var $checkboxCompareLabels = $(".compare-label");
+            var $compareCheckbox = null;
+            var $checkboxLabel = null;
 
             if(this.comparedItems.length > (CONST.maxCompared)) return; // do nothing
 
             if(this.comparedItems.length > (CONST.minCompared-1)) {
-                compareButtons.each(function () {
-                    compareCheckbox = $(this).siblings(':input');
-                    checkboxLabel = $(this).siblings('label');
-                    if($(compareCheckbox).is(":checked")) {
-                        checkboxLabel.text("");
+                $compareButtons.each(function () {
+                    $compareCheckbox = $(this).siblings(':input');
+                    $checkboxLabel = $(this).siblings('label');
+                    if($compareCheckbox.is(":checked")) {
+                        $checkboxLabel.text("");
                         $(this).removeClass("hidden");
                     } else {
                         $(this).addClass("hidden");
-                        checkboxLabel.text(CONST.compareLabelText);
+                        $checkboxLabel.text(CONST.compareLabelText);
                     }
                 });
                 return; // go Back
             }
             // every other situation hide button
-            compareButtons.addClass("hidden");
-            checkboxCompareLabels.text(CONST.compareLabelText);  // Could be done better...
+            $compareButtons.addClass("hidden");
+            $checkboxCompareLabels.text(CONST.compareLabelText);  // Could be done better...
         },
 
         // Enable and disable button
         toggleClearButton: function() {
-            if( this.checkboxes.is(":checked") ) {
-              this.clearButton.prop('disabled', false);
+            if( this.domCache.checkboxes.is(":checked") ) {
+              this.domCache.clearButton.prop('disabled', false);
             } else {
-              this.clearButton.prop('disabled', true);
+              this.domCache.clearButton.prop('disabled', true);
             }
         },
         // Check if there are frameworks left (if not show a message)
         nothingLeft: function() {
-            if ($('.framework.hid').length === this.frameworks.length) {
-                this.msg.show();
+            if ($('.framework.hid').length === this.domCache.frameworks.length) {
+                this.domCache.msg.show();
             } else {
-                this.msg.hide();
+                this.domCache.msg.hide();
             }
         },
         // collapse all detail panels
         collapseAll: function() {
-            var panels = $('.caption');
-            $(panels).each(function() {
+            var $panels = $('.caption');
+            $panels.each(function() {
                 $(this).find('.collapse').collapse("hide");
             });
         },
         // Back to normal state
         resetFrameworks: function() {
-            this.frameworks.slideDown();
-            this.frameworks.removeClass("hid");
+            this.domCache.frameworks.slideDown();
+            this.domCache.frameworks.removeClass("hid");
         },
         // Reset markup of page
         resetPage: function() {
-            this.checkboxes.prop("checked", false);
+            this.domCache.checkboxes.prop("checked", false);
         }
     }
 
     $( document ).ready(function() {
-        console.log( "ready!" );
-        MFCT.init();
+        main.init();
     });
 
 })(jQuery, window, document);
