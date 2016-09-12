@@ -3,7 +3,8 @@
 
     var CONST = {
         maxCompared: 5,
-        minCompared: 2
+        minCompared: 2,
+        compareLabelText: "Compare"
     }
 
     /* Filter-textbox element functions */
@@ -197,23 +198,29 @@
         
         determineCompareVisibility: function() {
             var compareButtons = $('.compare-link');
+            var checkboxCompareLabels = $(".compare-label");
             var compareCheckbox = null;
+            var checkboxLabel = null;
 
             if(this.comparedItems.length > (CONST.maxCompared)) return; // do nothing
 
             if(this.comparedItems.length > (CONST.minCompared-1)) {
                 compareButtons.each(function () {
                     compareCheckbox = $(this).siblings(':input');
+                    checkboxLabel = $(this).siblings('label');
                     if($(compareCheckbox).is(":checked")) {
+                        checkboxLabel.text("");
                         $(this).removeClass("hidden");
                     } else {
                         $(this).addClass("hidden");
+                        checkboxLabel.text(CONST.compareLabelText);
                     }
                 });
                 return; // go Back
             }
             // every other situation hide button
             compareButtons.addClass("hidden");
+            checkboxCompareLabels.text(CONST.compareLabelText);  // Could be done better...
         },
 
         // Enable and disable button

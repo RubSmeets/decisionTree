@@ -353,7 +353,7 @@ for i in range(0, numOfElements):
     #Add compare button and link
     content+= str("""\t\t\t<input id="compare-""" + str(formatString(frameworks[i].get('framework'))) + """\" type="checkbox" value="compare" class="custom-checkbox compare-checkbox"/>
     \t\t\t<label for="compare-""" + str(formatString(frameworks[i].get('framework'))) + """\" class="checkbox-label compare-label">Compare</label>
-	\t\t\t<a class="btn btn-danger btn-xs btn-block compare-link hidden" href="html/compare.html" role="button">Go to compare</a>
+	\t\t\t<a class="btn btn-danger btn-xs compare-link hidden" href="html/compare.html" role="button">Go to compare</a>
     """)
     content+= str("""\t\t\t<div>
     \t\t\t\t<h4 class="panel-title">
