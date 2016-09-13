@@ -40,7 +40,7 @@ my $key="";
 
 # Provide key words you want removed from list. The list gets converted to hash for later use
 print "\n\n*******Remove unwanted keys: \n";
-my @myRemovedKeyWords = ("javascript","07/02/2012","MonoforAndroid4.2.4","08/08/2012","MonoTouch5.2.13");
+my @myRemovedKeyWords = ("");
 my %unWantedParameters = map { $_ => 1 } @myRemovedKeyWords;
 foreach $key (keys %parameters) {
   if(exists($unWantedParameters{$key})) {
@@ -52,7 +52,7 @@ foreach $key (keys %parameters) {
 
 # Comment out to insert new key words in the hash
 print "\n\n*******Insert new keys: \n";
-my @myNewKeyWords = ("javascript_tool");
+my @myNewKeyWords = ("twitter");
 foreach (@myNewKeyWords) {
   print "new keys: " . $_ . " \n";
   $parameters{$_} = "1";

@@ -1,3 +1,4 @@
+// Number of tracked tools display --------------------
 .track-tool {
     display: block;
     padding: 10px 15px;
@@ -21,7 +22,7 @@
     height: 40px;
     padding: 10px 6px;
 }
-
+// ---------------------------------------------------
 
 // Clear all button styling --------------------------
 .btn-clear {
@@ -86,6 +87,10 @@ div.filter-box div.panel-body {
     font-size: 17px;
 }
 
+.caption {
+    padding-top: 0px !important;
+}
+
 .feature-panel {
     text-align: center;
 }
@@ -98,8 +103,8 @@ div.filter-box div.panel-body {
 }
 
 .thumbnail img {
-    padding: 10px 10px 10px;
-    height: 100px;
+    margin-top: 10px;
+    height: 80px;
 }
 
 .info-label {
@@ -138,7 +143,6 @@ a[aria-expanded=true] .glyphicon-chevron-down {
 // ---------------------------------------------------
 
 //Styling of the collapsed panel of each tile --------
-
 .featureTitle {
     font-size: 1em;
     font-weight: bold;
@@ -174,14 +178,17 @@ a[aria-expanded=true] .glyphicon-chevron-down {
     border: 2px solid lightgreen;
     box-shadow: 0 0 10px lightgreen;
 } 
-
 // ---------------------------------------------------
 
-
-/*.selected {
-    background-repeat: no-repeat;
-    background-image: url(../img/appproval.svg);
-    background-size: 10%;
-    background-position: 95% 50%;
+//Styling of popularity figures (twitter/etc) --------
+.caption a {
+    text-decoration: none;
 }
-*/
+
+.twitter-label {
+    font-size: 11px;
+    font-weight: 500;
+    margin-left: 3px;
+}
+
+// ---------------------------------------------------

@@ -11,6 +11,7 @@ frameworkKeyCallOrder = [
     "framework_current_version",
     "announced",
     "market",
+    "twitter",
     "appshowcase",
     "clouddev",
     "license",

@@ -85,6 +85,7 @@
             filterForm.init();
             this.initTooltip();
             this.resetPage();
+            frameworkPopularity.init();
         },
         // Mandatory Javascript init of bootstrap tooltip component
         initTooltip: function() {
@@ -260,9 +261,53 @@
         }
     }
 
+    var frameworkPopularity = {
+        initVariables: function() {
+            
+        },
+
+        cacheElements: function() {
+
+        },
+        
+        init: function() {
+            this.initVariables();
+            this.cacheElements();
+            this.loadTwitterData();
+        },
+
+        loadTwitterData: function() {
+            var $twitterDiv = $(".fa-twitter");
+            var that = this;
+            $twitterDiv.each(function () {
+                var twitterName = $(this).prop("id");
+                // API not supported by twitter - http://stackoverflow.com/questions/17409227/follower-count-number-in-twitter
+                $.ajax({
+                    url: "https://cdn.syndication.twimg.com/widgets/followbutton/info.json?screen_names=" + twitterName,
+                    dataType : 'jsonp',
+                    crossDomain : true,
+                    success: that.twitterSuccessCallBack,
+                    error: that.twitterErrorCallBack
+                })
+            });
+        },
+
+        twitterErrorCallBack: function() {
+            console.log("Failed to make request");
+        },
+
+        twitterSuccessCallBack: function(data, status, jqXHR) {
+            var $twitterLabel = $("#" + data[0].screen_name.toLowerCase()).siblings("span")[0];
+            $($twitterLabel).text((data[0].formatted_followers_count).slice(0, -10));
+            console.log("success to make request");
+        }
+
+    }
+
     $( document ).ready(function() {
         main.init();
     });
 
 })(jQuery, window, document);
+
 

@@ -36,6 +36,15 @@ def filterValue( str ):
     else:
         return ""
 
+def constructPopularity( framework ):
+    name = ""
+    content = ""
+    value = framework.get("twitter")
+    if value != "EMPTY" and value !="UNDEF":
+        name = value.split("https://twitter.com/",1)[1]
+        content = """<div class="info-label"><a href=\"""" + value + """\" target="_blank"><i id=\"""" + name.lower() +"""\"class="fa fa-twitter" aria-hidden="true"></i><span class="twitter-label"></span></a></div>"""
+
+    return content
 
 #Constants ----------------------
 #status keywords
@@ -361,6 +370,8 @@ for i in range(0, numOfElements):
     for key, value in frameworks[i].iteritems():
         if (str(value) == "Active" or str(value) == "Discontinued") and value and value != "none" and value != "false" and value != "UNDEF" and value != "EMPTY":
             content+= """\t\t\t<span class="info-label """ + str(key) + " " + str(value).lower() + """\">""" + str(value) + """</span>\n"""
+    #Add Popularity numbers
+    content+= constructPopularity(frameworks[i])
     #Add compare button and link
     content+= str("""\t\t\t<input id="compare-""" + str(formatString(frameworks[i].get('framework'))) + """\" type="checkbox" value="compare" class="custom-checkbox compare-checkbox"/>
     \t\t\t<label for="compare-""" + str(formatString(frameworks[i].get('framework'))) + """\" class="checkbox-label compare-label">Compare</label>
