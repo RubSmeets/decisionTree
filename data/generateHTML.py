@@ -8,6 +8,9 @@ from collections import OrderedDict
 
 # Global variables
 imgList = []
+bootstrapGridL = "col-md-"
+bootstrapGridM = "col-sm-"
+bootstrapGridS = "col-xs-"
 
 print "Hello, Python!"
 
@@ -25,6 +28,14 @@ def checkLogoAvailability( str ):
         return str
     else:
         return "notfound"
+
+# Filter value to exlude true
+def filterValue( str ):
+    if "true" not in str:
+        return str
+    else:
+        return ""
+
 
 #Constants ----------------------
 #status keywords
@@ -325,7 +336,7 @@ for i in range(0, numOfElements):
     else:
         urls[0] = url
     #Start panel group
-    content+= str("""<div class="col-md-4 framework">
+    content+= str("""<div class=\"""" + bootstrapGridL + """4 """ + bootstrapGridS + """6 framework">
     \t<div class="thumbnail">
     """)
     if urls[0] == "#":
@@ -369,43 +380,43 @@ for i in range(0, numOfElements):
 	\t\t\t\t\t\t<div class="row">
 	""")
     #Fill in platform
-    content+= str("""\t\t\t\t\t\t\t<div class="col-md-6">
+    content+= str("""\t\t\t\t\t\t\t<div class=\"""" + bootstrapGridM + """6">
     \t\t\t\t\t\t\t\t<h4 class="featureTitle">Platform</h4>
     """)
     for key, value in frameworks[i].iteritems():
         if key in platforms and value and value != "none" and value != "false" and value != "UNDEF" and value != "EMPTY":
-            content+= """\t\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
+            content+= """\t\t\t\t\t\t\t<span class="feature """ + str(key) + " " + filterValue(str(value)) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
     #Fill in target
     content+= str("""\t\t\t\t\t\t\t</div>
-    \t\t\t\t\t\t\t<div class="col-md-6">
+    \t\t\t\t\t\t\t<div class=\"""" + bootstrapGridM + """6">
     \t\t\t\t\t\t\t\t<h4 class="featureTitle">Target</h4>
     """)
     for key, value in frameworks[i].iteritems():
         if key in target and value and value != "none" and value != "false" and value != "UNDEF" and value != "EMPTY":
-            content+= """\t\t\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
+            content+= """\t\t\t\t\t\t\t\t<span class="feature """ + str(key) + " " + filterValue(str(value)) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
     #Fill in Development Language
     content+= str("""\t\t\t\t\t\t\t</div>
     \t\t\t\t\t\t</div>
     \t\t\t\t\t\t<div class="row">
-    \t\t\t\t\t\t\t<div class="col-md-6">
+    \t\t\t\t\t\t\t<div class=\"""" + bootstrapGridM + """6">
     \t\t\t\t\t\t\t\t<h4 class="featureTitle">Development Language</h4>
     """)
     for key, value in frameworks[i].iteritems():
         if key in developmentLanguage and value and value != "none" and value != "false" and value != "UNDEF" and value != "EMPTY":
-            content+= """\t\t\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
+            content+= """\t\t\t\t\t\t\t\t<span class="feature """ + str(key) + " " + filterValue(str(value)) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
     #Fill in Terms of license
     content+= str("""\t\t\t\t\t\t\t\t</div>
-    \t\t\t\t\t\t\t<div class="col-md-6">
+    \t\t\t\t\t\t\t<div class=\"""" + bootstrapGridM + """6">
     \t\t\t\t\t\t\t\t<h4 class="featureTitle">Terms of a License</h4>
     """)
     for key, value in frameworks[i].iteritems():
         if key in license and value and value != "none" and value != "false" and value != "UNDEF" and value != "EMPTY":
-            content+= """\t\t\t\t\t\t\t\t<span class="feature """ + str(key) + " " + str(value) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
+            content+= """\t\t\t\t\t\t\t\t<span class="feature """ + str(key) + " " + filterValue(str(value)) + """\">""" + str(formatKey.get(key)) + """</span>\n"""
         elif key == "license":
             if "commercial" in value:
-                content+= """\t\t\t\t\t\t\t\t<span class="feature commercial true"\">""" + str(formatKey.get("commercial")) + """</span>\n"""
+                content+= """\t\t\t\t\t\t\t\t<span class="feature commercial"\">""" + str(formatKey.get("commercial")) + """</span>\n"""
             if "enterprise" in value:
-                content+= """\t\t\t\t\t\t\t\t<span class="feature enterprise true"\">""" + str(formatKey.get("enterprise")) + """</span>\n"""
+                content+= """\t\t\t\t\t\t\t\t<span class="feature enterprise"\">""" + str(formatKey.get("enterprise")) + """</span>\n"""
     #Add finish
     content+= str("""\t\t\t\t\t\t\t</div>
     \t\t\t\t\t\t</div>
@@ -419,8 +430,8 @@ for i in range(0, numOfElements):
 
 #print content
 
-placeholder1 = """<div class="col-md-3 filters">"""
-placeholder2 = """<div class="col-md-9">
+placeholder1 = """<div class=\"""" + bootstrapGridM + """3 filters">"""
+placeholder2 = """<div class=\"""" + bootstrapGridM + """9">
 <div id="msgInfoCompare" class="alert alert-warning fade in" hidden>
     <a href="#" class="close" data-hide="alert" aria-label="close">&times;</a>
     <strong>Info!</strong> You can only select up to 5 frameworks for comparison.

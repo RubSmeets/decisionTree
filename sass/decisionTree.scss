@@ -145,17 +145,14 @@ a[aria-expanded=true] .glyphicon-chevron-down {
 }
 
 // Background color of features
-.true {
-    background-color: steelblue;
-}
 .via {
-    background-color: plum;
+    background-color: plum !important;
 }
 .partially {
-    background-color: lightgreen;
+    background-color: lightgreen !important;
 }
 .soon {
-    background-color: mediumpurple
+    background-color: mediumpurple !important;
 }
 
 //Styling of the feature spans
@@ -170,6 +167,7 @@ a[aria-expanded=true] .glyphicon-chevron-down {
     min-width: 67px;
     padding: 3px 3px 3px 5px;
     font-size: x-small;
+    background-color: steelblue;
 }
 
 .selected {
