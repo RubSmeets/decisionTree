@@ -52,7 +52,7 @@ foreach $key (keys %parameters) {
 
 # Comment out to insert new key words in the hash
 print "\n\n*******Insert new keys: \n";
-my @myNewKeyWords = ("twitter");
+my @myNewKeyWords = ("stackoverflow");
 foreach (@myNewKeyWords) {
   print "new keys: " . $_ . " \n";
   $parameters{$_} = "1";

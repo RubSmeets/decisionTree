@@ -12,6 +12,7 @@ frameworkKeyCallOrder = [
     "announced",
     "market",
     "twitter",
+    "stackoverflow",
     "appshowcase",
     "clouddev",
     "license",

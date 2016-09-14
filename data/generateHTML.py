@@ -38,12 +38,31 @@ def filterValue( str ):
 
 def constructPopularity( framework ):
     name = ""
-    content = ""
+    content = """<div class="row">"""
     value = framework.get("twitter")
     if value != "EMPTY" and value !="UNDEF":
         name = value.split("https://twitter.com/",1)[1]
-        content = """<div class="info-label"><a href=\"""" + value + """\" target="_blank"><i id=\"""" + name.lower() +"""\"class="fa fa-twitter" aria-hidden="true"></i><span class="twitter-label"></span></a></div>"""
+        content += """<div class=\"""" + bootstrapGridS + """4 centered left"><a href=\"""" + value + """\" target="_blank"><i id=\"twitter-""" + name.lower() +"""\"class="fa fa-twitter" aria-hidden="true"></i><span class="twitter-label">0000</span></a></div>"""
+    else:
+        content += """<div class=\"""" + bootstrapGridS + """4 centered left"><i class="fa fa-twitter" aria-hidden="true"></i><span class="twitter-label">n/a</span></div>"""
 
+    value = framework.get("repo")
+    if value != "EMPTY" and value !="UNDEF" and value !="false":
+        name = value.split("github.com/",1)[1]
+        name = name.split("/",1)[0] #get the first value = the user name
+        content += """<div class=\"""" + bootstrapGridS + """4 centered"><a href=\"""" + value + """\" target="_blank"><i id=\"github-""" + name.lower() +"""\"class="fa fa-github" aria-hidden="true"></i><span class="github-label">0000</span></a></div>"""
+    else:
+        content += """<div class=\"""" + bootstrapGridS + """4 centered"><i class="fa fa-github" aria-hidden="true"></i><span class="github-label">n/a</span></div>"""
+
+    value = framework.get("stackoverflow")
+    if value != "EMPTY" and value !="UNDEF" and value !="false":
+        name = value.split("tagged/",1)[1]
+        name = name.split(".",1)[0] #get name without the ".io"
+        content += """<div class=\"""" + bootstrapGridS + """4 centered right"><a href=\"""" + value + """\" target="_blank"><i id=\"stackoverflow-""" + name.lower() +"""\"class="fa fa-stack-overflow" aria-hidden="true"></i><span class="stackoverflow-label">0000</span></a></div>"""
+    else:
+        content += """<div class=\"""" + bootstrapGridS + """4 centered right"><i class="fa fa-stack-overflow" aria-hidden="true"></i><span class="stackoverflow-label">n/a</span></div>"""
+
+    content += """</div>"""
     return content
 
 #Constants ----------------------

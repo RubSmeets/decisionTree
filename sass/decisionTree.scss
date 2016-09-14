@@ -1,3 +1,19 @@
+// Global bootstrap column overwrites ----------------
+.centered {
+    text-align: center;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.centered.left {
+    padding-left: 20px;
+}
+
+.centered.right {
+    padding-right: 20px;
+}
+// ---------------------------------------------------
+
 // Number of tracked tools display --------------------
 .track-tool {
     display: block;
@@ -185,10 +201,11 @@ a[aria-expanded=true] .glyphicon-chevron-down {
     text-decoration: none;
 }
 
+.github-label,
+.stackoverflow-label,
 .twitter-label {
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 500;
     margin-left: 3px;
 }
-
 // ---------------------------------------------------

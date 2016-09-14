@@ -9,7 +9,12 @@
     var CONST = {
         maxCompared: 5,
         minCompared: 2,
-        compareLabelText: "Compare"
+        compareLabelText: "Compare",
+        githubSessionStoreKey: "githubData",
+        githubPrefix: "github",
+        stackoverflowSessionStoreKey: "stackoverflowData",
+        stackOverflowPrefix: "stackoverflow",
+        maxStackOverflowRequest: 25,
     }
 
     /* Filter-textbox element functions */
@@ -263,7 +268,8 @@
 
     var frameworkPopularity = {
         initVariables: function() {
-            
+            this.githubData = {data: []};
+            this.stackOverflowData = {data: []};
         },
 
         cacheElements: function() {
@@ -273,35 +279,193 @@
         init: function() {
             this.initVariables();
             this.cacheElements();
-            this.loadTwitterData();
+            this.loadRemoteTwitterData();
+            this.loadGithubData();
+            this.loadStackOverflowData();
         },
 
-        loadTwitterData: function() {
-            var $twitterDiv = $(".fa-twitter");
+        loadRemoteTwitterData: function() {
+            var $twitterIcon = $("a .fa-twitter");
+            var twitterName = "";
+            var url = "";
+            var strippedUserName = [];
             var that = this;
-            $twitterDiv.each(function () {
-                var twitterName = $(this).prop("id");
+            $twitterIcon.each(function () {
+                twitterName = $(this).prop("id");
+                strippedUserName = twitterName.split("-");
+                url = "https://cdn.syndication.twimg.com/widgets/followbutton/info.json?screen_names=" + strippedUserName[1];
                 // API not supported by twitter - http://stackoverflow.com/questions/17409227/follower-count-number-in-twitter
-                $.ajax({
-                    url: "https://cdn.syndication.twimg.com/widgets/followbutton/info.json?screen_names=" + twitterName,
-                    dataType : 'jsonp',
-                    crossDomain : true,
-                    success: that.twitterSuccessCallBack,
-                    error: that.twitterErrorCallBack
-                })
+                that.makeRequest(url, that.twitterSuccessCallBack, that.twitterErrorCallBack);
+            });
+        },
+
+        loadGithubData: function() {
+            this.githubData.data = this.loadLocalData(CONST.githubSessionStoreKey);
+            if(this.githubData.data.length === 0) {
+                this.loadRemoteGithubData();
+            };
+            this.updateMarkup(this.githubData.data, CONST.githubPrefix);
+        },
+
+        loadStackOverflowData: function() {
+            this.stackOverflowData.data = this.loadLocalData(CONST.stackoverflowSessionStoreKey);
+            if(this.stackOverflowData.data.length === 0) {
+                this.loadRemoteStackOverflowData();
+            };
+            this.updateMarkup(this.stackOverflowData.data, CONST.stackOverflowPrefix);
+        },
+
+        loadLocalData: function( localStorageKey ) {
+            var storedData = sessionData.getData(localStorageKey);
+            if(storedData != null) {
+                if(storedData.data.length !== 0) {
+                    return storedData.data;
+                }
+            }
+            return [];
+        },
+
+        loadRemoteGithubData: function() {
+            var $githubIcon = $("a .fa-github");
+            var $githubLink = null;
+            var repoAddress = "";
+            var url = ""
+            var strippedRepoUrl= [];
+            var that = this;
+            $githubIcon.each(function () {
+                $githubLink = $(this).parent();
+                repoAddress = $githubLink.prop("href");
+                strippedRepoUrl = repoAddress.split("github.com/");
+                url = "https://api.github.com/repos/" + strippedRepoUrl[1];
+                // Un-authenticated requests are limited to 60/hour. --> authenticated is 5000/hour needs configuration
+                that.makeRequest(url, that.githubSuccessCallBack, that.githubErrorCallBack);
+            });
+        },
+
+        loadRemoteStackOverflowData: function() {
+            var $stackOverflowIcon = $("a .fa-stack-overflow");
+            /* trottle API variables */
+            var i = 0;
+            var numberOfIcons = $stackOverflowIcon.length;
+            var fragments = Math.ceil(numberOfIcons / CONST.maxStackOverflowRequest);
+
+            for(i=0; i<fragments; i++) {
+                setTimeout(this.StackOverflowTimeOutCallback, (i*1000), (i), numberOfIcons, $stackOverflowIcon, this);
+            }
+        },
+
+        StackOverflowTimeOutCallback: function(i, numberOfIcons, $icons, that) {
+            var j = 0;
+            var ceiling = 0
+            var $stackOverflowLink = null;
+            var stackOverflowAddress = "";
+            var url = ""
+            var strippedstackOverflowUrl= [];
+            
+            if((CONST.maxStackOverflowRequest*(i+1)) >= numberOfIcons) ceiling = numberOfIcons;
+            else ceiling = CONST.maxStackOverflowRequest*(i+1);
+
+            for(j=(CONST.maxStackOverflowRequest*i); j<ceiling; j++) {
+                $stackOverflowLink = $($icons[j]).parent();
+                stackOverflowAddress = $stackOverflowLink.prop("href");
+                strippedstackOverflowUrl = stackOverflowAddress.split("tagged/");
+                url = "https://api.stackexchange.com/2.2/tags/" + strippedstackOverflowUrl[1] + "/info?order=desc&sort=popular&site=stackoverflow";
+                // API https://api.stackexchange.com/2.2/tags/{tags}/info?order=desc&sort=popular&site=stackoverflow limited to 30 request/sec and 300/day
+                that.makeRequest(url, that.stackOverflowSuccessCallBack, that.stackOverflowErrorCallBack);
+            }
+        },
+
+        makeRequest: function(url, successCallback, errorCallback) {
+            $.ajax({
+                url: url,
+                dataType : 'jsonp',
+                crossDomain : true,
+                success: successCallback,
+                error: errorCallback
             });
         },
 
         twitterErrorCallBack: function() {
-            console.log("Failed to make request");
+            console.log("Failed to make request twitter API");
         },
 
         twitterSuccessCallBack: function(data, status, jqXHR) {
-            var $twitterLabel = $("#" + data[0].screen_name.toLowerCase()).siblings("span")[0];
+            var $twitterLabel = $("#twitter-" + data[0].screen_name.toLowerCase()).siblings("span")[0];
             $($twitterLabel).text((data[0].formatted_followers_count).slice(0, -10));
-            console.log("success to make request");
+        },
+
+        githubErrorCallBack: function() {
+            console.log("Failed to make request github API");
+        },
+
+        githubSuccessCallBack: function(data) {
+            if(data.data.owner.hasOwnProperty("login")) {
+                var name = data.data.owner["login"];
+                var stars = data.data["stargazers_count"];
+                var data = [{"name": name, "count": stars}];
+                frameworkPopularity.githubData.data.push({"name": name, "count": stars});
+                sessionData.storeData(CONST.githubSessionStoreKey, frameworkPopularity.githubData);
+                frameworkPopularity.updateMarkup(data, CONST.githubPrefix);
+            }
+        },
+
+        stackOverflowErrorCallBack: function() {
+            console.log("Failed to make request stackoverflow API");
+        },
+
+        stackOverflowSuccessCallBack: function(data) {
+            if(data.items[0].hasOwnProperty("name")) {
+                var strippedName = [];
+                var name = data.items[0]["name"];
+                strippedName = name.split(".");
+                var count = data.items[0]["count"];
+                var data = [{"name": strippedName[0], "count": count}];
+                frameworkPopularity.stackOverflowData.data.push({"name": strippedName[0], "count": count});
+                sessionData.storeData(CONST.stackoverflowSessionStoreKey, frameworkPopularity.stackOverflowData);
+                frameworkPopularity.updateMarkup(data, CONST.stackOverflowPrefix);
+            }
+        },
+
+        updateMarkup: function(dataItem, prefix) {
+            var i = 0;
+            var $label = null;
+            for(i=0; i<dataItem.length; i++) {
+                $label = $("#" + prefix + "-" + dataItem[i].name.toLowerCase()).siblings("span")[0];
+                $($label).text(util.formatNumber(dataItem[i].count));
+            }
         }
 
+    }
+
+    var sessionData = {
+        storeData: function( key, value ) {
+            sessionStorage.setItem(key, JSON.stringify(value));
+        },
+
+        getData: function( key ) {
+            var value = null;
+            if (sessionStorage.getItem(key)) {
+                // Restore the contents of the text field
+                value = JSON.parse(sessionStorage.getItem(key));
+            }
+            return value;
+        }
+
+    }
+
+    var util = {
+        formatNumber: function( nr ) {
+            var formattedNr = "";
+            if( nr > 9999 ) {
+                nr = (nr / 1000).toFixed(1);
+                formattedNr = nr.toLocaleString('en-US') + "K";
+            } else if( nr > 999 ) {
+                formattedNr = nr.toLocaleString('en-US');
+            } else {
+                formattedNr = nr.toString();
+            }
+            return formattedNr;
+        }
     }
 
     $( document ).ready(function() {
