@@ -10,10 +10,22 @@
         maxCompared: 5,
         minCompared: 2,
         compareLabelText: "Compare",
+        twitterIcon: "twitter",
+        twitterSessionStoreKey: "twitterData",
+        twitterSliceTerm: "twitter.com/",
+        twitterPrefix:"twitter",
+        // API not supported by twitter - http://stackoverflow.com/questions/17409227/follower-count-number-in-twitter
+        twitterAPI: "https://cdn.syndication.twimg.com/widgets/followbutton/info.json?screen_names=",
+        githubIcon: "github",
         githubSessionStoreKey: "githubData",
         githubPrefix: "github",
-        stackoverflowSessionStoreKey: "stackoverflowData",
+        githubSliceTerm: "github.com/",
+        // Un-authenticated githubAPI requests are limited to 60/hour. --> authenticated is 5000/hour requires configuration
+        githubAPI: "https://api.github.com/repos/",
+        stackOverflowIcon: "stack-overflow",
+        stackOverflowSessionStoreKey: "stackoverflowData",
         stackOverflowPrefix: "stackoverflow",
+        stackOverflowSliceTerm: "tagged/",
         maxStackOverflowRequest: 25,
     }
 
@@ -268,6 +280,7 @@
 
     var frameworkPopularity = {
         initVariables: function() {
+            this.twitterData = {data: []};
             this.githubData = {data: []};
             this.stackOverflowData = {data: []};
         },
@@ -279,36 +292,45 @@
         init: function() {
             this.initVariables();
             this.cacheElements();
-            this.loadRemoteTwitterData();
+            this.loadTwitterData();
             this.loadGithubData();
             this.loadStackOverflowData();
         },
 
-        loadRemoteTwitterData: function() {
-            var $twitterIcon = $("a .fa-twitter");
-            var twitterName = "";
-            var url = "";
-            var strippedUserName = [];
+        loadRemoteData: function(api, iconName, sliceTerm, successCallback, errorCallback) {
+            var $icon = $("a .fa-" + iconName);
+            var $link = null;
+            var remoteAddress = "";
+            var requestUrl = "";
+            var strippedRemoteAddress= [];
             var that = this;
-            $twitterIcon.each(function () {
-                twitterName = $(this).prop("id");
-                strippedUserName = twitterName.split("-");
-                url = "https://cdn.syndication.twimg.com/widgets/followbutton/info.json?screen_names=" + strippedUserName[1];
-                // API not supported by twitter - http://stackoverflow.com/questions/17409227/follower-count-number-in-twitter
-                that.makeRequest(url, that.twitterSuccessCallBack, that.twitterErrorCallBack);
+            $icon.each(function () {
+                $link = $(this).parent();
+                remoteAddress = $link.prop("href");
+                strippedRemoteAddress = remoteAddress.split(sliceTerm);
+                requestUrl = api + strippedRemoteAddress[1];
+                that.makeRequest(requestUrl, successCallback, errorCallback);
             });
+        },
+
+        loadTwitterData: function() {
+            this.twitterData.data = this.loadLocalData(CONST.twitterSessionStoreKey);
+            if(this.twitterData.data.length === 0) {
+                this.loadRemoteData(CONST.twitterAPI, CONST.twitterIcon, CONST.twitterSliceTerm, this.twitterSuccessCallBack, this.twitterErrorCallBack);
+            };
+            this.updateMarkup(this.twitterData.data, CONST.twitterPrefix);
         },
 
         loadGithubData: function() {
             this.githubData.data = this.loadLocalData(CONST.githubSessionStoreKey);
             if(this.githubData.data.length === 0) {
-                this.loadRemoteGithubData();
+                this.loadRemoteData(CONST.githubAPI, CONST.githubIcon, CONST.githubSliceTerm, this.githubSuccessCallBack, this.githubErrorCallBack);
             };
             this.updateMarkup(this.githubData.data, CONST.githubPrefix);
         },
 
         loadStackOverflowData: function() {
-            this.stackOverflowData.data = this.loadLocalData(CONST.stackoverflowSessionStoreKey);
+            this.stackOverflowData.data = this.loadLocalData(CONST.stackOverflowSessionStoreKey);
             if(this.stackOverflowData.data.length === 0) {
                 this.loadRemoteStackOverflowData();
             };
@@ -325,25 +347,8 @@
             return [];
         },
 
-        loadRemoteGithubData: function() {
-            var $githubIcon = $("a .fa-github");
-            var $githubLink = null;
-            var repoAddress = "";
-            var url = ""
-            var strippedRepoUrl= [];
-            var that = this;
-            $githubIcon.each(function () {
-                $githubLink = $(this).parent();
-                repoAddress = $githubLink.prop("href");
-                strippedRepoUrl = repoAddress.split("github.com/");
-                url = "https://api.github.com/repos/" + strippedRepoUrl[1];
-                // Un-authenticated requests are limited to 60/hour. --> authenticated is 5000/hour needs configuration
-                that.makeRequest(url, that.githubSuccessCallBack, that.githubErrorCallBack);
-            });
-        },
-
         loadRemoteStackOverflowData: function() {
-            var $stackOverflowIcon = $("a .fa-stack-overflow");
+            var $stackOverflowIcon = $("a .fa-" + CONST.stackOverflowIcon);
             /* trottle API variables */
             var i = 0;
             var numberOfIcons = $stackOverflowIcon.length;
@@ -368,7 +373,7 @@
             for(j=(CONST.maxStackOverflowRequest*i); j<ceiling; j++) {
                 $stackOverflowLink = $($icons[j]).parent();
                 stackOverflowAddress = $stackOverflowLink.prop("href");
-                strippedstackOverflowUrl = stackOverflowAddress.split("tagged/");
+                strippedstackOverflowUrl = stackOverflowAddress.split(CONST.stackOverflowSliceTerm);
                 url = "https://api.stackexchange.com/2.2/tags/" + strippedstackOverflowUrl[1] + "/info?order=desc&sort=popular&site=stackoverflow";
                 // API https://api.stackexchange.com/2.2/tags/{tags}/info?order=desc&sort=popular&site=stackoverflow limited to 30 request/sec and 300/day
                 that.makeRequest(url, that.stackOverflowSuccessCallBack, that.stackOverflowErrorCallBack);
@@ -389,9 +394,15 @@
             console.log("Failed to make request twitter API");
         },
 
-        twitterSuccessCallBack: function(data, status, jqXHR) {
-            var $twitterLabel = $("#twitter-" + data[0].screen_name.toLowerCase()).siblings("span")[0];
-            $($twitterLabel).text((data[0].formatted_followers_count).slice(0, -10));
+        twitterSuccessCallBack: function(data) {
+            if(data[0].hasOwnProperty("name")) {
+                var name = data[0].screen_name;
+                var followers = data[0].followers_count;
+                var data = [{"name": name, "count": followers}];
+                frameworkPopularity.twitterData.data.push({"name": name, "count": followers});
+                sessionData.storeData(CONST.twitterSessionStoreKey, frameworkPopularity.twitterData);
+                frameworkPopularity.updateMarkup(data, CONST.twitterPrefix);
+            }
         },
 
         githubErrorCallBack: function() {
@@ -421,7 +432,7 @@
                 var count = data.items[0]["count"];
                 var data = [{"name": strippedName[0], "count": count}];
                 frameworkPopularity.stackOverflowData.data.push({"name": strippedName[0], "count": count});
-                sessionData.storeData(CONST.stackoverflowSessionStoreKey, frameworkPopularity.stackOverflowData);
+                sessionData.storeData(CONST.stackOverflowSessionStoreKey, frameworkPopularity.stackOverflowData);
                 frameworkPopularity.updateMarkup(data, CONST.stackOverflowPrefix);
             }
         },
