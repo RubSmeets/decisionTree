@@ -107,7 +107,7 @@ developmentSpecificationCallOrder = [
     "allows_prototyping",
     "multi_screen",
     "livesync",
-    "publ-assist"
+    "publ_assist"
 ]
 
 hardwareFeaturesCallOrder = [

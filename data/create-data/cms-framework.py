@@ -35,7 +35,7 @@ frameworkKeyCallOrder = [
     "time_delayed_supp",
     "community_supp",
     # Development
-    "publ-assist",
+    "publ_assist",
     "livesync",
     "code_sharing",
     # resources
