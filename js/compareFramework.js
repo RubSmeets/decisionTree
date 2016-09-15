@@ -2,7 +2,9 @@
     'use strict';
 
     var CONST = {
-        maxNumbComparisons: 5
+        maxNumbComparisons: 5,
+        add: 0,
+        remove: 1
     }
     /* Datatable functionality */
     var DataTable = {
@@ -81,7 +83,7 @@
 
             this.$frameworkTable.find('tbody').on('click', 'tr', function () {
                 var data = that.frameworkTable.row( this ).data();
-                CF.addRemoveShownFrameworks(data.framework, 0);
+                CF.addRemoveShownFrameworks(data.framework, CONST.add);
                 CF.sendRequest(data.framework);
                 that.$modalContainer.modal('hide');
             });
@@ -149,6 +151,7 @@
             this.initVariables();
             this.cacheElements();
             this.bindEvents();
+            this.initTooltip();
 
             this.loadComparisonData();
             this.nothingLeft();
@@ -175,6 +178,10 @@
                     $(this).find('.collapse').collapse(option);
                 });
             });
+        },
+        // Mandatory Javascript init of bootstrap tooltip component
+        initTooltip: function() {
+            $('[data-toggle="tooltip"]').tooltip();
         },
 
         loadComparisonData: function() {
@@ -256,6 +263,7 @@
             if(newUrl.indexOf('?') === -1) {
                 newUrl += '?frameworks='
             } else {
+                if(newUrl.indexOf('=') === -1) newUrl += '=';
                 newUrl = newUrl.substring(0, (newUrl.indexOf('=') + 1));
             }
             // add currentFrameworks to url
@@ -315,7 +323,7 @@
                 var frameworkName = $(parentHeaderContainer).find('h4').text();
                 var frameworkClass = frameworkName.replace(/[^a-zA-Z0-9]/g, "")
                 var $parentBodyContainers = $('.' + frameworkClass);
-                that.addRemoveShownFrameworks(frameworkName, 1);
+                that.addRemoveShownFrameworks(frameworkName, CONST.remove);
                 
                 $(parentHeaderContainer).remove();
                 $parentBodyContainers.remove();
