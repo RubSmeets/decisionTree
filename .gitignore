@@ -8,3 +8,6 @@ logos_normalsize/
 # ignore backups
 *_org*.html
 *_org*.json
+
+# ignore credentials
+credentials/
