@@ -330,7 +330,7 @@
             var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
             for(i = 0; i < hashes.length; i++) {
                 hash = hashes[i].split('=');
-                if(hash[0] === "frameworks") {
+                if(hash[0] === "frameworks" && hash.length > 1) {
                     vars = hash[1].split(';');
                 }
             }
